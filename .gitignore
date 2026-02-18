@@ -210,3 +210,5 @@ Data/
 data/
 *.mp4
 *.csv
+*.safetensors
+*.bin
