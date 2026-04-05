@@ -1,0 +1,24 @@
+{
+  "model_name": "distilbert-base-uncased",
+  "params": {
+    "total_params": 66958855,
+    "trainable_params": 66958855
+  },
+  "best_epoch": 4,
+  "best_dev_macro_f1": 0.3966647691850011,
+  "train_time_s": 125.17101883888245,
+  "power": {
+    "available": true,
+    "avg_power_w": 104.13559322033899,
+    "energy_kwh": 0.0034133333333333333,
+    "num_samples": 118,
+    "interval_s": 1.0
+  },
+  "test": {
+    "loss": 1.1117261531876355,
+    "accuracy": 0.6371647509578544,
+    "macro_f1": 0.42085327501714076,
+    "weighted_f1": 0.6209257819183993
+  },
+  "inference_ms_per_sample_bs1": 6.28588080406189
+}

@@ -1,0 +1,24 @@
+{
+  "model_name": "bert-base-uncased",
+  "params": {
+    "total_params": 109487623,
+    "trainable_params": 109487623
+  },
+  "best_epoch": 4,
+  "best_dev_macro_f1": 0.4444068156868945,
+  "train_time_s": 217.0728943347931,
+  "power": {
+    "available": true,
+    "avg_power_w": 106.2081463414634,
+    "energy_kwh": 0.006047963888888889,
+    "num_samples": 205,
+    "interval_s": 1.0
+  },
+  "test": {
+    "loss": 1.1926918660358685,
+    "accuracy": 0.6348659003831417,
+    "macro_f1": 0.42891996973528,
+    "weighted_f1": 0.6208966905331994
+  },
+  "inference_ms_per_sample_bs1": 11.404999494552612
+}

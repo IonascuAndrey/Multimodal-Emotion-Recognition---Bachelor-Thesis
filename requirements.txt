@@ -9,3 +9,6 @@ Pillow>=9.5.0
 scikit-learn>=1.3.0
 matplotlib>=3.7.0
 transformers
+seaborn
+torchaudio==2.2.2
+soundfile

@@ -212,3 +212,5 @@ data/
 *.csv
 *.safetensors
 *.bin
+
+folder_structure.txt
