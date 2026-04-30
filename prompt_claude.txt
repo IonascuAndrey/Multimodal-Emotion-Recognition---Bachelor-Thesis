@@ -1,0 +1,221 @@
+Folder Structure:
+MER
+    Code
+        various notebooks with code
+        image_model.ipynb
+    Data
+        processed_meld_emotieff
+            dev_v1 <--this is the validation set
+                analysis/dev
+                    dia0_utt0.npz
+                    .
+                    .
+                    dia0_uttX.npz etc
+                images/dev
+                    dia0_utt_r0_f00018_gtp0598.jpn
+                    .
+                    .
+                metadata_dev.csv
+            test_v1
+                analysis
+                images
+                metadata_test.csv
+            train_v1
+                analysis
+                images
+                metadata_train.csv
+
+
+
+# Resume support: daca ai rulat partial, sari peste utterance-urile deja procesate
+processed_keys = set()
+if os.path.exists(METADATA_OUTPUT):
+    old = pd.read_csv(METADATA_OUTPUT)
+    processed_keys = set(zip(old["dialogue_id"].astype(int), old["utterance_id"].astype(int)))
+    print(f"[resume] Found {len(processed_keys)} utterances already in metadata CSV. Will skip them.")
+
+rows_out = []  # buffer pt scriere batch in CSV
+
+def flush_rows(rows: List[dict], out_csv: str):
+    if not rows:
+        return
+    out_df = pd.DataFrame(rows)
+    header = not os.path.exists(out_csv)
+    out_df.to_csv(out_csv, mode="a", header=header, index=False)
+    rows.clear()
+
+n_done = 0
+iterator = df.itertuples(index=False)
+if MAX_UTTERANCES is not None:
+    iterator = list(iterator)[:MAX_UTTERANCES]
+
+for r in tqdm(iterator, total=(len(df) if MAX_UTTERANCES is None else MAX_UTTERANCES)):
+    d_id = int(getattr(r, COL_D))
+    u_id = int(getattr(r, COL_U))
+    emo_norm = getattr(r, "emotion_norm") if hasattr(r, "emotion_norm") else normalize_emotion(getattr(r, COL_E))
+    emo_idx = CLASS_TO_IDX_7[emo_norm]
+
+    if (d_id, u_id) in processed_keys:
+        continue
+
+    video_path = resolve_video_path(d_id, u_id, VIDEO_FOLDER)
+    if video_path is None:
+        # video lipsa
+        rows_out.append({
+            "split": SPLIT, "dialogue_id": d_id, "utterance_id": u_id,
+            "emotion": getattr(r, COL_E), "emotion_norm": emo_norm,
+            "video_path": None, "status": "missing_video"
+        })
+        continue
+
+    cap = cv2.VideoCapture(video_path)
+    fps = cap.get(cv2.CAP_PROP_FPS) or 25.0
+    total_frames = int(cap.get(cv2.CAP_PROP_FRAME_COUNT) or 0)
+    min_gap_frames = max(1, int(round(fps * MIN_GAP_SECONDS)))
+
+    frame_idxs, times_s, gt_probs = [], [], []
+    pred_labels, pred_probs = [], []
+    bboxes = []  # x1,y1,x2,y2
+
+    frame_i = 0
+    while True:
+        ok, frame_bgr = cap.read()
+        if not ok:
+            break
+
+        if FRAME_STRIDE > 1 and (frame_i % FRAME_STRIDE != 0):
+            frame_i += 1
+            continue
+
+        # BGR -> RGB
+        frame_rgb = cv2.cvtColor(frame_bgr, cv2.COLOR_BGR2RGB)
+        img_h, img_w = frame_rgb.shape[:2]
+
+        # Face detect
+        pil_img = Image.fromarray(frame_rgb)
+        boxes, _ = mtcnn.detect(pil_img)  # boxes: (N,4) xyxy
+        box = pick_central_box(boxes, img_w, img_h)
+        if box is None:
+            frame_i += 1
+            continue
+
+        x1, y1, x2, y2 = expand_and_clip_box(box, img_w, img_h, scale=1.2)
+        if (x2 - x1) < 10 or (y2 - y1) < 10:
+            frame_i += 1
+            continue
+
+        face_rgb = frame_rgb[y1:y2, x1:x2]  # numpy RGB
+
+        # FER inference (probabilitati cand logits=False) :contentReference[oaicite:6]{index=6}
+        # returns: (list_of_labels, scores ndarray shape (N,7))
+        lbls, probs = fer.predict_emotions(face_rgb, logits=False)
+        probs = probs[0]  # (7,)
+
+        gt_p = float(probs[emo_idx])
+        pred_i = int(np.argmax(probs))
+        pred_lbl = IDX_TO_CLASS_7[pred_i]
+        pred_p = float(probs[pred_i])
+
+        frame_idxs.append(frame_i)
+        times_s.append(frame_i / fps)
+        gt_probs.append(gt_p)
+        pred_labels.append(pred_lbl)
+        pred_probs.append(pred_p)
+        bboxes.append((x1, y1, x2, y2))
+
+        frame_i += 1
+
+    cap.release()
+
+    # Daca nu ai niciun frame cu fata detectata, marchezi si sari (sau implementezi fallback)
+    if len(frame_idxs) == 0:
+        rows_out.append({
+            "split": SPLIT, "dialogue_id": d_id, "utterance_id": u_id,
+            "emotion": getattr(r, COL_E), "emotion_norm": emo_norm,
+            "video_path": video_path, "fps": fps, "total_frames": total_frames,
+            "status": "no_faces_detected"
+        })
+        processed_keys.add((d_id, u_id))
+        continue
+
+    # Salvam scorurile per frame (pentru plot ulterior)
+    npz_path = os.path.join(ANALYSIS_OUTPUT, f"dia{d_id}_utt{u_id}.npz")
+    np.savez_compressed(
+        npz_path,
+        frame_idxs=np.array(frame_idxs, dtype=np.int32),
+        times_s=np.array(times_s, dtype=np.float32),
+        gt_probs=np.array(gt_probs, dtype=np.float32),
+        pred_probs=np.array(pred_probs, dtype=np.float32),
+        # stocam pred_labels ca bytes (npz nu iubeste string-uri python direct)
+        pred_labels=np.array(pred_labels, dtype="S"),
+        bboxes=np.array(bboxes, dtype=np.int32),
+        emotion_norm=np.array([emo_norm.encode("utf-8")]),
+        video_path=np.array([video_path.encode("utf-8")]),
+        fps=np.array([fps], dtype=np.float32),
+    )
+
+    # Selectie top-K cu gap
+    picked_indices = greedy_topk_with_gap(frame_idxs, gt_probs, K_FRAMES, min_gap_frames)
+
+    # Re-open video ca sa extragem exact frame-urile selectate si sa salvam crop-urile (fara re-detect)
+    cap2 = cv2.VideoCapture(video_path)
+
+    for rank, idx_in_list in enumerate(picked_indices):
+        fi = frame_idxs[idx_in_list]
+        t = times_s[idx_in_list]
+        gt_p = gt_probs[idx_in_list]
+        pr_lbl = pred_labels[idx_in_list]
+        pr_p = pred_probs[idx_in_list]
+        x1, y1, x2, y2 = bboxes[idx_in_list]
+
+        cap2.set(cv2.CAP_PROP_POS_FRAMES, fi)
+        ok, frame_bgr = cap2.read()
+        if not ok:
+            continue
+        frame_rgb = cv2.cvtColor(frame_bgr, cv2.COLOR_BGR2RGB)
+        face_rgb = frame_rgb[y1:y2, x1:x2]
+
+        # filename: include rank ca sa poti ignora 2 si folosi doar 3 dupa (ex rank 0..2)
+        score_milli = int(round(gt_p * 1000))
+        img_name = f"dia{d_id}_utt{u_id}_r{rank}_f{fi:05d}_gtp{score_milli:04d}.jpg"
+        img_path = os.path.join(IMAGE_OUTPUT, img_name)
+
+        # Save as JPG (RGB -> BGR for cv2.imwrite)
+        cv2.imwrite(img_path, cv2.cvtColor(face_rgb, cv2.COLOR_RGB2BGR))
+
+        rows_out.append({
+            "split": SPLIT,
+            "dialogue_id": d_id,
+            "utterance_id": u_id,
+            "speaker": (getattr(r, COL_SPEAKER) if COL_SPEAKER is not None else None),
+            "emotion": getattr(r, COL_E),
+            "emotion_norm": emo_norm,
+            "video_path": video_path,
+            "fps": fps,
+            "total_frames": total_frames,
+            "frame_idx": fi,
+            "time_s": t,
+            "selection_rank": rank,
+            "gt_prob": gt_p,
+            "pred_label": pr_lbl,
+            "pred_prob": pr_p,
+            "bbox_x1": x1, "bbox_y1": y1, "bbox_x2": x2, "bbox_y2": y2,
+            "image_path": img_path,
+            "analysis_npz": npz_path,
+            "status": "ok"
+        })
+
+    cap2.release()
+
+    processed_keys.add((d_id, u_id))
+    n_done += 1
+
+    if n_done % SAVE_EVERY == 0:
+        flush_rows(rows_out, METADATA_OUTPUT)
+
+# flush final
+flush_rows(rows_out, METADATA_OUTPUT)
+print("DONE. Metadata:", METADATA_OUTPUT)
+print("Images:", IMAGE_OUTPUT)
+print("Analysis npz:", ANALYSIS_OUTPUT)
+
