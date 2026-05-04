@@ -1,0 +1,281 @@
+% Sablon pentru realizarea lucrarii de licenta, conform cu recomandarile
+% din ghidul de redactare:
+% - https://fmi.unibuc.ro/finalizare-studii/
+
+% Multumiri lui Gabriel Majeri, acest sablon a fost creat pe baza
+% codului sursa a lucrarii sale de licenta. 
+% Codul sursa: https://github.com/GabrielMajeri/bachelors-thesis
+% Website: https://www.gabrielmajeri.ro/
+%
+% Acest sablon este licentiat sub Creative Commons Attribution 4.0 International License.
+% modificat 8 noiembrie 2024
+% !TEX program = xelatex
+\documentclass[12pt, a4paper]{article}
+
+% Suport pentru diacritice și alte simboluri
+\usepackage{fontspec}
+
+% Font Times New Roman
+\setmainfont{Times New Roman} % This replaces \usepackage{times}
+
+\usepackage{polyglossia}
+
+% Suport pentru mai multe limbi
+
+% Setează limba textului la română
+\setdefaultlanguage{romanian}
+% Am nevoie de engleză pentru rezumat
+\setotherlanguages{english}
+
+% Indentează și primul paragraf al fiecărei noi secțiuni
+\SetLanguageKeys{romanian}{indentfirst=true}
+
+% Suport pentru diferite stiluri de ghilimele
+\usepackage{csquotes}
+
+\DeclareQuoteStyle{romanian}
+  {\quotedblbase}
+  {\textquotedblright}
+  {\guillemotleft}
+  {\guillemotright}
+
+% Utilizează biblatex pentru referințe bibliografice
+\usepackage[
+    style=ieee,
+    backend=biber,
+    maxbibnames=50,
+    sorting=none
+]{biblatex}
+
+\addbibresource{bibliography.bib}
+
+% Setează spațiere inter-linie (doublespacing din LaTeX este echivalentul setarii 1.5 in Microsoft Word)
+\usepackage{setspace}
+\doublespacing
+
+% Modificarea geometriei paginii (cu margini de 2,5 cm) 
+\usepackage[margin=2.5cm]{geometry}
+
+% Include funcțiile de grafică
+\usepackage{graphicx}
+% Încarcă imaginile din directorul `images`
+\graphicspath{{./images/}}
+
+% Listări de cod
+\usepackage{listings}
+
+% Linkuri interactive în PDF
+\usepackage[
+    colorlinks,
+    linkcolor={black},
+    menucolor={black},
+    citecolor={black},
+    urlcolor={blue}
+]{hyperref}
+
+% Simboluri matematice codificate Unicode
+
+% Comenzi matematice
+\usepackage{amsmath}
+\usepackage{mathtools}
+\usepackage[warnings-off={mathtools-colon,mathtools-overbracket}]{unicode-math}
+
+% Formule matematice
+\newcommand{\bigO}[1]{\symcal{O}\left(#1\right)}
+\DeclarePairedDelimiter\abs{\lvert}{\rvert}
+
+% Suport pentru rezumat în două limbi
+% Bazat pe https://tex.stackexchange.com/a/70818
+\newenvironment{abstractpage}
+  {\cleardoublepage\vspace*{\fill}\thispagestyle{empty}}
+  {\vfill\cleardoublepage}
+\renewenvironment{abstract}[1]
+  {\bigskip\selectlanguage{#1}%
+   \begin{center}\bfseries\abstractname\end{center}}
+  {\par\bigskip}
+
+% Suport pentru anexe
+\usepackage{appendix}
+
+% Stiluri diferite de headere și footere
+\usepackage{fancyhdr}
+
+% Metadate
+\title{Recunoasterea emotiilor printr-o abordare multimodala}
+\author{Ionascu Andrei}
+
+% Generează variabilele cu @
+\makeatletter
+
+\begin{document}
+
+% --- PAGINA DE TITLU ---
+\begin{titlepage}
+\makeatletter % Permite folosirea comenzilor cu @
+
+\newgeometry{left=2cm,right=2cm,bottom=1cm,top=2cm}
+
+\begin{figure}[!htb]
+    \centering
+    \begin{minipage}{0.2\textwidth}
+        % Asigură-te că fișierul există în folderul images/
+        \includegraphics[width=\linewidth]{images/logo-ub.png} 
+    \end{minipage}
+    \begin{minipage}{0.5\textwidth}
+        \large
+        \begin{center}
+            \textbf{UNIVERSITATEA DIN BUCUREȘTI} \\
+            \vspace{0.3cm}
+            \textbf{FACULTATEA DE \\ MATEMATICĂ ȘI INFORMATICĂ}
+        \end{center}
+    \end{minipage}
+    \begin{minipage}{0.2\textwidth}
+        \includegraphics[width=\linewidth]{images/logo-fmi.png}
+    \end{minipage}
+\end{figure}
+
+\vspace{0.5cm}
+\begin{center}
+\textbf{SPECIALIZAREA INFORMATICĂ}
+\end{center}
+
+\vspace{2cm}
+
+\begin{center}
+\Large \textbf{Lucrare de licență}
+\end{center}
+
+\vspace{1cm}
+
+\begin{center}
+\huge \textbf{\MakeUppercase{\@title}}
+\end{center}
+
+\vfill % Împinge conținutul în jos
+
+\begin{flushleft}
+\large \textbf{Coordonator științific:} \\
+Conf. Univ. Dr. Alexe Dumitru-Bogdan
+\end{flushleft}
+
+\vspace{-3.1cm} % Ajustare poziție text dreapta
+
+\begin{flushright}
+\large \textbf{Absolvent:} \\
+\@author
+\end{flushright}
+
+\vspace{2cm}
+
+\begin{center}
+\Large \textbf{București, iunie 2026}
+\end{center}
+
+\makeatother % Închide accesul la comenzile cu @
+\end{titlepage}
+
+\restoregeometry % Revine la marginile normale
+\newpage
+\pagenumbering{roman} % Numerotare cu cifre romane pentru început
+
+\subsection*{Abstract}
+Pe masura ce inteligenta artificiala devine o componenta din ce in ce mai indispensabila in aplicatiile pe care oamenii le folosesc in fiecare zi, nevoia de sisteme care nu sunt doar precise, dar si eficiente din punct de vedere energetic si transparente cand vine vorba de deciziile pe care le iau a crescut considerabil. Aceasta lucrare exporeaza problema identificarii emotiilor umane printr-o abordare multimodala, analizand replici text, prozodie verbala si trasaturi faciale din setul de date MELD (Multimodal EmotionLines Dataset). Cercetarea exploreaza performantele obtinute de solutiile care integreaza un singur format de intrare, comparand ulterior imbunatatirile obtinute prin diverse metode de fuziune ale diferitelor surse de informatii.
+Spre deosebire de abordarile traditionale care prioritizeaza performanta, aceasta teza pune accentul pe compromisul dintre acuratete si eficienta energetica si de timp, in timp ce transparentizeaza modul in care diferitele modele iau decizii, prin metode de XAI (Explainable AI)
+
+\newpage
+
+% --- INTRODUCERE ---
+
+\section{Introducere}
+
+\subsection{Context si evolutie istorica}
+Recunoasterea emotiilor a evoluat de-a lungul timpului, plecand de la fluxuri conventionale, bazate pe caracteristici extrase manual pentru fiecare modalitate in parte, catre arhitecturi de tip deep learning, adesea pre-antrenate, capabile sa modeleze contextul, structura temporala si interactiunile cross-modale, dupa cum detaliaza \cite{PORIA201798}. Pe partea de audio si vorbire, domeniul a migrat de la descriptori clasici si clasificatori simpli catre modelele CNN-LSTM aplicate semnalului brut (raw waveform) \cite{Trigeorgis2016adieu} si, ulterior, catre codificatori de vorbire self-supervised, precum wave2vec 2.0 \cite{baevski2020wav2vec}. In vederea artificiala, traiectoria porneste de la descriptori de textura, precum Local Binary Patterns\cite{shan2009facial}, si ajunge la retele convolutionale, retele bazate pe mecanisme de atentie\cite{lideng2020deep} si modele FER optimizate pentru dispozitive de tip embedded\cite{tan2019efficientnet}. Procesarea limbajului natural cu scopul recunoasterii emotiilor a evoluat de la sisteme bazate pe lexicon si seturi de date restranse\cite{mohammad2013crowdsourcing}, la preantrenarea slab supravegheata si fine-tuning a modelelor de tip Transformer \cite{devlin2018bert} pe corpuri masive de date, cum este GoEmotions\cite{demszky-etal-2020-goemotions}. Pe langa modalitatile clasice, studiile recente exploreaza ramura de informatica fiziologica, unde lucrarile fundamentale s-au concentrat pe semnale EEG (Electroencefalograma) si periferice, utilizand seturi de date de referinta precum DEAP\cite{Koelstra2012DEAP}, progresand recent catre modele grafice care analizeaza topologia semnalelor cerebrale\cite{Song2020EEGER}. 
+
+\subsection{Motivatie}
+Motivatia acestei cercetari vine din faptul ca, odata cu integrarea functionalitatilor bazate pe inteligenta artificiala in tot mai multe produse software folosite in mod uzual de o tot mai mare parte din oameni, apare si nevoia de sisteme nu doar precise, dar si eficiente si de incredere.
+
+\subsection{Problema: Transparenta si eficienta}
+
+\subsubsection{Problema "Cutiei negre"}
+Vasta majoritate a publicatiilor stiintifice din domeniul recunoasterii emotiilor au ca singur scop obtinerea unei precizii cat mai mari. Totusi, complexitatea necesara maximizarii acuratetii duce adesea la modele de tip "black-box", al caror proces de gandire este prea complicat pentru a fi inteles chiar de catre oameni de stiinta, cu atat mai putin de catre utilizatorul obisnuit. Acest lucru duce la o lipsa de incredere in progresul tehnologic si la o reticenta in folosirea noilor produse.
+
+\subsubsection{Costul Energetic}
+Complexitatea modelelor State-Of-The-Art presupune, in majoritatea cazurilor, si un cost energetic proportional. Dincolo de amprenta ecologica, nevoia masiva de resurse computationale face imposibila executia acestor modele inafara unor centre de date specializate, fapt ce limiteaza drastic portabilitatea si ridica provocari privind confidentialitatea datelor. In plus, dezvoltarea acestor solutii implica bariere financiare semnificative, cauzate nu doar de infrastructura necesara procesarii, dar si de costurile logistice aferente stocarii si gestionarii unor seturi de date voluminoase.
+
+\subsection{Contributii si obiective}
+
+\subsubsection{Integrarea multimodalitatii}
+TO BE CONTINUED ONCE FULLY IMPLEMENTED
+
+\subsubsection{Explicabilitatea rezultatelor}
+TO BE CONTINUED ONCE FULLY IMPLEMENTED
+
+\subsubsection{Compromisul dintre acuratete si eficienta energetica}
+TO BE CONTINUED ONCE FULLY IMPLEMENTED
+\newpage
+
+\section{Fundamentare teoretica si stadiul actual al cercetarii}
+
+\subsection{Recunoasterea automata a emotiilor (FER/SER/MER)}
+
+\subsection{Modalitati de intrare si procesarea semnalelor}
+
+\subsubsection{Procesarea limbajului natural}
+
+\subsubsection{Analiza prozodica}
+
+\subsubsection{Analiza faciala}
+
+\subsection{Arhitecturi de tip Deep Learning pentru date secventiale}
+
+\subsection{Strategii de fuziune multimodala}
+
+\subsection{Inteligenta artificiala explicabila (XAI)}
+
+\subsection{Eficienta energetica si computationala in AI}
+
+\subsection{Setul de date MELD si stadiul actual al domeniului}
+\newpage
+\section{Metodologie}
+
+\subsection{Analiza setului de date MELD}
+
+\subsection{Preprocesarea datelor}
+
+\subsection{Arhitecturi si modele propuse}
+
+\subsection{Integrarea componentelor de explicabilitate}
+
+\subsection{Strategia de masurare a eficientei}
+\newpage
+\section{Implementarea sistemelor}
+
+\subsection{Tehnologii utilizate}
+
+\subsection{Detalii de implementare}
+
+\subsection{Antrenarea modelelor}
+\newpage
+\section{Rezultate experimentale si evaluare}
+
+\subsection{Performanta bruta}
+
+\subsection{Analiza XAI}
+
+\subsection{Analiza eficientei}
+
+\subsection{Discutii}
+\newpage
+\section{Concluzii si directii viitoare}
+
+
+% --- CUPRINS ---
+\tableofcontents
+\newpage
+\pagenumbering{arabic} % Revenire la cifre arabe pentru capitole
+
+% --- BIBLIOGRAFIE ---
+\renewcommand{\bibname}{References}
+\printbibliography[title={Bibliografie}]
+
+\end{document}

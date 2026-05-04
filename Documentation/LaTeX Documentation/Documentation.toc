@@ -1,0 +1,38 @@
+\xpg@aux {}{romanian}
+\contentsline {section}{\numberline {1}Introducere}{ii}{section.1}%
+\contentsline {subsection}{\numberline {1.1}Context si evolutie istorica}{ii}{subsection.1.1}%
+\contentsline {subsection}{\numberline {1.2}Motivatie}{ii}{subsection.1.2}%
+\contentsline {subsection}{\numberline {1.3}Problema: Transparenta si eficienta}{iii}{subsection.1.3}%
+\contentsline {subsubsection}{\numberline {1.3.1}Problema "Cutiei negre"}{iii}{subsubsection.1.3.1}%
+\contentsline {subsubsection}{\numberline {1.3.2}Costul Energetic}{iii}{subsubsection.1.3.2}%
+\contentsline {subsection}{\numberline {1.4}Contributii si obiective}{iii}{subsection.1.4}%
+\contentsline {subsubsection}{\numberline {1.4.1}Integrarea multimodalitatii}{iii}{subsubsection.1.4.1}%
+\contentsline {subsubsection}{\numberline {1.4.2}Explicabilitatea rezultatelor}{iii}{subsubsection.1.4.2}%
+\contentsline {subsubsection}{\numberline {1.4.3}Compromisul dintre acuratete si eficienta energetica}{iii}{subsubsection.1.4.3}%
+\contentsline {section}{\numberline {2}Fundamentare teoretica si stadiul actual al cercetarii}{iv}{section.2}%
+\contentsline {subsection}{\numberline {2.1}Recunoasterea automata a emotiilor (FER/SER/MER)}{iv}{subsection.2.1}%
+\contentsline {subsection}{\numberline {2.2}Modalitati de intrare si procesarea semnalelor}{iv}{subsection.2.2}%
+\contentsline {subsubsection}{\numberline {2.2.1}Procesarea limbajului natural}{iv}{subsubsection.2.2.1}%
+\contentsline {subsubsection}{\numberline {2.2.2}Analiza prozodica}{iv}{subsubsection.2.2.2}%
+\contentsline {subsubsection}{\numberline {2.2.3}Analiza faciala}{iv}{subsubsection.2.2.3}%
+\contentsline {subsection}{\numberline {2.3}Arhitecturi de tip Deep Learning pentru date secventiale}{iv}{subsection.2.3}%
+\contentsline {subsection}{\numberline {2.4}Strategii de fuziune multimodala}{iv}{subsection.2.4}%
+\contentsline {subsection}{\numberline {2.5}Inteligenta artificiala explicabila (XAI)}{iv}{subsection.2.5}%
+\contentsline {subsection}{\numberline {2.6}Eficienta energetica si computationala in AI}{iv}{subsection.2.6}%
+\contentsline {subsection}{\numberline {2.7}Setul de date MELD si stadiul actual al domeniului}{iv}{subsection.2.7}%
+\contentsline {section}{\numberline {3}Metodologie}{v}{section.3}%
+\contentsline {subsection}{\numberline {3.1}Analiza setului de date MELD}{v}{subsection.3.1}%
+\contentsline {subsection}{\numberline {3.2}Preprocesarea datelor}{v}{subsection.3.2}%
+\contentsline {subsection}{\numberline {3.3}Arhitecturi si modele propuse}{v}{subsection.3.3}%
+\contentsline {subsection}{\numberline {3.4}Integrarea componentelor de explicabilitate}{v}{subsection.3.4}%
+\contentsline {subsection}{\numberline {3.5}Strategia de masurare a eficientei}{v}{subsection.3.5}%
+\contentsline {section}{\numberline {4}Implementarea sistemelor}{vi}{section.4}%
+\contentsline {subsection}{\numberline {4.1}Tehnologii utilizate}{vi}{subsection.4.1}%
+\contentsline {subsection}{\numberline {4.2}Detalii de implementare}{vi}{subsection.4.2}%
+\contentsline {subsection}{\numberline {4.3}Antrenarea modelelor}{vi}{subsection.4.3}%
+\contentsline {section}{\numberline {5}Rezultate experimentale si evaluare}{vii}{section.5}%
+\contentsline {subsection}{\numberline {5.1}Performanta bruta}{vii}{subsection.5.1}%
+\contentsline {subsection}{\numberline {5.2}Analiza XAI}{vii}{subsection.5.2}%
+\contentsline {subsection}{\numberline {5.3}Analiza eficientei}{vii}{subsection.5.3}%
+\contentsline {subsection}{\numberline {5.4}Discutii}{vii}{subsection.5.4}%
+\contentsline {section}{\numberline {6}Concluzii si directii viitoare}{viii}{section.6}%
