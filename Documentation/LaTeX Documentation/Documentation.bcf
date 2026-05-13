@@ -2385,6 +2385,13 @@
     <bcf:citekey order="9" intorder="1">demszky-etal-2020-goemotions</bcf:citekey>
     <bcf:citekey order="10" intorder="1">Koelstra2012DEAP</bcf:citekey>
     <bcf:citekey order="11" intorder="1">Song2020EEGER</bcf:citekey>
+    <bcf:citekey order="12" intorder="1">picard1997affective</bcf:citekey>
+    <bcf:citekey order="13" intorder="1">ekman1992argument</bcf:citekey>
+    <bcf:citekey order="14" intorder="1">russell1980circumplex</bcf:citekey>
+    <bcf:citekey order="15" intorder="1">baltrusaitis2018multimodal</bcf:citekey>
+    <bcf:citekey order="16" intorder="1">poria2019meld</bcf:citekey>
+    <bcf:citekey order="17" intorder="1">vaswani2017attention</bcf:citekey>
+    <bcf:citekey order="18" intorder="1">schuller2018speech</bcf:citekey>
   </bcf:section>
   <!-- SORTING TEMPLATES -->
   <bcf:sortingtemplate name="none">

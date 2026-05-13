@@ -5,23 +5,29 @@ from typing import Dict
 import pandas as pd
 import torch
 from tqdm import tqdm
-from transformers import AutoTokenizer, get_linear_schedule_with_warmup
+from transformers import AutoFeatureExtractor, get_linear_schedule_with_warmup
 
 from src.config import (
-    BATCH_SIZE,
+    AUDIO_BATCH_SIZE,
+    AUDIO_TRAIN_DIR,
+    AUDIO_DEV_DIR,
+    AUDIO_TEST_DIR,
     DEVICE,
     EPOCHS,
-    EXP_ROOT,
+    EXP_ROOT_AUDIO,
     GRAD_CLIP_NORM,
     LR,
-    MAX_LEN,
+    MAX_AUDIO_S,
+    SAMPLE_RATE,
+    TRIM_END_S,
+    TRIM_START_S,
     VERSION,
     WARMUP_RATIO,
     WEIGHT_DECAY,
 )
-from src.data.text_preprocessing import make_loaders
+from src.data.audio_preprocessing import make_audio_loaders
 from src.evaluation.metrics import evaluate
-from src.models.text_model import count_params, load_model
+from src.models.audio_model import count_params, load_audio_model
 from src.training.utils import (
     NvidiaPowerMonitor,
     safe_mkdir_run_dir,
@@ -30,58 +36,79 @@ from src.training.utils import (
 )
 
 
-def train_one(
+def train_one_audio(
     model_name: str,
     train_df: pd.DataFrame,
     dev_df: pd.DataFrame,
     test_df: pd.DataFrame,
     label2id: Dict[str, int],
     id2label: Dict[int, str],
+    trim_start_s: float = TRIM_START_S,
+    trim_end_s: float = TRIM_END_S,
+    max_audio_s: float = MAX_AUDIO_S,
 ) -> str:
     """
-    Fine-tune a HuggingFace classifier on the MELD training set.
+    Fine-tune a HuggingFace audio-classification model on the MELD training set.
 
     Saves the best checkpoint (by dev macro-F1) plus training history,
-    run config, power samples, and a summary metrics file.
+    run config, power samples, and a training-summary metrics file.
 
     Args:
-        model_name:  HuggingFace model id (e.g. 'bert-base-uncased').
-        train_df:    Training DataFrame (must have 'text' and 'label' columns).
-        dev_df:      Validation DataFrame.
-        test_df:     Test DataFrame (used only for DataLoader construction).
-        label2id:    Emotion string → int mapping.
-        id2label:    Int → emotion string mapping.
+        model_name:    HuggingFace model id (e.g. 'facebook/wav2vec2-base').
+        train_df:      Training DataFrame (must have 'filename' and 'label').
+        dev_df:        Validation DataFrame.
+        test_df:       Test DataFrame (used only for DataLoader construction).
+        label2id:      Emotion string → int mapping.
+        id2label:      Int → emotion string mapping.
+        trim_start_s:  Seconds to remove from the start of each clip.
+        trim_end_s:    Seconds to remove from the end of each clip.
+        max_audio_s:   Maximum clip duration in seconds (clips are truncated).
 
     Returns:
         run_dir: Path to the directory where all artefacts were saved.
     """
     model_slug = slugify(model_name)
-    run_dir    = safe_mkdir_run_dir(os.path.join(EXP_ROOT, VERSION, model_slug))
+    run_dir    = safe_mkdir_run_dir(os.path.join(EXP_ROOT_AUDIO, VERSION, model_slug))
     os.makedirs(os.path.join(run_dir, "model"), exist_ok=True)
 
     # ── Save run config ───────────────────────────────────────────────────────
     write_json(os.path.join(run_dir, "config.json"), {
-        "model_name":   model_name,
-        "version":      VERSION,
-        "run_dir":      run_dir,
-        "max_len":      MAX_LEN,
-        "batch_size":   BATCH_SIZE,
-        "epochs":       EPOCHS,
-        "lr":           LR,
-        "weight_decay": WEIGHT_DECAY,
-        "warmup_ratio": WARMUP_RATIO,
-        "device":       DEVICE,
+        "model_name":    model_name,
+        "version":       VERSION,
+        "run_dir":       run_dir,
+        "sample_rate":   SAMPLE_RATE,
+        "max_audio_s":   max_audio_s,
+        "trim_start_s":  trim_start_s,
+        "trim_end_s":    trim_end_s,
+        "batch_size":    AUDIO_BATCH_SIZE,
+        "epochs":        EPOCHS,
+        "lr":            LR,
+        "weight_decay":  WEIGHT_DECAY,
+        "warmup_ratio":  WARMUP_RATIO,
+        "device":        DEVICE,
         "torch_version": torch.__version__,
-        "label2id":     label2id,
-        "id2label":     id2label,
+        "label2id":      label2id,
+        "id2label":      id2label,
     })
 
-    # ── Tokeniser + DataLoaders ───────────────────────────────────────────────
-    tokenizer = AutoTokenizer.from_pretrained(model_name)
-    train_loader, dev_loader, _ = make_loaders(train_df, dev_df, test_df, tokenizer)
+    # ── Feature extractor + DataLoaders ──────────────────────────────────────
+    feature_extractor = AutoFeatureExtractor.from_pretrained(model_name)
+
+    train_loader, dev_loader, _ = make_audio_loaders(
+        train_df=train_df,
+        dev_df=dev_df,
+        test_df=test_df,
+        audio_dirs=(AUDIO_TRAIN_DIR, AUDIO_DEV_DIR, AUDIO_TEST_DIR),
+        feature_extractor=feature_extractor,
+        batch_size=AUDIO_BATCH_SIZE,
+        sample_rate=SAMPLE_RATE,
+        max_audio_s=max_audio_s,
+        trim_start_s=trim_start_s,
+        trim_end_s=trim_end_s,
+    )
 
     # ── Model ─────────────────────────────────────────────────────────────────
-    model       = load_model(model_name, len(label2id), label2id, id2label, DEVICE)
+    model       = load_audio_model(model_name, len(label2id), label2id, id2label, DEVICE)
     params_info = count_params(model)
 
     # ── Optimiser + scheduler ─────────────────────────────────────────────────
@@ -116,7 +143,7 @@ def train_one(
 
             for batch in tqdm(train_loader, desc=f"{model_slug} | epoch {epoch}/{EPOCHS}"):
                 batch = {
-                    k: torch.tensor(v).to(DEVICE) if not torch.is_tensor(v) else v.to(DEVICE)
+                    k: v.to(DEVICE) if torch.is_tensor(v) else torch.tensor(v).to(DEVICE)
                     for k, v in batch.items()
                 }
 
@@ -154,15 +181,14 @@ def train_one(
                 best_dev_macro_f1 = dev_metrics["macro_f1"]
                 best_epoch        = epoch
                 model.save_pretrained(os.path.join(run_dir, "model"))
-                tokenizer.save_pretrained(os.path.join(run_dir, "model"))
-
+                feature_extractor.save_pretrained(os.path.join(run_dir, "model"))
                 no_improvement_counter = 0
             else:
                 no_improvement_counter += 1
                 print(f"No prgress in {no_improvement_counter} epochs.")
             if no_improvement_counter >= patience:
                 print(f"Early stopping at epoch {epoch}!")
-                break
+                break 
 
     finally:
         t_end = time.time()
@@ -177,6 +203,9 @@ def train_one(
         "best_dev_macro_f1": best_dev_macro_f1,
         "train_time_s":      float(t_end - t_start),
         "power":             power_mon.stats(),
+        "trim_start_s":      trim_start_s,
+        "trim_end_s":        trim_end_s,
+        "max_audio_s":       max_audio_s,
     })
 
     print(f"\n[DONE] {model_name}  →  {run_dir}")
