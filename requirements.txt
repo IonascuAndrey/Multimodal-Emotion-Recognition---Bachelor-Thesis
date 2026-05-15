@@ -12,3 +12,6 @@ transformers
 seaborn
 torchaudio==2.2.2
 soundfile
+# ── Explainability ──────────────────────────────────────────────────────────
+captum>=0.7.0        # Integrated Gradients, LayerIntegratedGradients
+grad-cam>=1.5.0      # GradCAM for ViT and CNN  (import: pytorch_grad_cam)

@@ -15,7 +15,8 @@ LABEL_COL = "Emotion"
 LABEL_REMAP = {"joy": "happiness"}
 
 # ── Experiment output ─────────────────────────────────────────────────────────
-EXP_ROOT = "../experiments/text_unimodal"
+EXP_ROOT         = "../experiments/text_unimodal"
+EXP_ROOT_EXPLAIN = "../experiments/explainability"
 VERSION  = "v1"   # bump when you want a fresh run directory
 
 # ── Training hyperparameters ──────────────────────────────────────────────────

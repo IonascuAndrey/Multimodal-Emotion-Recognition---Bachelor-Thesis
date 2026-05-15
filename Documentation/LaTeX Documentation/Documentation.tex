@@ -10,7 +10,7 @@
 % Acest sablon este licentiat sub Creative Commons Attribution 4.0 International License.
 % modificat 8 noiembrie 2024
 % !TEX program = xelatex
-\documentclass[12pt, a4paper]{article}
+\documentclass[12pt, a4paper]{report}
 
 % Suport pentru diacritice și alte simboluri
 \usepackage{fontspec}
@@ -41,20 +41,38 @@
 
 % Utilizează biblatex pentru referințe bibliografice
 \usepackage[
-    style=ieee,
+    style=numeric,
     backend=biber,
-    maxbibnames=50,
+    maxbibnames=3,
+    minbibnames=1,
     sorting=none
 ]{biblatex}
 
+
 \addbibresource{bibliography.bib}
+
+% More compact bibliography
+\renewcommand*{\bibfont}{\small}
+\setlength{\bibitemsep}{0.2\baselineskip}
+\setlength{\bibnamesep}{0pt}
+\setlength{\bibinitsep}{0pt}
+
+\renewcommand*{\bibfont}{\small}
+\setlength{\bibitemsep}{0pt}
 
 % Setează spațiere inter-linie (doublespacing din LaTeX este echivalentul setarii 1.5 in Microsoft Word)
 \usepackage{setspace}
 \doublespacing
 
 % Modificarea geometriei paginii (cu margini de 2,5 cm) 
-\usepackage[margin=2.5cm]{geometry}
+\usepackage{geometry}
+\geometry{
+    a4paper,
+    left=20mm,
+    top=20mm,
+    right=20mm,
+    bottom=20mm
+}
 
 % Include funcțiile de grafică
 \usepackage{graphicx}
@@ -178,7 +196,7 @@ Conf. Univ. Dr. Alexe Dumitru-Bogdan
 \newpage
 \pagenumbering{roman} % Numerotare cu cifre romane pentru început
 
-\subsection*{Abstract}
+\chapter*{Abstract}
 Pe masura ce inteligenta artificiala devine o componenta din ce in ce mai indispensabila in aplicatiile pe care oamenii le folosesc in fiecare zi, nevoia de sisteme care nu sunt doar precise, dar si eficiente din punct de vedere energetic si transparente cand vine vorba de deciziile pe care le iau a crescut considerabil. Aceasta lucrare exporeaza problema identificarii emotiilor umane printr-o abordare multimodala, analizand replici text, prozodie verbala si trasaturi faciale din setul de date MELD (Multimodal EmotionLines Dataset). Cercetarea exploreaza performantele obtinute de solutiile care integreaza un singur format de intrare, comparand ulterior imbunatatirile obtinute prin diverse metode de fuziune ale diferitelor surse de informatii.
 Spre deosebire de abordarile traditionale care prioritizeaza performanta, aceasta teza pune accentul pe compromisul dintre acuratete si eficienta energetica si de timp, in timp ce transparentizeaza modul in care diferitele modele iau decizii, prin metode de XAI (Explainable AI)
 
@@ -186,59 +204,59 @@ Spre deosebire de abordarile traditionale care prioritizeaza performanta, aceast
 
 % --- INTRODUCERE ---
 
-\section{Introducere}
+\chapter{Introducere}
 
-\subsection{Context si evolutie istorica}
+\section{Context si evolutie istorica}
 Recunoasterea emotiilor a evoluat de-a lungul timpului, plecand de la fluxuri conventionale, bazate pe caracteristici extrase manual pentru fiecare modalitate in parte, catre arhitecturi de tip deep learning, adesea pre-antrenate, capabile sa modeleze contextul, structura temporala si interactiunile cross-modale, dupa cum detaliaza \cite{PORIA201798}. Pe partea de audio si vorbire, domeniul a migrat de la descriptori clasici si clasificatori simpli catre modelele CNN-LSTM aplicate semnalului brut (raw waveform) \cite{Trigeorgis2016adieu} si, ulterior, catre codificatori de vorbire self-supervised, precum wave2vec 2.0 \cite{baevski2020wav2vec}. In vederea artificiala, traiectoria porneste de la descriptori de textura, precum Local Binary Patterns\cite{shan2009facial}, si ajunge la retele convolutionale, retele bazate pe mecanisme de atentie\cite{lideng2020deep} si modele FER optimizate pentru dispozitive de tip embedded\cite{tan2019efficientnet}. Procesarea limbajului natural cu scopul recunoasterii emotiilor a evoluat de la sisteme bazate pe lexicon si seturi de date restranse\cite{mohammad2013crowdsourcing}, la preantrenarea slab supravegheata si fine-tuning a modelelor de tip Transformer \cite{devlin2018bert} pe corpuri masive de date, cum este GoEmotions\cite{demszky-etal-2020-goemotions}. Pe langa modalitatile clasice, studiile recente exploreaza ramura de informatica fiziologica, unde lucrarile fundamentale s-au concentrat pe semnale EEG (Electroencefalograma) si periferice, utilizand seturi de date de referinta precum DEAP\cite{Koelstra2012DEAP}, progresand recent catre modele grafice care analizeaza topologia semnalelor cerebrale\cite{Song2020EEGER}. 
 
-\subsection{Motivatie}
+\section{Motivatie}
 Motivatia acestei cercetari vine din faptul ca, odata cu integrarea functionalitatilor bazate pe inteligenta artificiala in tot mai multe produse software folosite in mod uzual de o tot mai mare parte din oameni, apare si nevoia de sisteme nu doar precise, dar si eficiente si de incredere.
 
-\subsection{Problema: Transparenta si eficienta}
+\section{Problema: Transparenta si eficienta}
 
-\subsubsection{Problema "Cutiei negre"}
+\subsection{Problema "Cutiei negre"}
 Vasta majoritate a publicatiilor stiintifice din domeniul recunoasterii emotiilor au ca singur scop obtinerea unei precizii cat mai mari. Totusi, complexitatea necesara maximizarii acuratetii duce adesea la modele de tip "black-box", al caror proces de gandire este prea complicat pentru a fi inteles chiar de catre oameni de stiinta, cu atat mai putin de catre utilizatorul obisnuit. Acest lucru duce la o lipsa de incredere in progresul tehnologic si la o reticenta in folosirea noilor produse.
 
-\subsubsection{Costul Energetic}
+\subsection{Costul Energetic}
 Complexitatea modelelor State-Of-The-Art presupune, in majoritatea cazurilor, si un cost energetic proportional. Dincolo de amprenta ecologica, nevoia masiva de resurse computationale face imposibila executia acestor modele inafara unor centre de date specializate, fapt ce limiteaza drastic portabilitatea si ridica provocari privind confidentialitatea datelor. In plus, dezvoltarea acestor solutii implica bariere financiare semnificative, cauzate nu doar de infrastructura necesara procesarii, dar si de costurile logistice aferente stocarii si gestionarii unor seturi de date voluminoase.
 
-\subsection{Contributii si obiective}
+\section{Contributii si obiective}
 
-\subsubsection{Integrarea multimodalitatii}
+\subsection{Integrarea multimodalitatii}
 TO BE CONTINUED ONCE FULLY IMPLEMENTED
 
-\subsubsection{Explicabilitatea rezultatelor}
+\subsection{Explicabilitatea rezultatelor}
 TO BE CONTINUED ONCE FULLY IMPLEMENTED
 
-\subsubsection{Compromisul dintre acuratete si eficienta energetica}
+\subsection{Compromisul dintre acuratete si eficienta energetica}
 TO BE CONTINUED ONCE FULLY IMPLEMENTED
 \newpage
 
-\section{Fundamentare teoretica si stadiul actual al cercetarii}
+\chapter{Fundamentare teoretica si stadiul actual al cercetarii}
 
-\subsection{Recunoasterea automata a emotiilor (FER/SER/MER)}
+\section{Recunoasterea automata a emotiilor (FER/SER/MER)}
 Recunoașterea automată a emoțiilor reprezintă un subdomeniu al învățării automate afective care urmărește clasificarea sau estimarea stărilor emoționale pe baza unor semnale observabile. Scopul principal al acestui efort este de a crea sisteme si aplicatii care nu doar rezolva o problema, dar o fac interactionand cu utilizatorii tinand cont de anumite indicii nonverbale si paraverbale care in interactiunile pur umane sunt interpretate implicit. Potrivit lui Rosalind Picard, daca dorim calculatoare cu adevarat inteligente, capabile de interactiuni naturale, trebuie sa le oferim abilitatea de a recunoaste, intelege, poate chiar de a exprima emotii. \cite{picard1997affective}
 
 În literatura de specialitate, emoțiile pot fi reprezentate fie prin categorii discrete, precum bucurie, tristețe, furie, frică, dezgust, surpriză sau neutralitate\cite{ekman1992argument}, fie prin modele dimensionale, în care starea afectivă este descrisă prin axe continue, precum valența și nivelul de activare\cite{russell1980circumplex}. În contextul acestei lucrări, problema este tratată ca o sarcină de clasificare multi-clasă, în care fiecare eșantion este asociat cu o etichetă emoțională discretă.
 
 Recunoașterea emoțiilor poate fi formulată ca o problemă de clasificare supravegheată sau învățare de reprezentări, abordată fie unimodal, fie multimodal. În setările unimodale, informația emoțională este extrasă dintr-o singură sursă: text (analiză semantică și contextuală cu modele de tip Transformer), imagini faciale (FER), unde se utilizează rețele convoluționale sau arhitecturi bazate pe atenție pentru a învăța reprezentări spațiale robuste la variații de iluminare, poziție și ocluzii, sau semnal audio (SER), unde caracteristicile acustice (prosodie, energie, coeficienți cepstrali, spectrograme) sunt modelate prin CNN-uri, RNN-uri sau encodere self-supervised. Abordările tradiționale bazate pe feature engineering au fost în mare parte înlocuite de modele end-to-end care optimizează direct reprezentările latente. În contrast, recunoașterea multimodală (MER) integrează aceste surse eterogene prin strategii de fuziune (early, late sau hybrid fusion), capturând corelațiile inter-modale și reducând ambiguitatea semantică \cite{baltrusaitis2018multimodal}, aspect critic în contexte conversaționale complexe precum MELD\cite{poria2019meld}, unde emoția depinde de dinamica sincronizată dintre text, semnal acustic și expresii faciale.
 
-\subsection{Modalitati de intrare si procesarea semnalelor}
+\section{Modalitati de intrare si procesarea semnalelor}
 În recunoașterea automată a emoțiilor, alegerea modalităților de intrare (text, audio, vizual) determină tipul de informație disponibil: textul captează conținutul semantic, audio-ul reflectă prosodia și modul de rostire, iar imaginile faciale surprind expresivitatea. Aceste modalități au structuri diferite (discretă secvențială, continuă temporală, respectiv spațială/spațio-temporală), necesitând metode distincte de preprocesare și transformare în reprezentări numerice. În sistemele multimodale, este esențială alinierea între modalități la nivel de instanță (ex. aceeași replică), pentru a permite fuziunea corectă a informației și a evita introducerea de zgomot. În această lucrare, textul, audio-ul și datele faciale sunt procesate inițial separat, pentru a evalua contribuția fiecărei modalități înainte de integrarea multimodală.
 
-\subsubsection{Procesarea limbajului natural}
+\subsection{Procesarea limbajului natural}
 Procesarea limbajului natural transformă replicile textuale în reprezentări numerice utilizabile de modele de învățare automată. În recunoașterea emoțiilor, textul oferă informație semantică relevantă, deoarece anumite expresii pot semnala direct stări afective. Totuși, interpretarea emoției nu este întotdeauna trivială, deoarece sensul depinde de context (ex. ironie sau ambiguitate), motiv pentru care metodele moderne modelează relațiile dintre tokeni, nu doar prezența unor cuvinte-cheie.
 
 Preprocesarea textuală include pași standard precum curățarea, normalizarea și tokenizarea, urmați de transformarea în vectori numerici. Metodele clasice (bag-of-words, TF-IDF, Word2Vec, GloVe) sunt simple, dar limitate contextual. În schimb, modelele bazate pe Transformer generează embeddings contextuale, unde reprezentarea unui cuvânt depinde de întreaga secvență, permițând captarea unor nuanțe semantice mai fine.\cite{vaswani2017attention}
 
 În cadrul sistemelor multimodale, textul este o modalitate eficientă și compactă, dar incompletă, deoarece nu surprinde indicii non-verbale precum tonul sau expresivitatea facială. Prin urmare, performanța sa trebuie evaluată în raport cu modalitățile audio și vizuale.
 
-\subsubsection{Analiza prozodica}
+\subsection{Analiza prozodica}
 Analiza prozodică extrage informații emoționale din proprietățile acustice ale vorbirii, spre deosebire de NLP care se bazează pe conținutul semantic. Caracteristici precum frecvența fundamentală, energia, intensitatea, ritmul sau intonația pot semnala stări afective chiar și în absența unor indicii explicite în text. Procesarea audio implică segmentarea semnalului, normalizarea și împărțirea în ferestre temporale, urmate de extragerea unor reprezentări precum MFCC sau spectrograme Mel. MFCC-urile oferă o descriere compactă a spectrului, în timp ce spectrogramele păstrează structura timp-frecvență, fiind potrivite pentru modele neuronale.\cite{schuller2018speech}
 
 O limitare majoră este variabilitatea ridicată a semnalului (diferențe între vorbitori, zgomot, condiții de înregistrare), ceea ce face ca indicii acustici să fie mai puțin stabili. Prin urmare, informația prozodică este utilă, dar trebuie tratată ca o sursă complementară în recunoașterea emoțiilor.
 
-\subsubsection{Analiza faciala}
+\subsection{Analiza faciala}
 Analiza facială utilizează informația vizuală din regiunea feței pentru identificarea expresiilor asociate stărilor emoționale, fiind o componentă importantă a recunoașterii emoțiilor non-verbale. Mișcările musculare din zona ochilor, sprâncenelor și gurii oferă indicii relevante despre starea afectivă, iar problema este tratată, în mod obișnuit, ca o sarcină de analiză de imagini sau secvențe video.
 
 Pipeline-ul începe cu extragerea cadrelor din videoclip, urmată de eșantionare pentru a reduce costul computațional. Se aplică apoi detecția feței, decuparea și normalizarea imaginilor, astfel încât modelul să se concentreze pe regiunea relevantă. În metodele clasice, expresiile erau descrise prin caracteristici extrase manual (LBP, muchii, landmarks), însă acestea sunt limitate în captarea variațiilor complexe. Modelele moderne bazate pe CNN învață automat reprezentări ierarhice și sunt mai robuste la variații de iluminare, poziție sau ocluzii.
@@ -247,10 +265,10 @@ Pipeline-ul începe cu extragerea cadrelor din videoclip, urmată de eșantionar
 
 Totuși, această modalitate rămâne sensibilă la factori precum calitatea imaginii, poziția capului sau expresiile controlate voluntar. Din acest motiv, analiza facială este, în general, utilizată împreună cu alte modalități (text și audio), contribuind cu indicii vizuale complementare în cadrul sistemelor multimodale.
 
-\subsection{Arhitecturi de tip Deep Learning pentru date secventiale}
+\section{Arhitecturi de tip Deep Learning pentru date secventiale}
 Având în vedere că toate cele trei modalități analizate conțin o componentă secvențială — textul ca secvență de tokeni, audio-ul ca semnal temporal, iar videoclipul ca succesiune de cadre — alegerea arhitecturii de modelare devine esențială. Următorul subcapitol prezintă principalele arhitecturi de tip deep learning utilizate pentru procesarea datelor secvențiale și relevanța acestora în contextul recunoașterii emoțiilor.
 
-\subsection{Strategii de fuziune multimodala}
+\section{Strategii de fuziune multimodala}
 Datele utilizate în recunoașterea emoțiilor sunt în mod natural secvențiale, ceea ce impune utilizarea unor modele capabile să captureze atât caracteristici locale, cât și dependențe temporale. Textul depinde de ordinea tokenilor, audio-ul de variațiile în timp ale semnalului, iar expresiile faciale pot evolua între cadre video. Din acest motiv, arhitecturile de deep learning sunt alese în funcție de capacitatea lor de a modela aceste dependențe.
 
 Rețelele neuronale recurente (RNN), inclusiv variantele LSTM și GRU, procesează secvențele pas cu pas și mențin o stare internă care permite captarea contextului. LSTM-urile și GRU-urile rezolvă parțial problema dependențelor pe termen lung prin mecanisme de tip „gating”, fiind utilizate frecvent pentru text, audio sau secvențe video. Totuși, ele sunt mai greu de paralelizat și au costuri de antrenare mai ridicate.
@@ -261,43 +279,62 @@ Arhitecturile bazate pe atenție, în special Transformer-ele, permit modelarea 
 
 În sisteme multimodale, alegerea arhitecturii trebuie să echilibreze performanța, costul și interpretabilitatea. O abordare modulară, în care fiecare modalitate este procesată separat (cu modele adaptate tipului de date) înainte de fuziune, permite o analiză mai clară a contribuției fiecărei surse și o integrare mai controlată.
 
-\subsection{Inteligenta artificiala explicabila (XAI)}
+\section{Inteligenta artificiala explicabila (XAI)}
+Pe măsură ce complexitatea modelelor de învățare automată a crescut, procesul intern prin care acestea ajung la o predicție a devenit proporțional mai dificil de interpretat. În acest context, modelele avansate de deep learning sunt adesea descrise drept sisteme de tip \textit{black box}, deoarece utilizatorul poate observa intrările și ieșirile, dar nu poate înțelege direct mecanismul decizional intern. Ca răspuns la această problemă, literatura de specialitate introduce noțiunea de \textit{eXplainable Artificial Intelligence} (XAI), care desemnează un ansamblu de tehnici menite să ofere oamenilor capacitatea de a înțelege, evalua și lucra mai eficient cu sistemele inteligente \cite{ABAriettaXAI2019}.
 
-\subsection{Eficienta energetica si computationala in AI}
+În cazul recunoașterii emoțiilor, anumite metode XAI pot fi aplicate transversal, indiferent de modalitate. Printre acestea se numără SHAP, care folosește concepte din teoria jocurilor pentru a estima contribuția fiecărei caracteristici la o predicție locală \cite{lundberg2017unified}, precum și metodele bazate pe gradient, precum \textit{Gradient Saliency} și \textit{Integrated Gradients}. Integrated Gradients sunt deosebit de relevante pentru modelele deep learning diferențiabile, deoarece oferă o metodă de atribuire fundamentată pe două axiome: \textit{Sensitivity} și \textit{Implementation Invariance} \cite{SundarajanIG2017}. De asemenea, analiza prin ocluzie poate fi folosită în mai multe modalități, prin eliminarea sau mascarea unor părți ale intrării și observarea modificării predicției.
 
-\subsection{Setul de date MELD si stadiul actual al domeniului}
+La nivel textual, o metodă frecvent utilizată este vizualizarea ponderilor de atenție (\textit{self-attention weights}), mai ales în modelele de tip Transformer \cite{vaswani2017attention}. Totuși, această abordare trebuie tratată cu prudență, deoarece ponderile de atenție nu reflectă neapărat importanța reală a cuvintelor în decizia finală, ci pot reprezenta corelații instabile față de măsurători bazate pe gradient \cite{jain2019attention}. Pentru text, metode precum SHAP sau Integrated Gradients sunt mai potrivite atunci când se dorește o atribuire explicită a importanței la nivel de token.
+
+Pentru modalitatea audio, metodele XAI trebuie adaptate la natura continuă a semnalului vocal. SHAP poate fi aplicat în acest caz, însă implementarea este mai dificilă, deoarece caracteristicile trebuie definite sub forma unor segmente temporale, benzi de frecvență, embedding-uri sau stări ascunse ale modelului.
+
+Pentru analiza facială in mod particular se poate folosi Grad-CAM, o metoda ce foloseste gradientul clasei prezise fata de activarile din ultimul strat convolutional pentru a genera o harta de caldura care evidentiaza regiunile importante din imagine.
+
+\section{Eficienta energetica si computationala in AI}
+Aparitia ideii de AI eficient, sau (\textit{Green AI}) reprezinta o schimbare de paradigma de la prioritizarea acuratetii la gasirea compromisului ideal intre precizie si eficienta energetica si de timp, avand ca scop mentinerea progresului tehnologic, in acelasi timp aliniindu-ne cu obiectivele climatice globale\cite{schwartz2019green, preprints2026greenai}. Sistemele de recunoasterea a emotiilor sunt in general consumatoare de resurse, atat din punct de vedere computational, dar si de stocare a datelor, motiv pentru care este foarte importanta reducerea consumului de energie. Printre progresele recente in acest domeniu se numara distilarea cunostintelor pe fiecare modalitate \cite{pmc12567929} si comprimarea secventelor vizuale \cite{arxiv250208573} pentru a mentine o performanta competitiva minimizand costurile.
+
+\section{The MELD Dataset and the Current State of the Field}
+
+Dezvoltarea recunoasterii emotiilor este foarte dependenta de seturile de date disponibile. In conditiile in care emotiile sunt un aspect complex al oamenilor, iar transmiterea lor se realizeaza pe cai multiple, seturile de date trebuie sa reflecte acest lucru. Urmand tiparul algoritmilor, seturile de date destinate recunoasterii emotiilor au pornit de la cele unimodale la cele multimodale
+
+Un exemplu des intalnit este IMEOCAP. Contine aproximativ 12 ore de date audiovizuale, incluzand inregistrari audio, capturi video si transcript, colectate intr-un mediu controlat, din interactiuni intre actori \cite{busso2008iemocap}. Desi foarte util, acest set de date esueaza in a reflecta lipsa de predictibilitate si de structura a interactiunilor reale, ducand la rezultate artificial mai mari prin natura "de laborator" a interactiunilor.
+
+In acest context, MELD reprezinta alternativa ce reflecta mai bine viata reala. MELD, sau Multimodal EmotionLines Dataset, a fost introdus ca o extensie a setului de date EmotionLines si este construit din fragmente din serialul \textit{Friends}. contine peste 1,400 de dialoguri si aproximativ 13,000 replici, fiecare adnotata cu etichete de emotii \cite{poria2019meld}. Sunt 7 etichete (anger, disgust, fear, joy, neutral, sadness, surprise), iar pentru consistenta intre modele joy a fost inlocuit cu happiness. Cu toate acestea, clasele sunt foarte dezechilibrate, cu fear si disgust fiind puternic subreprezentate in timp ce neutral are un numar disproportionat de mare de exemple. Acest lucru duce la o acuratete relativ mare, dar in mod artificial, motiv pentru care metrica principala folosita in modelele comparate in acest studiu este f1-macro, care acorda o importanta egala claselor subreprezentate
+
+Principalele provocari in recunoasterea emotiilor in MELD este prezenta noise-ului in date. Fiind dintr-un \textit{reality show}, replicile sunt de multe ori sarcastice, textul avand alt inteles decat cel aparent. Pe fundal sunt adaugate rasete ce induce modelele audio in eroare. Cand vine vorba de fata personajelor care vorbesc, ele nu sunt intotdeauna centrate in cadru, ceea ce face extragerea fetei vorbitorului dificila. Totusi, desi aceste lucruri afecteaza puternic scorul final, natura "in-the-wild" a lui MELD ofera increderea ca modelele care produc rezultate bune in teste vor performa similar si in viata reala.
+
 \newpage
-\section{Metodologie}
+\chapter{Metodologie}
 
-\subsection{Analiza setului de date MELD}
+\section{Analiza setului de date MELD}
 
-\subsection{Preprocesarea datelor}
+\section{Preprocesarea datelor}
 
-\subsection{Arhitecturi si modele propuse}
+\section{Arhitecturi si modele propuse}
 
-\subsection{Integrarea componentelor de explicabilitate}
+\section{Integrarea componentelor de explicabilitate}
 
-\subsection{Strategia de masurare a eficientei}
+\section{Strategia de masurare a eficientei}
 \newpage
-\section{Implementarea sistemelor}
+\chapter{Implementarea sistemelor}
 
-\subsection{Tehnologii utilizate}
+\section{Tehnologii utilizate}
 
-\subsection{Detalii de implementare}
+\section{Detalii de implementare}
 
-\subsection{Antrenarea modelelor}
+\section{Antrenarea modelelor}
 \newpage
-\section{Rezultate experimentale si evaluare}
+\chapter{Rezultate experimentale si evaluare}
 
-\subsection{Performanta bruta}
+\section{Performanta bruta}
 
-\subsection{Analiza XAI}
+\section{Analiza XAI}
 
-\subsection{Analiza eficientei}
+\section{Analiza eficientei}
 
-\subsection{Discutii}
+\section{Discutii}
 \newpage
-\section{Concluzii si directii viitoare}
+\chapter{Concluzii si directii viitoare}
 
 
 % --- CUPRINS ---

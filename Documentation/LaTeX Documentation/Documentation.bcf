@@ -96,15 +96,15 @@
     </bcf:option>
     <bcf:option type="singlevalued">
       <bcf:key>maxbibnames</bcf:key>
-      <bcf:value>50</bcf:value>
+      <bcf:value>3</bcf:value>
     </bcf:option>
     <bcf:option type="singlevalued">
       <bcf:key>maxcitenames</bcf:key>
-      <bcf:value>2</bcf:value>
+      <bcf:value>3</bcf:value>
     </bcf:option>
     <bcf:option type="singlevalued">
       <bcf:key>maxsortnames</bcf:key>
-      <bcf:value>50</bcf:value>
+      <bcf:value>3</bcf:value>
     </bcf:option>
     <bcf:option type="singlevalued">
       <bcf:key>maxitems</bcf:key>
@@ -331,15 +331,15 @@
     </bcf:option>
     <bcf:option type="singlevalued">
       <bcf:key>maxbibnames</bcf:key>
-      <bcf:value>50</bcf:value>
+      <bcf:value>3</bcf:value>
     </bcf:option>
     <bcf:option type="singlevalued">
       <bcf:key>maxcitenames</bcf:key>
-      <bcf:value>2</bcf:value>
+      <bcf:value>3</bcf:value>
     </bcf:option>
     <bcf:option type="singlevalued">
       <bcf:key>maxsortnames</bcf:key>
-      <bcf:value>50</bcf:value>
+      <bcf:value>3</bcf:value>
     </bcf:option>
     <bcf:option type="singlevalued">
       <bcf:key>maxitems</bcf:key>
@@ -644,7 +644,6 @@
     <bcf:option datatype="boolean">eprint</bcf:option>
     <bcf:option datatype="boolean">related</bcf:option>
     <bcf:option datatype="boolean">subentry</bcf:option>
-    <bcf:option datatype="boolean">dashed</bcf:option>
     <bcf:option datatype="boolean">bibtexcaseprotection</bcf:option>
     <bcf:option datatype="integer">mincrossrefs</bcf:option>
     <bcf:option datatype="integer">minxrefs</bcf:option>
@@ -2392,6 +2391,17 @@
     <bcf:citekey order="16" intorder="1">poria2019meld</bcf:citekey>
     <bcf:citekey order="17" intorder="1">vaswani2017attention</bcf:citekey>
     <bcf:citekey order="18" intorder="1">schuller2018speech</bcf:citekey>
+    <bcf:citekey order="19" intorder="1">ABAriettaXAI2019</bcf:citekey>
+    <bcf:citekey order="20" intorder="1">lundberg2017unified</bcf:citekey>
+    <bcf:citekey order="21" intorder="1">SundarajanIG2017</bcf:citekey>
+    <bcf:citekey order="22" intorder="1">vaswani2017attention</bcf:citekey>
+    <bcf:citekey order="23" intorder="1">jain2019attention</bcf:citekey>
+    <bcf:citekey order="24" intorder="1">schwartz2019green</bcf:citekey>
+    <bcf:citekey order="24" intorder="2">preprints2026greenai</bcf:citekey>
+    <bcf:citekey order="25" intorder="1">pmc12567929</bcf:citekey>
+    <bcf:citekey order="26" intorder="1">arxiv250208573</bcf:citekey>
+    <bcf:citekey order="27" intorder="1">busso2008iemocap</bcf:citekey>
+    <bcf:citekey order="28" intorder="1">poria2019meld</bcf:citekey>
   </bcf:section>
   <!-- SORTING TEMPLATES -->
   <bcf:sortingtemplate name="none">

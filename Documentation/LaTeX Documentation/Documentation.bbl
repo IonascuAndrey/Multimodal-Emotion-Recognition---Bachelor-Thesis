@@ -50,6 +50,7 @@
       \strng{authornamehash}{9c9bbb309b005b61a6bbfe9340859c9d}
       \strng{authorfullhash}{25fe76c4b22bdff7c47425febc41fb64}
       \strng{authorfullhashraw}{25fe76c4b22bdff7c47425febc41fb64}
+      \field{extraname}{1}
       \field{sortinit}{1}
       \field{sortinithash}{4f6aaa89bab872aa0999fec09ff8e98a}
       \field{labelnamesource}{author}
@@ -595,6 +596,645 @@
       \verb{url}
       \verb https://api.semanticscholar.org/CorpusID:149023718
       \endverb
+    \endentry
+    \entry{picard1997affective}{book}{}{}
+      \name{author}{1}{}{%
+        {{hash=7dd0cb6b02efa214ad5f10a28d1241b6}{%
+           family={Picard},
+           familyi={P\bibinitperiod},
+           given={Rosalind\bibnamedelima W.},
+           giveni={R\bibinitperiod\bibinitdelim W\bibinitperiod}}}%
+      }
+      \list{location}{1}{%
+        {Cambridge, MA}%
+      }
+      \list{publisher}{1}{%
+        {MIT Press}%
+      }
+      \strng{namehash}{7dd0cb6b02efa214ad5f10a28d1241b6}
+      \strng{fullhash}{7dd0cb6b02efa214ad5f10a28d1241b6}
+      \strng{fullhashraw}{7dd0cb6b02efa214ad5f10a28d1241b6}
+      \strng{bibnamehash}{7dd0cb6b02efa214ad5f10a28d1241b6}
+      \strng{authorbibnamehash}{7dd0cb6b02efa214ad5f10a28d1241b6}
+      \strng{authornamehash}{7dd0cb6b02efa214ad5f10a28d1241b6}
+      \strng{authorfullhash}{7dd0cb6b02efa214ad5f10a28d1241b6}
+      \strng{authorfullhashraw}{7dd0cb6b02efa214ad5f10a28d1241b6}
+      \field{sortinit}{1}
+      \field{sortinithash}{4f6aaa89bab872aa0999fec09ff8e98a}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{isbn}{978-0262161701}
+      \field{title}{Affective Computing}
+      \field{year}{1997}
+    \endentry
+    \entry{ekman1992argument}{article}{}{}
+      \name{author}{1}{}{%
+        {{hash=f57fd5f1b9feec71b7d8f0ce35b57dbc}{%
+           family={Ekman},
+           familyi={E\bibinitperiod},
+           given={Paul},
+           giveni={P\bibinitperiod}}}%
+      }
+      \list{publisher}{1}{%
+        {Routledge}%
+      }
+      \strng{namehash}{f57fd5f1b9feec71b7d8f0ce35b57dbc}
+      \strng{fullhash}{f57fd5f1b9feec71b7d8f0ce35b57dbc}
+      \strng{fullhashraw}{f57fd5f1b9feec71b7d8f0ce35b57dbc}
+      \strng{bibnamehash}{f57fd5f1b9feec71b7d8f0ce35b57dbc}
+      \strng{authorbibnamehash}{f57fd5f1b9feec71b7d8f0ce35b57dbc}
+      \strng{authornamehash}{f57fd5f1b9feec71b7d8f0ce35b57dbc}
+      \strng{authorfullhash}{f57fd5f1b9feec71b7d8f0ce35b57dbc}
+      \strng{authorfullhashraw}{f57fd5f1b9feec71b7d8f0ce35b57dbc}
+      \field{sortinit}{1}
+      \field{sortinithash}{4f6aaa89bab872aa0999fec09ff8e98a}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{Cognition and Emotion}
+      \field{number}{3-4}
+      \field{title}{An argument for basic emotions}
+      \field{volume}{6}
+      \field{year}{1992}
+      \field{pages}{169\bibrangedash 200}
+      \range{pages}{32}
+      \verb{doi}
+      \verb 10.1080/02699939208411068
+      \endverb
+    \endentry
+    \entry{russell1980circumplex}{article}{}{}
+      \name{author}{1}{}{%
+        {{hash=ee6848fb2fac892f7b0fe7674e81f502}{%
+           family={Russell},
+           familyi={R\bibinitperiod},
+           given={James\bibnamedelima A.},
+           giveni={J\bibinitperiod\bibinitdelim A\bibinitperiod}}}%
+      }
+      \list{publisher}{1}{%
+        {American Psychological Association}%
+      }
+      \strng{namehash}{ee6848fb2fac892f7b0fe7674e81f502}
+      \strng{fullhash}{ee6848fb2fac892f7b0fe7674e81f502}
+      \strng{fullhashraw}{ee6848fb2fac892f7b0fe7674e81f502}
+      \strng{bibnamehash}{ee6848fb2fac892f7b0fe7674e81f502}
+      \strng{authorbibnamehash}{ee6848fb2fac892f7b0fe7674e81f502}
+      \strng{authornamehash}{ee6848fb2fac892f7b0fe7674e81f502}
+      \strng{authorfullhash}{ee6848fb2fac892f7b0fe7674e81f502}
+      \strng{authorfullhashraw}{ee6848fb2fac892f7b0fe7674e81f502}
+      \field{sortinit}{1}
+      \field{sortinithash}{4f6aaa89bab872aa0999fec09ff8e98a}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{Journal of Personality and Social Psychology}
+      \field{number}{6}
+      \field{title}{A circumplex model of affect}
+      \field{volume}{39}
+      \field{year}{1980}
+      \field{pages}{1161\bibrangedash 1178}
+      \range{pages}{18}
+      \verb{doi}
+      \verb 10.1037/h0077714
+      \endverb
+    \endentry
+    \entry{baltrusaitis2018multimodal}{article}{}{}
+      \name{author}{3}{}{%
+        {{hash=66df84f9a5b3fb42b542824373ee39f5}{%
+           family={Baltrušaitis},
+           familyi={B\bibinitperiod},
+           given={Tadas},
+           giveni={T\bibinitperiod}}}%
+        {{hash=93a92cb2f2018320f5fe203d00ae1cc3}{%
+           family={Ahuja},
+           familyi={A\bibinitperiod},
+           given={Chaitanya},
+           giveni={C\bibinitperiod}}}%
+        {{hash=2b23af9d24a98a5912d3b7c941b08ed7}{%
+           family={Morency},
+           familyi={M\bibinitperiod},
+           given={Louis-Philippe},
+           giveni={L\bibinithyphendelim P\bibinitperiod}}}%
+      }
+      \strng{namehash}{7145eaea20703c0e78765d167e909706}
+      \strng{fullhash}{061e120b3a83987b6b5ae04e43009d83}
+      \strng{fullhashraw}{061e120b3a83987b6b5ae04e43009d83}
+      \strng{bibnamehash}{061e120b3a83987b6b5ae04e43009d83}
+      \strng{authorbibnamehash}{061e120b3a83987b6b5ae04e43009d83}
+      \strng{authornamehash}{7145eaea20703c0e78765d167e909706}
+      \strng{authorfullhash}{061e120b3a83987b6b5ae04e43009d83}
+      \strng{authorfullhashraw}{061e120b3a83987b6b5ae04e43009d83}
+      \field{sortinit}{1}
+      \field{sortinithash}{4f6aaa89bab872aa0999fec09ff8e98a}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{IEEE Transactions on Pattern Analysis and Machine Intelligence}
+      \field{number}{2}
+      \field{title}{Multimodal Machine Learning: A Survey and Taxonomy}
+      \field{volume}{41}
+      \field{year}{2019}
+      \field{pages}{423\bibrangedash 443}
+      \range{pages}{21}
+      \verb{doi}
+      \verb 10.1109/TPAMI.2018.2798607
+      \endverb
+      \keyw{Speech recognition;Visualization;Media;Speech;Multimedia communication;Streaming media;Hidden Markov models;Multimodal;machine learning;introductory;survey}
+    \endentry
+    \entry{poria2019meld}{inproceedings}{}{}
+      \name{author}{6}{}{%
+        {{hash=dcb98c96536530f44ae8cf4f6a8f2d86}{%
+           family={Poria},
+           familyi={P\bibinitperiod},
+           given={Soujanya},
+           giveni={S\bibinitperiod}}}%
+        {{hash=14227e7438bb27d316977ef756c347ba}{%
+           family={Hazarika},
+           familyi={H\bibinitperiod},
+           given={Devamanyu},
+           giveni={D\bibinitperiod}}}%
+        {{hash=c5b5720fc3c1a1b3767147891945c525}{%
+           family={Majumder},
+           familyi={M\bibinitperiod},
+           given={Navonil},
+           giveni={N\bibinitperiod}}}%
+        {{hash=18da261d399748c4b1aae101a53dda6f}{%
+           family={Naik},
+           familyi={N\bibinitperiod},
+           given={Gautam},
+           giveni={G\bibinitperiod}}}%
+        {{hash=db089768b8819956d932b3c8db18d498}{%
+           family={Cambria},
+           familyi={C\bibinitperiod},
+           given={Erik},
+           giveni={E\bibinitperiod}}}%
+        {{hash=7147443179f5f0b00a44986a0f561f4d}{%
+           family={Mihalcea},
+           familyi={M\bibinitperiod},
+           given={Rada},
+           giveni={R\bibinitperiod}}}%
+      }
+      \strng{namehash}{9c9bbb309b005b61a6bbfe9340859c9d}
+      \strng{fullhash}{91763705f9f74aa4abc856f468dae00f}
+      \strng{fullhashraw}{91763705f9f74aa4abc856f468dae00f}
+      \strng{bibnamehash}{91763705f9f74aa4abc856f468dae00f}
+      \strng{authorbibnamehash}{91763705f9f74aa4abc856f468dae00f}
+      \strng{authornamehash}{9c9bbb309b005b61a6bbfe9340859c9d}
+      \strng{authorfullhash}{91763705f9f74aa4abc856f468dae00f}
+      \strng{authorfullhashraw}{91763705f9f74aa4abc856f468dae00f}
+      \field{extraname}{2}
+      \field{sortinit}{1}
+      \field{sortinithash}{4f6aaa89bab872aa0999fec09ff8e98a}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{booktitle}{Proceedings of the 57th Annual Meeting of the Association for Computational Linguistics}
+      \field{title}{{MELD}: A Multimodal Emotion Lines Dataset in Conversations}
+      \field{year}{2019}
+      \field{pages}{527\bibrangedash 536}
+      \range{pages}{10}
+      \verb{doi}
+      \verb 10.18653/v1/P19-1050
+      \endverb
+    \endentry
+    \entry{vaswani2017attention}{inproceedings}{}{}
+      \name{author}{8}{}{%
+        {{hash=7f28e84700536646dd6620a0db07ad09}{%
+           family={Vaswani},
+           familyi={V\bibinitperiod},
+           given={Ashish},
+           giveni={A\bibinitperiod}}}%
+        {{hash=62efade83d70f0323fe248755e6c90c5}{%
+           family={Shazeer},
+           familyi={S\bibinitperiod},
+           given={Noam},
+           giveni={N\bibinitperiod}}}%
+        {{hash=06649ebab1ea5cac0250746a19764975}{%
+           family={Parmar},
+           familyi={P\bibinitperiod},
+           given={Niki},
+           giveni={N\bibinitperiod}}}%
+        {{hash=831027ee0ebf22375e2a86afc1881909}{%
+           family={Uszkoreit},
+           familyi={U\bibinitperiod},
+           given={Jakob},
+           giveni={J\bibinitperiod}}}%
+        {{hash=2fd2982e30ebcec93ec1cf76e0d797fd}{%
+           family={Jones},
+           familyi={J\bibinitperiod},
+           given={Llion},
+           giveni={L\bibinitperiod}}}%
+        {{hash=27b07e4eacbf4ef7a1438e3badb7dd8d}{%
+           family={Gomez},
+           familyi={G\bibinitperiod},
+           given={Aidan\bibnamedelima N},
+           giveni={A\bibinitperiod\bibinitdelim N\bibinitperiod}}}%
+        {{hash=540fcd72e1fa4bbed46604f4e6cff817}{%
+           family={Kaiser},
+           familyi={K\bibinitperiod},
+           given={{Ł}ukasz},
+           giveni={Ł\bibinitperiod}}}%
+        {{hash=95595a0fefb86187cbc36e551017d332}{%
+           family={Polosukhin},
+           familyi={P\bibinitperiod},
+           given={Illia},
+           giveni={I\bibinitperiod}}}%
+      }
+      \strng{namehash}{ee273ab30cfb889666f8c4d806eb9ce7}
+      \strng{fullhash}{cb26e47f6b8133865271fc8483132297}
+      \strng{fullhashraw}{cb26e47f6b8133865271fc8483132297}
+      \strng{bibnamehash}{cb26e47f6b8133865271fc8483132297}
+      \strng{authorbibnamehash}{cb26e47f6b8133865271fc8483132297}
+      \strng{authornamehash}{ee273ab30cfb889666f8c4d806eb9ce7}
+      \strng{authorfullhash}{cb26e47f6b8133865271fc8483132297}
+      \strng{authorfullhashraw}{cb26e47f6b8133865271fc8483132297}
+      \field{sortinit}{1}
+      \field{sortinithash}{4f6aaa89bab872aa0999fec09ff8e98a}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{booktitle}{Advances in Neural Information Processing Systems}
+      \field{title}{Attention is All you Need}
+      \field{volume}{30}
+      \field{year}{2017}
+      \verb{doi}
+      \verb 10.48550/arXiv.1706.03762
+      \endverb
+      \verb{urlraw}
+      \verb arXiv:1706.03762v7
+      \endverb
+      \verb{url}
+      \verb arXiv:1706.03762v7
+      \endverb
+    \endentry
+    \entry{schuller2018speech}{article}{}{}
+      \name{author}{1}{}{%
+        {{hash=08faf7f14620768f0df5377488f8f73b}{%
+           family={Schuller},
+           familyi={S\bibinitperiod},
+           given={Björn\bibnamedelima W.},
+           giveni={B\bibinitperiod\bibinitdelim W\bibinitperiod}}}%
+      }
+      \list{location}{1}{%
+        {New York, NY, USA}%
+      }
+      \list{publisher}{1}{%
+        {Association for Computing Machinery}%
+      }
+      \strng{namehash}{08faf7f14620768f0df5377488f8f73b}
+      \strng{fullhash}{08faf7f14620768f0df5377488f8f73b}
+      \strng{fullhashraw}{08faf7f14620768f0df5377488f8f73b}
+      \strng{bibnamehash}{08faf7f14620768f0df5377488f8f73b}
+      \strng{authorbibnamehash}{08faf7f14620768f0df5377488f8f73b}
+      \strng{authornamehash}{08faf7f14620768f0df5377488f8f73b}
+      \strng{authorfullhash}{08faf7f14620768f0df5377488f8f73b}
+      \strng{authorfullhashraw}{08faf7f14620768f0df5377488f8f73b}
+      \field{sortinit}{1}
+      \field{sortinithash}{4f6aaa89bab872aa0999fec09ff8e98a}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{abstract}{Tracing 20 years of progress in making machines hear our emotions based on speech signal properties.}
+      \field{issn}{0001-0782}
+      \field{journaltitle}{Commun. ACM}
+      \field{month}{4}
+      \field{number}{5}
+      \field{title}{Speech emotion recognition: two decades in a nutshell, benchmarks, and ongoing trends}
+      \field{volume}{61}
+      \field{year}{2018}
+      \field{pages}{90\bibrangedash 99}
+      \range{pages}{10}
+      \verb{doi}
+      \verb 10.1145/3129340
+      \endverb
+      \verb{urlraw}
+      \verb https://doi.org/10.1145/3129340
+      \endverb
+      \verb{url}
+      \verb https://doi.org/10.1145/3129340
+      \endverb
+    \endentry
+    \entry{ABAriettaXAI2019}{article}{}{}
+      \name{author}{12}{}{%
+        {{hash=94bf5c37ae25e1a4f902c67f8af0647b}{%
+           family={Arrieta},
+           familyi={A\bibinitperiod},
+           given={Alejandro\bibnamedelima Barredo},
+           giveni={A\bibinitperiod\bibinitdelim B\bibinitperiod}}}%
+        {{hash=261f8658c20be28891238539eead2bc9}{%
+           family={Rodríguez},
+           familyi={R\bibinitperiod},
+           given={Natalia\bibnamedelima Díaz},
+           giveni={N\bibinitperiod\bibinitdelim D\bibinitperiod}}}%
+        {{hash=9af0792c82515e88f0d30221b55f31ba}{%
+           family={Ser},
+           familyi={S\bibinitperiod},
+           given={Javier\bibnamedelima Del},
+           giveni={J\bibinitperiod\bibinitdelim D\bibinitperiod}}}%
+        {{hash=eee76618bbe2267980002ac15fc73c9b}{%
+           family={Bennetot},
+           familyi={B\bibinitperiod},
+           given={Adrien},
+           giveni={A\bibinitperiod}}}%
+        {{hash=5d79f34727bcbbd23065a0c111485c1b}{%
+           family={Tabik},
+           familyi={T\bibinitperiod},
+           given={Siham},
+           giveni={S\bibinitperiod}}}%
+        {{hash=43d5191cbb4190664e6dad9d9b27505e}{%
+           family={Barbado},
+           familyi={B\bibinitperiod},
+           given={Alberto},
+           giveni={A\bibinitperiod}}}%
+        {{hash=1691f3ff4356c12149ac4f858ead7e04}{%
+           family={García},
+           familyi={G\bibinitperiod},
+           given={Salvador},
+           giveni={S\bibinitperiod}}}%
+        {{hash=c76f24f655d5b4f879a86f8c6971a5f0}{%
+           family={Gil{-}Lopez},
+           familyi={G\bibinitperiod},
+           given={Sergio},
+           giveni={S\bibinitperiod}}}%
+        {{hash=381bf37312a71cebeee50fc633f67c46}{%
+           family={Molina},
+           familyi={M\bibinitperiod},
+           given={Daniel},
+           giveni={D\bibinitperiod}}}%
+        {{hash=4ff51a3504ff841d75fa3640a2842bff}{%
+           family={Benjamins},
+           familyi={B\bibinitperiod},
+           given={Richard},
+           giveni={R\bibinitperiod}}}%
+        {{hash=4a0c0821a0200d3f23713aa8ea5278dc}{%
+           family={Chatila},
+           familyi={C\bibinitperiod},
+           given={Raja},
+           giveni={R\bibinitperiod}}}%
+        {{hash=9f81f46436ba77791311a5db20ff5c25}{%
+           family={Herrera},
+           familyi={H\bibinitperiod},
+           given={Francisco},
+           giveni={F\bibinitperiod}}}%
+      }
+      \strng{namehash}{8d645501efd3b19a683a4e9347e9604c}
+      \strng{fullhash}{8f21634a84445b335c29051023c93f2f}
+      \strng{fullhashraw}{8f21634a84445b335c29051023c93f2f}
+      \strng{bibnamehash}{8f21634a84445b335c29051023c93f2f}
+      \strng{authorbibnamehash}{8f21634a84445b335c29051023c93f2f}
+      \strng{authornamehash}{8d645501efd3b19a683a4e9347e9604c}
+      \strng{authorfullhash}{8f21634a84445b335c29051023c93f2f}
+      \strng{authorfullhashraw}{8f21634a84445b335c29051023c93f2f}
+      \field{sortinit}{1}
+      \field{sortinithash}{4f6aaa89bab872aa0999fec09ff8e98a}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{eprinttype}{arXiv}
+      \field{journaltitle}{CoRR}
+      \field{title}{Explainable Artificial Intelligence {(XAI):} Concepts, Taxonomies, Opportunities and Challenges toward Responsible {AI}}
+      \field{volume}{abs/1910.10045}
+      \field{year}{2019}
+      \verb{eprint}
+      \verb 1910.10045
+      \endverb
+      \verb{urlraw}
+      \verb http://arxiv.org/abs/1910.10045
+      \endverb
+      \verb{url}
+      \verb http://arxiv.org/abs/1910.10045
+      \endverb
+    \endentry
+    \entry{lundberg2017unified}{inproceedings}{}{}
+      \name{author}{2}{}{%
+        {{hash=2a1075150e1e1dad8127b019f7ca9031}{%
+           family={Lundberg},
+           familyi={L\bibinitperiod},
+           given={Scott\bibnamedelima M},
+           giveni={S\bibinitperiod\bibinitdelim M\bibinitperiod}}}%
+        {{hash=ee964079d93879aaef2382a5fff343d3}{%
+           family={Lee},
+           familyi={L\bibinitperiod},
+           given={Su-In},
+           giveni={S\bibinithyphendelim I\bibinitperiod}}}%
+      }
+      \strng{namehash}{9cd6e49767b1dfa9f5df9a46216a8739}
+      \strng{fullhash}{9cd6e49767b1dfa9f5df9a46216a8739}
+      \strng{fullhashraw}{9cd6e49767b1dfa9f5df9a46216a8739}
+      \strng{bibnamehash}{9cd6e49767b1dfa9f5df9a46216a8739}
+      \strng{authorbibnamehash}{9cd6e49767b1dfa9f5df9a46216a8739}
+      \strng{authornamehash}{9cd6e49767b1dfa9f5df9a46216a8739}
+      \strng{authorfullhash}{9cd6e49767b1dfa9f5df9a46216a8739}
+      \strng{authorfullhashraw}{9cd6e49767b1dfa9f5df9a46216a8739}
+      \field{sortinit}{2}
+      \field{sortinithash}{8b555b3791beccb63322c22f3320aa9a}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{booktitle}{Advances in Neural Information Processing Systems}
+      \field{title}{A Unified Approach to Interpreting Model Predictions}
+      \field{year}{2017}
+      \field{pages}{4765\bibrangedash 4774}
+      \range{pages}{10}
+    \endentry
+    \entry{SundarajanIG2017}{article}{}{}
+      \name{author}{3}{}{%
+        {{hash=3f6ba1bd9765787e3ba110f061162d7c}{%
+           family={Sundararajan},
+           familyi={S\bibinitperiod},
+           given={Mukund},
+           giveni={M\bibinitperiod}}}%
+        {{hash=5f28201da8e96ae3f9aa7adc9226783c}{%
+           family={Taly},
+           familyi={T\bibinitperiod},
+           given={Ankur},
+           giveni={A\bibinitperiod}}}%
+        {{hash=8149779d3dadb5bd0565f064daca2a68}{%
+           family={Yan},
+           familyi={Y\bibinitperiod},
+           given={Qiqi},
+           giveni={Q\bibinitperiod}}}%
+      }
+      \strng{namehash}{39d9d434ea7b03d8a18239b4207e84a0}
+      \strng{fullhash}{cfa971fb443a5de12f00ef01d3107382}
+      \strng{fullhashraw}{cfa971fb443a5de12f00ef01d3107382}
+      \strng{bibnamehash}{cfa971fb443a5de12f00ef01d3107382}
+      \strng{authorbibnamehash}{cfa971fb443a5de12f00ef01d3107382}
+      \strng{authornamehash}{39d9d434ea7b03d8a18239b4207e84a0}
+      \strng{authorfullhash}{cfa971fb443a5de12f00ef01d3107382}
+      \strng{authorfullhashraw}{cfa971fb443a5de12f00ef01d3107382}
+      \field{sortinit}{2}
+      \field{sortinithash}{8b555b3791beccb63322c22f3320aa9a}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{eprinttype}{arXiv}
+      \field{journaltitle}{CoRR}
+      \field{title}{Axiomatic Attribution for Deep Networks}
+      \field{volume}{abs/1703.01365}
+      \field{year}{2017}
+      \verb{eprint}
+      \verb 1703.01365
+      \endverb
+      \verb{urlraw}
+      \verb http://arxiv.org/abs/1703.01365
+      \endverb
+      \verb{url}
+      \verb http://arxiv.org/abs/1703.01365
+      \endverb
+    \endentry
+    \entry{jain2019attention}{inproceedings}{}{}
+      \name{author}{2}{}{%
+        {{hash=473b58dab2062f9cc6cabc0d011e1e2a}{%
+           family={Jain},
+           familyi={J\bibinitperiod},
+           given={Sarthak},
+           giveni={S\bibinitperiod}}}%
+        {{hash=dcf3fece96fc55df5a003eccf64d2961}{%
+           family={Wallace},
+           familyi={W\bibinitperiod},
+           given={Byron\bibnamedelima C.},
+           giveni={B\bibinitperiod\bibinitdelim C\bibinitperiod}}}%
+      }
+      \strng{namehash}{1d828c7a7e523964766c41ae09cfc534}
+      \strng{fullhash}{1d828c7a7e523964766c41ae09cfc534}
+      \strng{fullhashraw}{1d828c7a7e523964766c41ae09cfc534}
+      \strng{bibnamehash}{1d828c7a7e523964766c41ae09cfc534}
+      \strng{authorbibnamehash}{1d828c7a7e523964766c41ae09cfc534}
+      \strng{authornamehash}{1d828c7a7e523964766c41ae09cfc534}
+      \strng{authorfullhash}{1d828c7a7e523964766c41ae09cfc534}
+      \strng{authorfullhashraw}{1d828c7a7e523964766c41ae09cfc534}
+      \field{sortinit}{2}
+      \field{sortinithash}{8b555b3791beccb63322c22f3320aa9a}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{booktitle}{Proceedings of the 2019 Conference of the North American Chapter of the Association for Computational Linguistics}
+      \field{title}{Attention is not Explanation}
+      \field{year}{2019}
+      \field{pages}{3543\bibrangedash 3556}
+      \range{pages}{14}
+    \endentry
+    \entry{schwartz2019green}{article}{}{}
+      \name{author}{4}{}{%
+        {{hash=9acb5494cac577e6bf4c2b380f154290}{%
+           family={Schwartz},
+           familyi={S\bibinitperiod},
+           given={Roy},
+           giveni={R\bibinitperiod}}}%
+        {{hash=59f4d94be729cf6353e7e169a54a92c2}{%
+           family={Dodge},
+           familyi={D\bibinitperiod},
+           given={Jesse},
+           giveni={J\bibinitperiod}}}%
+        {{hash=76caee508bed7d0995f7c21cc5e6208c}{%
+           family={Smith},
+           familyi={S\bibinitperiod},
+           given={Noah\bibnamedelima A},
+           giveni={N\bibinitperiod\bibinitdelim A\bibinitperiod}}}%
+        {{hash=24a50614f7ed5b3e1d70594a0e2c2a2a}{%
+           family={Etzioni},
+           familyi={E\bibinitperiod},
+           given={Oren},
+           giveni={O\bibinitperiod}}}%
+      }
+      \strng{namehash}{dd8f524a23c05b9f402f50f7fb12d141}
+      \strng{fullhash}{0768fcebdaf736c630509b231a89d2f5}
+      \strng{fullhashraw}{0768fcebdaf736c630509b231a89d2f5}
+      \strng{bibnamehash}{0768fcebdaf736c630509b231a89d2f5}
+      \strng{authorbibnamehash}{0768fcebdaf736c630509b231a89d2f5}
+      \strng{authornamehash}{dd8f524a23c05b9f402f50f7fb12d141}
+      \strng{authorfullhash}{0768fcebdaf736c630509b231a89d2f5}
+      \strng{authorfullhashraw}{0768fcebdaf736c630509b231a89d2f5}
+      \field{sortinit}{2}
+      \field{sortinithash}{8b555b3791beccb63322c22f3320aa9a}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{Communications of the ACM}
+      \field{number}{12}
+      \field{title}{Green AI}
+      \field{volume}{63}
+      \field{year}{2019}
+      \field{pages}{54\bibrangedash 63}
+      \range{pages}{10}
+    \endentry
+    \entry{preprints2026greenai}{article}{}{}
+      \name{author}{1}{}{%
+        {{hash=4020216443f11f25e29237b41c345ed6}{%
+           family={Authors},
+           familyi={A\bibinitperiod},
+           given={Anonymous},
+           giveni={A\bibinitperiod}}}%
+      }
+      \strng{namehash}{4020216443f11f25e29237b41c345ed6}
+      \strng{fullhash}{4020216443f11f25e29237b41c345ed6}
+      \strng{fullhashraw}{4020216443f11f25e29237b41c345ed6}
+      \strng{bibnamehash}{4020216443f11f25e29237b41c345ed6}
+      \strng{authorbibnamehash}{4020216443f11f25e29237b41c345ed6}
+      \strng{authornamehash}{4020216443f11f25e29237b41c345ed6}
+      \strng{authorfullhash}{4020216443f11f25e29237b41c345ed6}
+      \strng{authorfullhashraw}{4020216443f11f25e29237b41c345ed6}
+      \field{extraname}{1}
+      \field{sortinit}{2}
+      \field{sortinithash}{8b555b3791beccb63322c22f3320aa9a}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{Preprints.org}
+      \field{title}{Green AI: Systematic Review and Guidelines for Sustainability in Artificial Intelligence}
+      \field{year}{2026}
+      \verb{doi}
+      \verb 10.20944/preprints202602.0411.v1
+      \endverb
+    \endentry
+    \entry{pmc12567929}{article}{}{}
+      \name{author}{3}{}{%
+        {{hash=aa5a7c8780167efaa3ed45566a0806a0}{%
+           family={Lee},
+           familyi={L\bibinitperiod},
+           given={S.},
+           giveni={S\bibinitperiod}}}%
+        {{hash=b01515dee98fbb7a3fa0a9b3049d0202}{%
+           family={An},
+           familyi={A\bibinitperiod},
+           given={Y.},
+           giveni={Y\bibinitperiod}}}%
+        {{hash=34c1fcd25b76ae189392cb3c9f5e639d}{%
+           family={Shin},
+           familyi={S\bibinitperiod},
+           given={J.\bibnamedelimi W.},
+           giveni={J\bibinitperiod\bibinitdelim W\bibinitperiod}}}%
+      }
+      \strng{namehash}{9b50c500ceb1bf5400e2a403aed4f1fd}
+      \strng{fullhash}{e0c696a20a78416fa73b83a0acc38bef}
+      \strng{fullhashraw}{e0c696a20a78416fa73b83a0acc38bef}
+      \strng{bibnamehash}{e0c696a20a78416fa73b83a0acc38bef}
+      \strng{authorbibnamehash}{e0c696a20a78416fa73b83a0acc38bef}
+      \strng{authornamehash}{9b50c500ceb1bf5400e2a403aed4f1fd}
+      \strng{authorfullhash}{e0c696a20a78416fa73b83a0acc38bef}
+      \strng{authorfullhashraw}{e0c696a20a78416fa73b83a0acc38bef}
+      \field{sortinit}{2}
+      \field{sortinithash}{8b555b3791beccb63322c22f3320aa9a}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{Sensors (Basel, Switzerland)}
+      \field{number}{3}
+      \field{title}{Multimodal Emotion Recognition Using Modality-Wise Knowledge Distillation}
+      \field{volume}{25}
+      \field{year}{2025}
+    \endentry
+    \entry{arxiv250208573}{article}{}{}
+      \name{author}{1}{}{%
+        {{hash=4020216443f11f25e29237b41c345ed6}{%
+           family={Authors},
+           familyi={A\bibinitperiod},
+           given={Anonymous},
+           giveni={A\bibinitperiod}}}%
+      }
+      \strng{namehash}{4020216443f11f25e29237b41c345ed6}
+      \strng{fullhash}{4020216443f11f25e29237b41c345ed6}
+      \strng{fullhashraw}{4020216443f11f25e29237b41c345ed6}
+      \strng{bibnamehash}{4020216443f11f25e29237b41c345ed6}
+      \strng{authorbibnamehash}{4020216443f11f25e29237b41c345ed6}
+      \strng{authornamehash}{4020216443f11f25e29237b41c345ed6}
+      \strng{authorfullhash}{4020216443f11f25e29237b41c345ed6}
+      \strng{authorfullhashraw}{4020216443f11f25e29237b41c345ed6}
+      \field{extraname}{2}
+      \field{sortinit}{2}
+      \field{sortinithash}{8b555b3791beccb63322c22f3320aa9a}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{arXiv preprint arXiv:2502.08573}
+      \field{title}{DeepMSI-MER: A Novel Approach for Multimodal Emotion Recognition based on Contrastive Learning and Visual Sequence Compression}
+      \field{year}{2025}
     \endentry
   \enddatalist
 \endrefsection
