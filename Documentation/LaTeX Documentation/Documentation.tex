@@ -39,6 +39,10 @@
   {\guillemotleft}
   {\guillemotright}
 
+\addto\captionsromanian{%
+  \renewcommand{\tablename}{Tabelul}%
+}
+
 % Utilizează biblatex pentru referințe bibliografice
 \usepackage[
     style=numeric,
@@ -114,6 +118,7 @@
 
 % Suport pentru anexe
 \usepackage{appendix}
+\usepackage{booktabs}
 
 % Stiluri diferite de headere și footere
 \usepackage{fancyhdr}
@@ -299,7 +304,7 @@ Dezvoltarea recunoasterii emotiilor este foarte dependenta de seturile de date d
 
 Un exemplu des intalnit este IMEOCAP. Contine aproximativ 12 ore de date audiovizuale, incluzand inregistrari audio, capturi video si transcript, colectate intr-un mediu controlat, din interactiuni intre actori \cite{busso2008iemocap}. Desi foarte util, acest set de date esueaza in a reflecta lipsa de predictibilitate si de structura a interactiunilor reale, ducand la rezultate artificial mai mari prin natura "de laborator" a interactiunilor.
 
-In acest context, MELD reprezinta alternativa ce reflecta mai bine viata reala. MELD, sau Multimodal EmotionLines Dataset, a fost introdus ca o extensie a setului de date EmotionLines si este construit din fragmente din serialul \textit{Friends}. contine peste 1,400 de dialoguri si aproximativ 13,000 replici, fiecare adnotata cu etichete de emotii \cite{poria2019meld}. Sunt 7 etichete (anger, disgust, fear, joy, neutral, sadness, surprise), iar pentru consistenta intre modele joy a fost inlocuit cu happiness. Cu toate acestea, clasele sunt foarte dezechilibrate, cu fear si disgust fiind puternic subreprezentate in timp ce neutral are un numar disproportionat de mare de exemple. Acest lucru duce la o acuratete relativ mare, dar in mod artificial, motiv pentru care metrica principala folosita in modelele comparate in acest studiu este f1-macro, care acorda o importanta egala claselor subreprezentate
+In acest context, MELD reprezinta alternativa ce reflecta mai bine viata reala. MELD, sau Multimodal EmotionLines Dataset, a fost introdus ca o extensie a setului de date EmotionLines si este construit din fragmente din serialul \textit{Friends}. contine peste 1,400 de dialoguri si aproximativ 13,000 replici, fiecare adnotata cu etichete de emotii \cite{poria2019meld}. Sunt 7 etichete (anger, disgust, fear, joy, neutral, sadness, surprise), iar pentru consistenta intre modele joy a fost inlocuit cu happiness.
 
 Principalele provocari in recunoasterea emotiilor in MELD este prezenta noise-ului in date. Fiind dintr-un \textit{reality show}, replicile sunt de multe ori sarcastice, textul avand alt inteles decat cel aparent. Pe fundal sunt adaugate rasete ce induce modelele audio in eroare. Cand vine vorba de fata personajelor care vorbesc, ele nu sunt intotdeauna centrate in cadru, ceea ce face extragerea fetei vorbitorului dificila. Totusi, desi aceste lucruri afecteaza puternic scorul final, natura "in-the-wild" a lui MELD ofera increderea ca modelele care produc rezultate bune in teste vor performa similar si in viata reala.
 
@@ -307,7 +312,30 @@ Principalele provocari in recunoasterea emotiilor in MELD este prezenta noise-ul
 \chapter{Metodologie}
 
 \section{Analiza setului de date MELD}
+Este important sa evidentiem principalele provocari ale setului de date, intrucat el afecteaza direct si substantial rezultatele. Analiza din Tabelul~\ref{tab:meld_text_audio_stats} a fost facuta pe intreg setul de date si ia in considerare distributia emotiilor, lungimea in cuvinte a replicilor si durata inregistrarii audio folosita. Distributia emotiilor arata un dezechilibru clar intre clase, neutral fiind dominanta cu 47\% din replici, in timp ce disgust si fear au sub 3\%. In consecinta, acuratetea este insuficienta daca ne propunem sa stabilim cat de bine detecteaza modelele emotiile, motiv pentru care am optat in aceasta lucrare pentru macro-f1 score.
 
+\begin{table}[h]
+\centering
+\small
+
+\label{tab:meld_text_audio_stats}
+\resizebox{\textwidth}{!}{%
+\begin{tabular}{lccc}
+\toprule
+\textbf{Emotion} & \textbf{Utterances (\%)} & \textbf{Text length $\mu \pm \sigma$ / median} & \textbf{Audio duration $\mu \pm \sigma$ / median} \\
+\midrule
+Anger     & 1,607 (11.7\%) & 9.2 $\pm$ 6.5 / 8  & 3.28 $\pm$ 2.16 / 2.75 s \\
+Disgust   & 361 (2.6\%)    & 10.0 $\pm$ 6.9 / 8 & 3.69 $\pm$ 2.32 / 3.05 s \\
+Fear      & 358 (2.6\%)    & 9.3 $\pm$ 6.3 / 8  & 3.26 $\pm$ 2.16 / 2.63 s \\
+Happiness & 2,308 (16.8\%) & 7.7 $\pm$ 6.0 / 6  & 3.16 $\pm$ 2.29 / 2.50 s \\
+Neutral   & 6,436 (47.0\%) & 7.8 $\pm$ 6.2 / 6  & 2.97 $\pm$ 2.11 / 2.38 s \\
+Sadness   & 1,002 (7.3\%)  & 10.0 $\pm$ 7.0 / 9 & 3.71 $\pm$ 2.41 / 2.96 s \\
+Surprise  & 1,636 (11.9\%) & 6.0 $\pm$ 5.0 / 5  & 2.67 $\pm$ 2.04 / 2.05 s \\
+\bottomrule
+\end{tabular}
+}
+\caption{Text and audio statistics by emotion in the MELD dataset. Audio durations are reported after truncation at 10 seconds.}
+\end{table}
 \section{Preprocesarea datelor}
 
 \section{Arhitecturi si modele propuse}
