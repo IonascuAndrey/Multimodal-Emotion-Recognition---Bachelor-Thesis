@@ -1,0 +1,48 @@
+========================================================================
+  Unimodal=text  Multimodal=late_avg  Backbone=heavy
+========================================================================
+
+  A — TEXT WRONG, LATE_AVG CORRECT
+  (210 samples total; showing up to 5, one per emotion)
+
+
+  [1] "Aww, me too. Now let's finish this and go to bed."
+      True label  : happiness
+      text  pred   : neutral  (conf 0.69)
+      late_avg pred: happiness  (conf 0.82)
+      Confidence — text:0.69  audio:0.91  face:0.85
+
+  [2] "Hey! Can you take a duck and a chick to the theatre?"
+      True label  : neutral
+      text  pred   : happiness  (conf 0.48)
+      late_avg pred: neutral  (conf 0.76)
+      Confidence — text:0.48  audio:0.97  face:0.42
+
+  [3] "You kissed my best Ross! ...Or something to that effect."
+      True label  : anger
+      text  pred   : happiness  (conf 0.64)
+      late_avg pred: anger  (conf 0.63)
+      Confidence — text:0.64  audio:0.86  face:0.41
+
+  [4] "Yeah?"
+      True label  : surprise
+      text  pred   : neutral  (conf 0.54)
+      late_avg pred: surprise  (conf 0.59)
+      Confidence — text:0.54  audio:0.87  face:0.44
+
+  [5] "Yeah, and it really freaked me out! And after a while I even tried to hurt you and it just spurred you on."
+      True label  : sadness
+      text  pred   : anger  (conf 0.66)
+      late_avg pred: sadness  (conf 0.56)
+      Confidence — text:0.66  audio:0.86  face:0.27
+
+
+  B — TEXT CORRECT, LATE_AVG WRONG
+  (164 samples total; showing the most confident mistake)
+
+
+  [1] "Okay. Okay, heres a good one of us."
+      True label  : happiness
+      text  pred   : happiness  (conf 0.72)
+      late_avg pred: neutral  (conf 0.73)
+      Confidence — text:0.72  audio:0.96  face:0.54

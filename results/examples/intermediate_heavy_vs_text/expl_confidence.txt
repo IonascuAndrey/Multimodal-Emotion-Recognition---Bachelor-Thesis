@@ -1,0 +1,48 @@
+========================================================================
+  Unimodal=text  Multimodal=intermediate  Backbone=heavy
+========================================================================
+
+  A — TEXT WRONG, INTERMEDIATE CORRECT
+  (153 samples total; showing up to 5, one per emotion)
+
+
+  [1] "Yeah?"
+      True label  : surprise
+      text  pred   : neutral  (conf 0.54)
+      intermediate pred: surprise  (conf 0.95)
+      Confidence — text:0.54  audio:0.87  face:0.44
+
+  [2] "Oh please, hell be with his real family, the twins and little miss new boobs."
+      True label  : sadness
+      text  pred   : disgust  (conf 0.56)
+      intermediate pred: sadness  (conf 0.94)
+      Confidence — text:0.56  audio:0.75  face:0.48
+
+  [3] "Its Clint!"
+      True label  : anger
+      text  pred   : happiness  (conf 0.75)
+      intermediate pred: anger  (conf 0.92)
+      Confidence — text:0.75  audio:0.69  face:0.77
+
+  [4] "Aww, me too. Now let's finish this and go to bed."
+      True label  : happiness
+      text  pred   : neutral  (conf 0.69)
+      intermediate pred: happiness  (conf 0.91)
+      Confidence — text:0.69  audio:0.91  face:0.85
+
+  [5] "Wheres my ring? My dead grandmothers wedding ring? Where is it? Where is it?"
+      True label  : fear
+      text  pred   : sadness  (conf 0.63)
+      intermediate pred: fear  (conf 0.74)
+      Confidence — text:0.63  audio:0.78  face:0.30
+
+
+  B — TEXT CORRECT, INTERMEDIATE WRONG
+  (145 samples total; showing the most confident mistake)
+
+
+  [1] "Yeah?"
+      True label  : neutral
+      text  pred   : neutral  (conf 0.54)
+      intermediate pred: surprise  (conf 0.94)
+      Confidence — text:0.54  audio:0.89  face:0.49

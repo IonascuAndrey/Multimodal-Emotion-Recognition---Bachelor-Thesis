@@ -206,9 +206,9 @@ marimo/_static/
 marimo/_lsp/
 __marimo__/
 
-Data/
-data/
-Models/
+/Data/
+/data/
+/Models/
 experiments/
 *.mp4
 *.csv

@@ -1,38 +1,34 @@
 \xpg@aux {}{romanian}
-\contentsline {chapter}{\numberline {1}Introducere}{ii}{chapter.1}%
-\contentsline {section}{\numberline {1.1}Context si evolutie istorica}{ii}{section.1.1}%
-\contentsline {section}{\numberline {1.2}Motivatie}{iii}{section.1.2}%
-\contentsline {section}{\numberline {1.3}Problema: Transparenta si eficienta}{iii}{section.1.3}%
-\contentsline {subsection}{\numberline {1.3.1}Problema "Cutiei negre"}{iii}{subsection.1.3.1}%
-\contentsline {subsection}{\numberline {1.3.2}Costul Energetic}{iii}{subsection.1.3.2}%
-\contentsline {section}{\numberline {1.4}Contributii si obiective}{iii}{section.1.4}%
-\contentsline {subsection}{\numberline {1.4.1}Integrarea multimodalitatii}{iii}{subsection.1.4.1}%
-\contentsline {subsection}{\numberline {1.4.2}Explicabilitatea rezultatelor}{iii}{subsection.1.4.2}%
-\contentsline {subsection}{\numberline {1.4.3}Compromisul dintre acuratete si eficienta energetica}{iv}{subsection.1.4.3}%
-\contentsline {chapter}{\numberline {2}Fundamentare teoretica si stadiul actual al cercetarii}{v}{chapter.2}%
-\contentsline {section}{\numberline {2.1}Recunoasterea automata a emotiilor (FER/SER/MER)}{v}{section.2.1}%
-\contentsline {section}{\numberline {2.2}Modalitati de intrare si procesarea semnalelor}{vi}{section.2.2}%
-\contentsline {subsection}{\numberline {2.2.1}Procesarea limbajului natural}{vi}{subsection.2.2.1}%
-\contentsline {subsection}{\numberline {2.2.2}Analiza prozodica}{vii}{subsection.2.2.2}%
-\contentsline {subsection}{\numberline {2.2.3}Analiza faciala}{vii}{subsection.2.2.3}%
-\contentsline {section}{\numberline {2.3}Arhitecturi de tip Deep Learning pentru date secventiale}{viii}{section.2.3}%
-\contentsline {section}{\numberline {2.4}Strategii de fuziune multimodala}{viii}{section.2.4}%
-\contentsline {section}{\numberline {2.5}Inteligenta artificiala explicabila (XAI)}{ix}{section.2.5}%
-\contentsline {section}{\numberline {2.6}Eficienta energetica si computationala in AI}{x}{section.2.6}%
-\contentsline {section}{\numberline {2.7}The MELD Dataset and the Current State of the Field}{x}{section.2.7}%
-\contentsline {chapter}{\numberline {3}Metodologie}{xii}{chapter.3}%
-\contentsline {section}{\numberline {3.1}Analiza setului de date MELD}{xii}{section.3.1}%
-\contentsline {section}{\numberline {3.2}Preprocesarea datelor}{xiii}{section.3.2}%
-\contentsline {section}{\numberline {3.3}Arhitecturi si modele propuse}{xiii}{section.3.3}%
-\contentsline {section}{\numberline {3.4}Integrarea componentelor de explicabilitate}{xiii}{section.3.4}%
-\contentsline {section}{\numberline {3.5}Strategia de masurare a eficientei}{xiii}{section.3.5}%
-\contentsline {chapter}{\numberline {4}Implementarea sistemelor}{xiv}{chapter.4}%
-\contentsline {section}{\numberline {4.1}Tehnologii utilizate}{xiv}{section.4.1}%
-\contentsline {section}{\numberline {4.2}Detalii de implementare}{xiv}{section.4.2}%
-\contentsline {section}{\numberline {4.3}Antrenarea modelelor}{xiv}{section.4.3}%
-\contentsline {chapter}{\numberline {5}Rezultate experimentale si evaluare}{xv}{chapter.5}%
-\contentsline {section}{\numberline {5.1}Performanta bruta}{xv}{section.5.1}%
-\contentsline {section}{\numberline {5.2}Analiza XAI}{xv}{section.5.2}%
-\contentsline {section}{\numberline {5.3}Analiza eficientei}{xv}{section.5.3}%
-\contentsline {section}{\numberline {5.4}Discutii}{xv}{section.5.4}%
-\contentsline {chapter}{\numberline {6}Concluzii si directii viitoare}{xvi}{chapter.6}%
+\contentsline {section}{\numberline {1}Introducere}{1}{section.1}%
+\contentsline {subsection}{\numberline {1.1}Context și motivație}{1}{subsection.1.1}%
+\contentsline {subsection}{\numberline {1.2}Problema: explicabilitate și eficiență}{1}{subsection.1.2}%
+\contentsline {subsubsection}{\numberline {1.2.1}Explicabilitatea rezultatelor}{1}{subsubsection.1.2.1}%
+\contentsline {subsubsection}{\numberline {1.2.2}Eficiența modelelor}{2}{subsubsection.1.2.2}%
+\contentsline {subsection}{\numberline {1.3}Contribuții și obiective}{2}{subsection.1.3}%
+\contentsline {subsubsection}{\numberline {1.3.1}Preprocesarea datelor}{2}{subsubsection.1.3.1}%
+\contentsline {subsubsection}{\numberline {1.3.2}Integrarea multimodalității}{2}{subsubsection.1.3.2}%
+\contentsline {subsubsection}{\numberline {1.3.3}Explicabilitatea rezultatelor}{3}{subsubsection.1.3.3}%
+\contentsline {subsubsection}{\numberline {1.3.4}Compromisul dintre acuratețe și eficiență energetică}{3}{subsubsection.1.3.4}%
+\contentsline {section}{\numberline {2}Setul de date și metodologia propusă}{4}{section.2}%
+\contentsline {subsection}{\numberline {2.1}Setul de date MELD}{4}{subsection.2.1}%
+\contentsline {subsection}{\numberline {2.2}Preprocesarea datelor}{5}{subsection.2.2}%
+\contentsline {subsection}{\numberline {2.3}Arhitecturile unimodale antrenate}{7}{subsection.2.3}%
+\contentsline {subsection}{\numberline {2.4}Strategiile de fuziune implementate}{7}{subsection.2.4}%
+\contentsline {subsection}{\numberline {2.5}Metodele de explicabilitate utilizate}{7}{subsection.2.5}%
+\contentsline {subsection}{\numberline {2.6}Măsurarea eficienței}{8}{subsection.2.6}%
+\contentsline {section}{\numberline {3}Implementare și configurare experimentală}{9}{section.3}%
+\contentsline {subsection}{\numberline {3.1}Tehnologii utilizate}{9}{subsection.3.1}%
+\contentsline {subsection}{\numberline {3.2}Structura implementării}{9}{subsection.3.2}%
+\contentsline {subsection}{\numberline {3.3}Antrenarea modelelor}{10}{subsection.3.3}%
+\contentsline {subsection}{\numberline {3.4}Metrici de evaluare}{11}{subsection.3.4}%
+\contentsline {section}{\numberline {4}Rezultate experimentale si evaluare}{12}{section.4}%
+\contentsline {subsection}{\numberline {4.1}Performanta generala}{12}{subsection.4.1}%
+\contentsline {subsection}{\numberline {4.2}Analiza matricelor de confuzie}{13}{subsection.4.2}%
+\contentsline {subsubsection}{\numberline {4.2.1}Modele unimodale complexe și eficiente}{14}{subsubsection.4.2.1}%
+\contentsline {subsubsection}{\numberline {4.2.2}Comparația dintre fuziunile complexe și eficiente}{14}{subsubsection.4.2.2}%
+\contentsline {subsection}{\numberline {4.3}Analiza XAI pe cazuri generale}{17}{subsection.4.3}%
+\contentsline {subsubsection}{\numberline {4.3.1}Text}{17}{subsubsection.4.3.1}%
+\contentsline {subsubsection}{\numberline {4.3.2}Audio}{17}{subsubsection.4.3.2}%
+\contentsline {subsubsection}{\numberline {4.3.3}Imagine}{17}{subsubsection.4.3.3}%
+\contentsline {subsection}{\numberline {4.4}Analiza eficientei}{18}{subsection.4.4}%
+\contentsline {section}{\numberline {5}Concluzii și direcții viitoare}{20}{section.5}%

@@ -2377,31 +2377,35 @@
     <bcf:citekey order="2" intorder="1">Trigeorgis2016adieu</bcf:citekey>
     <bcf:citekey order="3" intorder="1">baevski2020wav2vec</bcf:citekey>
     <bcf:citekey order="4" intorder="1">shan2009facial</bcf:citekey>
-    <bcf:citekey order="5" intorder="1">lideng2020deep</bcf:citekey>
+    <bcf:citekey order="5" intorder="1">lideng2018deep</bcf:citekey>
     <bcf:citekey order="6" intorder="1">tan2019efficientnet</bcf:citekey>
     <bcf:citekey order="7" intorder="1">mohammad2013crowdsourcing</bcf:citekey>
     <bcf:citekey order="8" intorder="1">devlin2018bert</bcf:citekey>
     <bcf:citekey order="9" intorder="1">demszky-etal-2020-goemotions</bcf:citekey>
     <bcf:citekey order="10" intorder="1">Koelstra2012DEAP</bcf:citekey>
     <bcf:citekey order="11" intorder="1">Song2020EEGER</bcf:citekey>
-    <bcf:citekey order="12" intorder="1">picard1997affective</bcf:citekey>
-    <bcf:citekey order="13" intorder="1">ekman1992argument</bcf:citekey>
-    <bcf:citekey order="14" intorder="1">russell1980circumplex</bcf:citekey>
-    <bcf:citekey order="15" intorder="1">baltrusaitis2018multimodal</bcf:citekey>
-    <bcf:citekey order="16" intorder="1">poria2019meld</bcf:citekey>
-    <bcf:citekey order="17" intorder="1">vaswani2017attention</bcf:citekey>
-    <bcf:citekey order="18" intorder="1">schuller2018speech</bcf:citekey>
-    <bcf:citekey order="19" intorder="1">ABAriettaXAI2019</bcf:citekey>
-    <bcf:citekey order="20" intorder="1">lundberg2017unified</bcf:citekey>
-    <bcf:citekey order="21" intorder="1">SundarajanIG2017</bcf:citekey>
-    <bcf:citekey order="22" intorder="1">vaswani2017attention</bcf:citekey>
-    <bcf:citekey order="23" intorder="1">jain2019attention</bcf:citekey>
-    <bcf:citekey order="24" intorder="1">schwartz2019green</bcf:citekey>
-    <bcf:citekey order="24" intorder="2">preprints2026greenai</bcf:citekey>
-    <bcf:citekey order="25" intorder="1">pmc12567929</bcf:citekey>
-    <bcf:citekey order="26" intorder="1">arxiv250208573</bcf:citekey>
-    <bcf:citekey order="27" intorder="1">busso2008iemocap</bcf:citekey>
-    <bcf:citekey order="28" intorder="1">poria2019meld</bcf:citekey>
+    <bcf:citekey order="12" intorder="1">guidotti2018survey</bcf:citekey>
+    <bcf:citekey order="12" intorder="2">adadi2018peeking</bcf:citekey>
+    <bcf:citekey order="13" intorder="1">ribeiro2016trust</bcf:citekey>
+    <bcf:citekey order="14" intorder="1">adadi2018peeking</bcf:citekey>
+    <bcf:citekey order="15" intorder="1">strubell-etal-2019-energy</bcf:citekey>
+    <bcf:citekey order="16" intorder="1">chen2019deep</bcf:citekey>
+    <bcf:citekey order="17" intorder="1">sundararajan2017axiomatic</bcf:citekey>
+    <bcf:citekey order="18" intorder="1">ivanovs2021perturbation</bcf:citekey>
+    <bcf:citekey order="19" intorder="1">selvaraju2017gradcam</bcf:citekey>
+    <bcf:citekey order="20" intorder="1">busso2008iemocap</bcf:citekey>
+    <bcf:citekey order="21" intorder="1">poria2019meld</bcf:citekey>
+    <bcf:citekey order="22" intorder="1">zhang2016mtcnn</bcf:citekey>
+    <bcf:citekey order="23" intorder="1">zhang2016mtcnn</bcf:citekey>
+    <bcf:citekey order="24" intorder="1">tan2019efficientnet</bcf:citekey>
+    <bcf:citekey order="24" intorder="2">savchenko2022hsemotion</bcf:citekey>
+    <bcf:citekey order="25" intorder="1">dhall2012collecting</bcf:citekey>
+    <bcf:citekey order="25" intorder="2">savchenko2022hsemotion</bcf:citekey>
+    <bcf:citekey order="26" intorder="1">paszke2019pytorch</bcf:citekey>
+    <bcf:citekey order="27" intorder="1">wolf-etal-2020-transformers</bcf:citekey>
+    <bcf:citekey order="28" intorder="1">kokhlikyan2020captum</bcf:citekey>
+    <bcf:citekey order="29" intorder="1">schutzwohl2012surprise</bcf:citekey>
+    <bcf:citekey order="29" intorder="2">skog2023mona</bcf:citekey>
   </bcf:section>
   <!-- SORTING TEMPLATES -->
   <bcf:sortingtemplate name="none">

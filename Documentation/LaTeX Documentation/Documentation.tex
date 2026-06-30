@@ -10,7 +10,7 @@
 % Acest sablon este licentiat sub Creative Commons Attribution 4.0 International License.
 % modificat 8 noiembrie 2024
 % !TEX program = xelatex
-\documentclass[12pt, a4paper]{report}
+\documentclass[12pt, a4paper]{article}
 
 % Suport pentru diacritice și alte simboluri
 \usepackage{fontspec}
@@ -66,16 +66,16 @@
 
 % Setează spațiere inter-linie (doublespacing din LaTeX este echivalentul setarii 1.5 in Microsoft Word)
 \usepackage{setspace}
-\doublespacing
+\onehalfspacing
 
 % Modificarea geometriei paginii (cu margini de 2,5 cm) 
 \usepackage{geometry}
 \geometry{
     a4paper,
-    left=20mm,
-    top=20mm,
-    right=20mm,
-    bottom=20mm
+    left=25mm,
+    top=25mm,
+    right=25mm,
+    bottom=25mm
 }
 
 % Include funcțiile de grafică
@@ -94,6 +94,7 @@
     citecolor={black},
     urlcolor={blue}
 ]{hyperref}
+\usepackage{multirow}
 
 % Simboluri matematice codificate Unicode
 
@@ -123,9 +124,26 @@
 % Stiluri diferite de headere și footere
 \usepackage{fancyhdr}
 
+\usepackage{titlesec}
+
+\titleformat{\chapter}[hang]
+  {\normalfont\huge\bfseries}
+  {\thechapter.}
+  {1em}
+  {}
+
+\usepackage{etoolbox}
+
+\makeatletter
+\patchcmd{\chapter}
+  {\if@openright\cleardoublepage\else\clearpage\fi}
+  {}
+  {}
+  {}
+\makeatother
 % Metadate
-\title{Recunoasterea emotiilor printr-o abordare multimodala}
-\author{Ionascu Andrei}
+\title{Recunoașterea emoțiilor printr-o abordare multimodală}
+\author{Ionașcu Andrei}
 
 % Generează variabilele cu @
 \makeatletter
@@ -181,7 +199,7 @@
 Conf. Univ. Dr. Alexe Dumitru-Bogdan
 \end{flushleft}
 
-\vspace{-3.1cm} % Ajustare poziție text dreapta
+\vspace{-2.5cm} % Ajustare poziție text dreapta
 
 \begin{flushright}
 \large \textbf{Absolvent:} \\
@@ -199,120 +217,81 @@ Conf. Univ. Dr. Alexe Dumitru-Bogdan
 
 \restoregeometry % Revine la marginile normale
 \newpage
-\pagenumbering{roman} % Numerotare cu cifre romane pentru început
+\pagenumbering{arabic} % Numerotare cu cifre romane pentru început
 
-\chapter*{Abstract}
-Pe masura ce inteligenta artificiala devine o componenta din ce in ce mai indispensabila in aplicatiile pe care oamenii le folosesc in fiecare zi, nevoia de sisteme care nu sunt doar precise, dar si eficiente din punct de vedere energetic si transparente cand vine vorba de deciziile pe care le iau a crescut considerabil. Aceasta lucrare exporeaza problema identificarii emotiilor umane printr-o abordare multimodala, analizand replici text, prozodie verbala si trasaturi faciale din setul de date MELD (Multimodal EmotionLines Dataset). Cercetarea exploreaza performantele obtinute de solutiile care integreaza un singur format de intrare, comparand ulterior imbunatatirile obtinute prin diverse metode de fuziune ale diferitelor surse de informatii.
-Spre deosebire de abordarile traditionale care prioritizeaza performanta, aceasta teza pune accentul pe compromisul dintre acuratete si eficienta energetica si de timp, in timp ce transparentizeaza modul in care diferitele modele iau decizii, prin metode de XAI (Explainable AI)
+\section*{Rezumat}
+Această lucrare investighează recunoașterea emoțiilor printr-o abordare multimodală în scenarii conversaționale, punând accentul pe explicabilitate în interpretarea rezultatelor. Scopul este de a înțelege cum performează modelele unimodale bazate pe text, audio și imagine și cum pot fi acestea fuzionate pentru a îmbunătăți performanța. De asemenea, se compară performanța a două tipuri de modele pentru fiecare modalitate, unul complex și unul eficient, pentru a determina în ce măsură alternativele cu dimensiuni reduse se pot apropia de variantele complexe. Experimentele sunt realizate pe setul de date MELD, ce conține cadre extrase din serialul \textit{Friends}, etichetate cu 7 categorii de emoții: anger (furie), disgust (dezgust), fear (frică), happiness (fericire), neutral (neutru), sadness (tristețe) și surprise (surpriză). Datele de tip text și audio sunt în limba engleză.
+
+Au fost antrenate șase arhitecturi unimodale pe setul de date MELD: BERT-base și DistilBERT pentru text, ViT-B/16 și MobileNetV3-Small pentru imagine, respectiv wav2vec2-base și DistilHuBERT pentru audio. Au fost folosite trei moduri de fuziune: fuziune târzie, cu medie aritmetică și ponderată, fuziune intermediară bazată pe MLP și fuziune bazată pe porți, fiecare fiind aplicat atât pe cele trei modele complexe, cât și pe cele trei modele eficiente.
+
+Arhitectura cea mai performantă a fost cea care folosea fuziunea târzie cu medie ponderată între modelele complexe, obținând un scor macro-F1 de 45.97\%, urmată îndeaproape de fuziunea intermediară bazată pe MLP, cu un scor macro-F1 de 45.33\%. Dintre modelele unimodale, cele pe text au avut cele mai bune rezultate, cu DistilBERT foarte aproape de BERT, reducând în același timp resursele necesare: 44.28\% față de 41.23\%. Metrica principală folosită pentru evaluarea modelelor a fost macro-F1, pentru a încuraja modelele să învețe reprezentări și pentru clasele cu foarte puține date, precum disgust și fear.
+
+Partea de explicabilitate a fost implementată folosind diverse metode, printre care Integrated Gradients ca punct comun între modalități, urmând ca fiecare să aibă și o metodă particulară tipului de date. Eficiența a fost evidențiată folosind consumul de energie la antrenare și timpul de inferență per eșantion.
 
 \newpage
+
+% --- CUPRINS ---
+\newpage
+\tableofcontents
+\newpage
+\pagenumbering{arabic} % Revenire la cifre arabe pentru capitole
 
 % --- INTRODUCERE ---
 
-\chapter{Introducere}
+\section{Introducere}
 
-\section{Context si evolutie istorica}
-Recunoasterea emotiilor a evoluat de-a lungul timpului, plecand de la fluxuri conventionale, bazate pe caracteristici extrase manual pentru fiecare modalitate in parte, catre arhitecturi de tip deep learning, adesea pre-antrenate, capabile sa modeleze contextul, structura temporala si interactiunile cross-modale, dupa cum detaliaza \cite{PORIA201798}. Pe partea de audio si vorbire, domeniul a migrat de la descriptori clasici si clasificatori simpli catre modelele CNN-LSTM aplicate semnalului brut (raw waveform) \cite{Trigeorgis2016adieu} si, ulterior, catre codificatori de vorbire self-supervised, precum wave2vec 2.0 \cite{baevski2020wav2vec}. In vederea artificiala, traiectoria porneste de la descriptori de textura, precum Local Binary Patterns\cite{shan2009facial}, si ajunge la retele convolutionale, retele bazate pe mecanisme de atentie\cite{lideng2020deep} si modele FER optimizate pentru dispozitive de tip embedded\cite{tan2019efficientnet}. Procesarea limbajului natural cu scopul recunoasterii emotiilor a evoluat de la sisteme bazate pe lexicon si seturi de date restranse\cite{mohammad2013crowdsourcing}, la preantrenarea slab supravegheata si fine-tuning a modelelor de tip Transformer \cite{devlin2018bert} pe corpuri masive de date, cum este GoEmotions\cite{demszky-etal-2020-goemotions}. Pe langa modalitatile clasice, studiile recente exploreaza ramura de informatica fiziologica, unde lucrarile fundamentale s-au concentrat pe semnale EEG (Electroencefalograma) si periferice, utilizand seturi de date de referinta precum DEAP\cite{Koelstra2012DEAP}, progresand recent catre modele grafice care analizeaza topologia semnalelor cerebrale\cite{Song2020EEGER}. 
+\subsection{Context și motivație}
 
-\section{Motivatie}
-Motivatia acestei cercetari vine din faptul ca, odata cu integrarea functionalitatilor bazate pe inteligenta artificiala in tot mai multe produse software folosite in mod uzual de o tot mai mare parte din oameni, apare si nevoia de sisteme nu doar precise, dar si eficiente si de incredere.
+Recunoașterea emoțiilor a evoluat de-a lungul timpului, plecând de la fluxuri convenționale, bazate pe caracteristici extrase manual pentru fiecare modalitate în parte, către arhitecturi de tip deep learning, adesea pre-antrenate, capabile să modeleze contextul, structura temporală și interacțiunile cross-modale, după cum detaliază \cite{PORIA201798}. Pe partea de audio și vorbire, domeniul a migrat de la descriptori clasici și clasificatori simpli către modelele CNN-LSTM aplicate semnalului brut (raw waveform) \cite{Trigeorgis2016adieu} și, ulterior, către codificatori de vorbire self-supervised, precum wave2vec 2.0 \cite{baevski2020wav2vec}. În vederea artificială (computer vision), traiectoria pornește de la descriptori de textură, precum Local Binary Patterns \cite{shan2009facial}, și ajunge la rețele convoluționale, rețele bazate pe mecanisme de atenție \cite{lideng2018deep} și modele FER optimizate pentru dispozitive de tip embedded \cite{tan2019efficientnet}. Procesarea limbajului natural cu scopul recunoașterii emoțiilor a evoluat de la sisteme bazate pe lexicon și seturi de date restrânse \cite{mohammad2013crowdsourcing}, la preantrenarea slab supervizată și fine-tuning a modelelor de tip Transformer \cite{devlin2018bert} pe corpuri masive de date, cum este GoEmotions \cite{demszky-etal-2020-goemotions}. Pe lângă modalitățile clasice, studiile recente explorează ramura de informatică fiziologică, unde lucrările fundamentale s-au concentrat pe semnale EEG (Electroencefalogramă) și periferice, utilizând seturi de date de referință precum DEAP \cite{Koelstra2012DEAP}, progresând recent către modele grafice care analizează topologia semnalelor cerebrale \cite{Song2020EEGER}.
 
-\section{Problema: Transparenta si eficienta}
+Motivația acestei cercetări vine de la interesul tot mai mare pentru dezvoltarea sistemelor capabile să înțeleagă emoții în contexte conversaționale reale. Deși modelele moderne de inteligență artificială obțin performanțe ridicate în recunoașterea emoțiilor, rezultatele acestora sunt dificil de interpretat și necesită resurse computaționale semnificative. În plus, utilizarea unei singure modalități de intrare, precum text sau video, este de multe ori insuficientă pentru surprinderea completă a stării emoționale.
 
-\subsection{Problema "Cutiei negre"}
-Vasta majoritate a publicatiilor stiintifice din domeniul recunoasterii emotiilor au ca singur scop obtinerea unei precizii cat mai mari. Totusi, complexitatea necesara maximizarii acuratetii duce adesea la modele de tip "black-box", al caror proces de gandire este prea complicat pentru a fi inteles chiar de catre oameni de stiinta, cu atat mai putin de catre utilizatorul obisnuit. Acest lucru duce la o lipsa de incredere in progresul tehnologic si la o reticenta in folosirea noilor produse.
+Prin urmare, această lucrare își propune să analizeze performanța modelelor de diferite dimensiuni în același context, evidențiind compromisul dintre acuratețe și eficiență energetică și de timp. De asemenea, se evidențiază și îmbunătățirea pe care o aduce fuziunea modalităților, urmărind în paralel și vizualizarea într-un mod cât mai explicit a rezultatelor obținute de arhitecturi.
 
-\subsection{Costul Energetic}
-Complexitatea modelelor State-Of-The-Art presupune, in majoritatea cazurilor, si un cost energetic proportional. Dincolo de amprenta ecologica, nevoia masiva de resurse computationale face imposibila executia acestor modele inafara unor centre de date specializate, fapt ce limiteaza drastic portabilitatea si ridica provocari privind confidentialitatea datelor. In plus, dezvoltarea acestor solutii implica bariere financiare semnificative, cauzate nu doar de infrastructura necesara procesarii, dar si de costurile logistice aferente stocarii si gestionarii unor seturi de date voluminoase.
 
-\section{Contributii si obiective}
+\subsection{Problema: explicabilitate și eficiență}
 
-\subsection{Integrarea multimodalitatii}
-TO BE CONTINUED ONCE FULLY IMPLEMENTED
+\subsubsection{Explicabilitatea rezultatelor}
+Vasta majoritate a publicațiilor științifice din domeniul recunoașterii emoțiilor au ca scop obținerea unei precizii cât mai mari. Totuși, complexitatea necesară maximizării acurateții duce adesea la modele de tip \textit{black-box}, al căror mecanism intern de decizie este prea complicat pentru a fi înțeles chiar de către oameni de știință \cite{guidotti2018survey,adadi2018peeking}, cu atât mai puțin de către utilizatorul obișnuit. Înțelegerea procesului de \textit{reasoning} este esențială pentru evaluarea încrederii într-un sistem și pentru decizia de a-l utiliza sau implementa în practică \cite{ribeiro2016trust}. Prin urmare, opacitatea modelelor poate contribui la scăderea încrederii în progresul tehnologic și la reticența față de adoptarea unor produse bazate pe inteligență artificială \cite{adadi2018peeking}.
 
-\subsection{Explicabilitatea rezultatelor}
-TO BE CONTINUED ONCE FULLY IMPLEMENTED
+În această lucrare, explicabilitatea nu este tratată separat de evaluarea performanței, ci este integrată în interpretarea rezultatelor obținute de modelele unimodale și multimodale. Scopul este de a înțelege nu doar care arhitectură obține cele mai bune scoruri, ci și ce informații par să fie folosite de fiecare modalitate în procesul de decizie. Astfel, metodele de explicabilitate sunt utilizate pentru a analiza punctele forte și limitele modelelor bazate pe text, audio și imagine, precum și efectul strategiilor de fuziune asupra interpretării finale.
 
-\subsection{Compromisul dintre acuratete si eficienta energetica}
-TO BE CONTINUED ONCE FULLY IMPLEMENTED
-\newpage
+\subsubsection{Eficiența modelelor}
+Complexitatea modelelor State-of-the-Art presupune, în majoritatea cazurilor, un cost computațional ridicat \cite{strubell-etal-2019-energy}. Dincolo de performanța brută, timpul de inferență devine un criteriu important atunci când modelele sunt utilizate în scenarii practice, mai ales pe dispozitive cu resurse limitate. În astfel de contexte, cum sunt dispozitivele de tip edge, un model mai rapid și mai compact poate fi preferabil unei arhitecturi mai complexe, chiar dacă diferența de performanță este redusă.
 
-\chapter{Fundamentare teoretica si stadiul actual al cercetarii}
+Prin urmare, această lucrare analizează și compromisul dintre acuratețe și eficiență, urmărind în ce măsură modelele cu dimensiuni reduse se pot apropia de performanța variantelor complexe. Această perspectivă este relevantă pentru evaluarea portabilității modelelor și pentru utilizarea lor în aplicații unde timpul rapid de inferență este important \cite{chen2019deep}. În plus, eficiența este discutată împreună cu rezultatele experimentale, pentru a evidenția dacă îmbunătățirile obținute prin fuziune justifică resursele suplimentare necesare.
 
-\section{Recunoasterea automata a emotiilor (FER/SER/MER)}
-Recunoașterea automată a emoțiilor reprezintă un subdomeniu al învățării automate afective care urmărește clasificarea sau estimarea stărilor emoționale pe baza unor semnale observabile. Scopul principal al acestui efort este de a crea sisteme si aplicatii care nu doar rezolva o problema, dar o fac interactionand cu utilizatorii tinand cont de anumite indicii nonverbale si paraverbale care in interactiunile pur umane sunt interpretate implicit. Potrivit lui Rosalind Picard, daca dorim calculatoare cu adevarat inteligente, capabile de interactiuni naturale, trebuie sa le oferim abilitatea de a recunoaste, intelege, poate chiar de a exprima emotii. \cite{picard1997affective}
 
-În literatura de specialitate, emoțiile pot fi reprezentate fie prin categorii discrete, precum bucurie, tristețe, furie, frică, dezgust, surpriză sau neutralitate\cite{ekman1992argument}, fie prin modele dimensionale, în care starea afectivă este descrisă prin axe continue, precum valența și nivelul de activare\cite{russell1980circumplex}. În contextul acestei lucrări, problema este tratată ca o sarcină de clasificare multi-clasă, în care fiecare eșantion este asociat cu o etichetă emoțională discretă.
+\subsection{Contribuții și obiective}
 
-Recunoașterea emoțiilor poate fi formulată ca o problemă de clasificare supravegheată sau învățare de reprezentări, abordată fie unimodal, fie multimodal. În setările unimodale, informația emoțională este extrasă dintr-o singură sursă: text (analiză semantică și contextuală cu modele de tip Transformer), imagini faciale (FER), unde se utilizează rețele convoluționale sau arhitecturi bazate pe atenție pentru a învăța reprezentări spațiale robuste la variații de iluminare, poziție și ocluzii, sau semnal audio (SER), unde caracteristicile acustice (prosodie, energie, coeficienți cepstrali, spectrograme) sunt modelate prin CNN-uri, RNN-uri sau encodere self-supervised. Abordările tradiționale bazate pe feature engineering au fost în mare parte înlocuite de modele end-to-end care optimizează direct reprezentările latente. În contrast, recunoașterea multimodală (MER) integrează aceste surse eterogene prin strategii de fuziune (early, late sau hybrid fusion), capturând corelațiile inter-modale și reducând ambiguitatea semantică \cite{baltrusaitis2018multimodal}, aspect critic în contexte conversaționale complexe precum MELD\cite{poria2019meld}, unde emoția depinde de dinamica sincronizată dintre text, semnal acustic și expresii faciale.
+\subsubsection{Preprocesarea datelor}
+La nivel de text și sunet, preprocesarea datelor a fost minimală, rezumându-se doar la schimbări destinate uniformizării și compatibilității cu modelele antrenate. În schimb, în cazul imaginilor, datorită faptului că MELD vine cu secvențe video, a fost necesar un flux de procesare pentru extragerea cadrelor, decuparea fețelor și alegerea celor mai apropiate de emoția etichetată, pentru a obține un set de date de FER cât mai curat. Fiecare cadru este asociat cu înregistrarea și textul dialogului din care a fost extras.
 
-\section{Modalitati de intrare si procesarea semnalelor}
-În recunoașterea automată a emoțiilor, alegerea modalităților de intrare (text, audio, vizual) determină tipul de informație disponibil: textul captează conținutul semantic, audio-ul reflectă prosodia și modul de rostire, iar imaginile faciale surprind expresivitatea. Aceste modalități au structuri diferite (discretă secvențială, continuă temporală, respectiv spațială/spațio-temporală), necesitând metode distincte de preprocesare și transformare în reprezentări numerice. În sistemele multimodale, este esențială alinierea între modalități la nivel de instanță (ex. aceeași replică), pentru a permite fuziunea corectă a informației și a evita introducerea de zgomot. În această lucrare, textul, audio-ul și datele faciale sunt procesate inițial separat, pentru a evalua contribuția fiecărei modalități înainte de integrarea multimodală.
+\subsubsection{Integrarea multimodalității}
+Au fost implementate trei tehnici de fuziune a modalităților: fuziune târzie, fuziune intermediară și fuziune bazată pe porți. Fuziunea târzie combină probabilitățile softmax prin două metode, o medie aritmetică și o medie ponderată optimizată pe datele de validare, fără a fi necesară o reantrenare. Fuziunea intermediară extrage penultimele reprezentări vectoriale din rețelele preantrenate și antrenează un perceptron multistrat ușor (MLP), de proiecție (334-367K parametri). Fuziunea bazată pe porți este similară cu fuziunea târzie, doar că ponderile se calculează pentru fiecare eșantion.
 
-\subsection{Procesarea limbajului natural}
-Procesarea limbajului natural transformă replicile textuale în reprezentări numerice utilizabile de modele de învățare automată. În recunoașterea emoțiilor, textul oferă informație semantică relevantă, deoarece anumite expresii pot semnala direct stări afective. Totuși, interpretarea emoției nu este întotdeauna trivială, deoarece sensul depinde de context (ex. ironie sau ambiguitate), motiv pentru care metodele moderne modelează relațiile dintre tokeni, nu doar prezența unor cuvinte-cheie.
+\subsubsection{Explicabilitatea rezultatelor}
+Pentru a transparentiza modelele, au fost folosite diverse metode de explicare și vizualizare, specifice fiecărei modalități. Ca punct comun, este folosit algoritmul Integrated Gradients \cite{sundararajan2017axiomatic} pe toate cele trei modalități, fiecare având adițional câte o metodă de explicabilitate specifică: ocluzia tokenilor pentru text, ocluzia temporală pentru audio \cite{ivanovs2021perturbation} și Grad-CAM \cite{selvaraju2017gradcam} pentru imagini. În funcție de model, metodele mai ușor de vizualizat au fost alese pentru a fi incluse în lucrare.
 
-Preprocesarea textuală include pași standard precum curățarea, normalizarea și tokenizarea, urmați de transformarea în vectori numerici. Metodele clasice (bag-of-words, TF-IDF, Word2Vec, GloVe) sunt simple, dar limitate contextual. În schimb, modelele bazate pe Transformer generează embeddings contextuale, unde reprezentarea unui cuvânt depinde de întreaga secvență, permițând captarea unor nuanțe semantice mai fine.\cite{vaswani2017attention}
-
-În cadrul sistemelor multimodale, textul este o modalitate eficientă și compactă, dar incompletă, deoarece nu surprinde indicii non-verbale precum tonul sau expresivitatea facială. Prin urmare, performanța sa trebuie evaluată în raport cu modalitățile audio și vizuale.
-
-\subsection{Analiza prozodica}
-Analiza prozodică extrage informații emoționale din proprietățile acustice ale vorbirii, spre deosebire de NLP care se bazează pe conținutul semantic. Caracteristici precum frecvența fundamentală, energia, intensitatea, ritmul sau intonația pot semnala stări afective chiar și în absența unor indicii explicite în text. Procesarea audio implică segmentarea semnalului, normalizarea și împărțirea în ferestre temporale, urmate de extragerea unor reprezentări precum MFCC sau spectrograme Mel. MFCC-urile oferă o descriere compactă a spectrului, în timp ce spectrogramele păstrează structura timp-frecvență, fiind potrivite pentru modele neuronale.\cite{schuller2018speech}
-
-O limitare majoră este variabilitatea ridicată a semnalului (diferențe între vorbitori, zgomot, condiții de înregistrare), ceea ce face ca indicii acustici să fie mai puțin stabili. Prin urmare, informația prozodică este utilă, dar trebuie tratată ca o sursă complementară în recunoașterea emoțiilor.
-
-\subsection{Analiza faciala}
-Analiza facială utilizează informația vizuală din regiunea feței pentru identificarea expresiilor asociate stărilor emoționale, fiind o componentă importantă a recunoașterii emoțiilor non-verbale. Mișcările musculare din zona ochilor, sprâncenelor și gurii oferă indicii relevante despre starea afectivă, iar problema este tratată, în mod obișnuit, ca o sarcină de analiză de imagini sau secvențe video.
-
-Pipeline-ul începe cu extragerea cadrelor din videoclip, urmată de eșantionare pentru a reduce costul computațional. Se aplică apoi detecția feței, decuparea și normalizarea imaginilor, astfel încât modelul să se concentreze pe regiunea relevantă. În metodele clasice, expresiile erau descrise prin caracteristici extrase manual (LBP, muchii, landmarks), însă acestea sunt limitate în captarea variațiilor complexe. Modelele moderne bazate pe CNN învață automat reprezentări ierarhice și sunt mai robuste la variații de iluminare, poziție sau ocluzii.
-
-În cazul datelor video, o singură imagine nu este întotdeauna suficientă, deoarece expresiile sunt dinamice. Deși modelarea secvențelor complete este costisitoare, o soluție practică constă în selectarea mai multor cadre relevante și agregarea informației la nivel de caracteristici sau predicții.
-
-Totuși, această modalitate rămâne sensibilă la factori precum calitatea imaginii, poziția capului sau expresiile controlate voluntar. Din acest motiv, analiza facială este, în general, utilizată împreună cu alte modalități (text și audio), contribuind cu indicii vizuale complementare în cadrul sistemelor multimodale.
-
-\section{Arhitecturi de tip Deep Learning pentru date secventiale}
-Având în vedere că toate cele trei modalități analizate conțin o componentă secvențială — textul ca secvență de tokeni, audio-ul ca semnal temporal, iar videoclipul ca succesiune de cadre — alegerea arhitecturii de modelare devine esențială. Următorul subcapitol prezintă principalele arhitecturi de tip deep learning utilizate pentru procesarea datelor secvențiale și relevanța acestora în contextul recunoașterii emoțiilor.
-
-\section{Strategii de fuziune multimodala}
-Datele utilizate în recunoașterea emoțiilor sunt în mod natural secvențiale, ceea ce impune utilizarea unor modele capabile să captureze atât caracteristici locale, cât și dependențe temporale. Textul depinde de ordinea tokenilor, audio-ul de variațiile în timp ale semnalului, iar expresiile faciale pot evolua între cadre video. Din acest motiv, arhitecturile de deep learning sunt alese în funcție de capacitatea lor de a modela aceste dependențe.
-
-Rețelele neuronale recurente (RNN), inclusiv variantele LSTM și GRU, procesează secvențele pas cu pas și mențin o stare internă care permite captarea contextului. LSTM-urile și GRU-urile rezolvă parțial problema dependențelor pe termen lung prin mecanisme de tip „gating”, fiind utilizate frecvent pentru text, audio sau secvențe video. Totuși, ele sunt mai greu de paralelizat și au costuri de antrenare mai ridicate.
-
-Rețelele convoluționale (CNN) pot fi aplicate și pe date secvențiale, extrăgând tipare locale (ex. n-grame în text sau structuri timp-frecvență în audio). Avantajul lor este eficiența computațională și paralelizarea, dar modelarea dependențelor pe termen lung este limitată fără mecanisme suplimentare.
-
-Arhitecturile bazate pe atenție, în special Transformer-ele, permit modelarea directă a relațiilor globale prin mecanisme de self-attention. Acestea sunt dominante în NLP (ex. BERT) și din ce în ce mai utilizate în audio și vizual, inclusiv în combinație cu preantrenare self-supervised (ex. wav2vec 2.0). Ele oferă reprezentări contextuale puternice, dar vin cu costuri computaționale ridicate.
-
-În sisteme multimodale, alegerea arhitecturii trebuie să echilibreze performanța, costul și interpretabilitatea. O abordare modulară, în care fiecare modalitate este procesată separat (cu modele adaptate tipului de date) înainte de fuziune, permite o analiză mai clară a contribuției fiecărei surse și o integrare mai controlată.
-
-\section{Inteligenta artificiala explicabila (XAI)}
-Pe măsură ce complexitatea modelelor de învățare automată a crescut, procesul intern prin care acestea ajung la o predicție a devenit proporțional mai dificil de interpretat. În acest context, modelele avansate de deep learning sunt adesea descrise drept sisteme de tip \textit{black box}, deoarece utilizatorul poate observa intrările și ieșirile, dar nu poate înțelege direct mecanismul decizional intern. Ca răspuns la această problemă, literatura de specialitate introduce noțiunea de \textit{eXplainable Artificial Intelligence} (XAI), care desemnează un ansamblu de tehnici menite să ofere oamenilor capacitatea de a înțelege, evalua și lucra mai eficient cu sistemele inteligente \cite{ABAriettaXAI2019}.
-
-În cazul recunoașterii emoțiilor, anumite metode XAI pot fi aplicate transversal, indiferent de modalitate. Printre acestea se numără SHAP, care folosește concepte din teoria jocurilor pentru a estima contribuția fiecărei caracteristici la o predicție locală \cite{lundberg2017unified}, precum și metodele bazate pe gradient, precum \textit{Gradient Saliency} și \textit{Integrated Gradients}. Integrated Gradients sunt deosebit de relevante pentru modelele deep learning diferențiabile, deoarece oferă o metodă de atribuire fundamentată pe două axiome: \textit{Sensitivity} și \textit{Implementation Invariance} \cite{SundarajanIG2017}. De asemenea, analiza prin ocluzie poate fi folosită în mai multe modalități, prin eliminarea sau mascarea unor părți ale intrării și observarea modificării predicției.
-
-La nivel textual, o metodă frecvent utilizată este vizualizarea ponderilor de atenție (\textit{self-attention weights}), mai ales în modelele de tip Transformer \cite{vaswani2017attention}. Totuși, această abordare trebuie tratată cu prudență, deoarece ponderile de atenție nu reflectă neapărat importanța reală a cuvintelor în decizia finală, ci pot reprezenta corelații instabile față de măsurători bazate pe gradient \cite{jain2019attention}. Pentru text, metode precum SHAP sau Integrated Gradients sunt mai potrivite atunci când se dorește o atribuire explicită a importanței la nivel de token.
-
-Pentru modalitatea audio, metodele XAI trebuie adaptate la natura continuă a semnalului vocal. SHAP poate fi aplicat în acest caz, însă implementarea este mai dificilă, deoarece caracteristicile trebuie definite sub forma unor segmente temporale, benzi de frecvență, embedding-uri sau stări ascunse ale modelului.
-
-Pentru analiza facială in mod particular se poate folosi Grad-CAM, o metoda ce foloseste gradientul clasei prezise fata de activarile din ultimul strat convolutional pentru a genera o harta de caldura care evidentiaza regiunile importante din imagine.
-
-\section{Eficienta energetica si computationala in AI}
-Aparitia ideii de AI eficient, sau (\textit{Green AI}) reprezinta o schimbare de paradigma de la prioritizarea acuratetii la gasirea compromisului ideal intre precizie si eficienta energetica si de timp, avand ca scop mentinerea progresului tehnologic, in acelasi timp aliniindu-ne cu obiectivele climatice globale\cite{schwartz2019green, preprints2026greenai}. Sistemele de recunoasterea a emotiilor sunt in general consumatoare de resurse, atat din punct de vedere computational, dar si de stocare a datelor, motiv pentru care este foarte importanta reducerea consumului de energie. Printre progresele recente in acest domeniu se numara distilarea cunostintelor pe fiecare modalitate \cite{pmc12567929} si comprimarea secventelor vizuale \cite{arxiv250208573} pentru a mentine o performanta competitiva minimizand costurile.
-
-\section{The MELD Dataset and the Current State of the Field}
-
-Dezvoltarea recunoasterii emotiilor este foarte dependenta de seturile de date disponibile. In conditiile in care emotiile sunt un aspect complex al oamenilor, iar transmiterea lor se realizeaza pe cai multiple, seturile de date trebuie sa reflecte acest lucru. Urmand tiparul algoritmilor, seturile de date destinate recunoasterii emotiilor au pornit de la cele unimodale la cele multimodale
-
-Un exemplu des intalnit este IMEOCAP. Contine aproximativ 12 ore de date audiovizuale, incluzand inregistrari audio, capturi video si transcript, colectate intr-un mediu controlat, din interactiuni intre actori \cite{busso2008iemocap}. Desi foarte util, acest set de date esueaza in a reflecta lipsa de predictibilitate si de structura a interactiunilor reale, ducand la rezultate artificial mai mari prin natura "de laborator" a interactiunilor.
-
-In acest context, MELD reprezinta alternativa ce reflecta mai bine viata reala. MELD, sau Multimodal EmotionLines Dataset, a fost introdus ca o extensie a setului de date EmotionLines si este construit din fragmente din serialul \textit{Friends}. contine peste 1,400 de dialoguri si aproximativ 13,000 replici, fiecare adnotata cu etichete de emotii \cite{poria2019meld}. Sunt 7 etichete (anger, disgust, fear, joy, neutral, sadness, surprise), iar pentru consistenta intre modele joy a fost inlocuit cu happiness.
-
-Principalele provocari in recunoasterea emotiilor in MELD este prezenta noise-ului in date. Fiind dintr-un \textit{reality show}, replicile sunt de multe ori sarcastice, textul avand alt inteles decat cel aparent. Pe fundal sunt adaugate rasete ce induce modelele audio in eroare. Cand vine vorba de fata personajelor care vorbesc, ele nu sunt intotdeauna centrate in cadru, ceea ce face extragerea fetei vorbitorului dificila. Totusi, desi aceste lucruri afecteaza puternic scorul final, natura "in-the-wild" a lui MELD ofera increderea ca modelele care produc rezultate bune in teste vor performa similar si in viata reala.
+\subsubsection{Compromisul dintre acuratețe și eficiență energetică}
+Pentru fiecare modalitate au fost folosite două modele, unul cu un număr de parametri mai mare, cu scopul de a obține o acuratețe cât mai bună, iar unul cu un număr semnificativ mai mic, în funcție de modalitate, care are ca scop reducerea resurselor folosite, menținând pe cât posibil acuratețea la un nivel cât mai apropiat.
 
 \newpage
-\chapter{Metodologie}
 
-\section{Analiza setului de date MELD}
-Este important sa evidentiem principalele provocari ale setului de date, intrucat el afecteaza direct si substantial rezultatele. Analiza din Tabelul~\ref{tab:meld_text_audio_stats} a fost facuta pe intreg setul de date si ia in considerare distributia emotiilor, lungimea in cuvinte a replicilor si durata inregistrarii audio folosita. Distributia emotiilor arata un dezechilibru clar intre clase, neutral fiind dominanta cu 47\% din replici, in timp ce disgust si fear au sub 3\%. In consecinta, acuratetea este insuficienta daca ne propunem sa stabilim cat de bine detecteaza modelele emotiile, motiv pentru care am optat in aceasta lucrare pentru macro-f1 score.
+\newpage
+\section{Setul de date și metodologia propusă}
+
+\subsection{Setul de date MELD}
+
+Dezvoltarea sistemelor de recunoaștere a emoțiilor este puternic dependentă de seturile de date disponibile. În condițiile în care emoțiile sunt un aspect complex al comportamentului uman, iar transmiterea lor se realizează pe căi multiple, seturile de date trebuie să reflecte acest lucru. Urmând evoluția algoritmilor, seturile de date destinate recunoașterii emoțiilor au pornit de la variante unimodale și au ajuns treptat la variante multimodale.
+
+Un exemplu des întâlnit este IEMOCAP. Acesta conține aproximativ 12 ore de date audiovizuale, incluzând înregistrări audio, capturi video și transcrieri, colectate într-un mediu controlat, din interacțiuni între actori \cite{busso2008iemocap}. Deși foarte util, acest set de date nu reușește să reflecte complet lipsa de predictibilitate și de structură a interacțiunilor reale, ducând la rezultate artificial mai mari prin natura controlată a interacțiunilor.
+
+În acest context, MELD reprezintă o alternativă care reflectă mai bine scenarii conversaționale apropiate de cele reale. MELD, sau Multimodal EmotionLines Dataset, a fost introdus ca o extensie a setului de date EmotionLines și este construit din fragmente din serialul \textit{Friends}. Acesta conține peste 1.400 de dialoguri și aproximativ 13.000 de replici, fiecare adnotată cu etichete de emoții \cite{poria2019meld}. Sunt folosite șapte etichete: furie(anger), dezgust(disgust), frică(fear), fericire(joy), neutru(neutral), tristețe(sadness) și surpriză(surprise), iar pentru consistență între modele, joy a fost înlocuit cu happiness. Dialogurile sunt integral în limba engleză.
+
+Principalele provocări în recunoașterea emoțiilor pe MELD sunt legate de zgomotul prezent în date. Replicile sunt de multe ori sarcastice, textul având alt înțeles decât cel aparent. Pe fundal sunt adăugate râsete, care pot induce modelele audio în eroare. În cazul imaginilor, fețele personajelor care vorbesc nu sunt întotdeauna centrate în cadru, ceea ce face dificilă extragerea feței vorbitorului. Totuși, deși aceste lucruri afectează puternic scorul final, natura mai apropiată de scenarii reale a lui MELD oferă încrederea că modelele care produc rezultate bune în teste pot avea un comportament mai apropiat de cel necesar în aplicații practice.
+
+Este important să evidențiem principalele provocări ale setului de date, întrucât acesta afectează direct și substanțial rezultatele. Analiza din Tabelul~\ref{tab:meld_text_audio_stats} a fost făcută pe întreg setul de date și ia în considerare distribuția emoțiilor, lungimea în cuvinte a replicilor și durata înregistrării audio folosite. Distribuția emoțiilor arată un dezechilibru clar între clase, neutral fiind dominantă cu 47\% din replici, în timp ce disgust și fear au sub 3\%. În consecință, acuratețea este insuficientă dacă ne propunem să stabilim cât de bine detectează modelele emoțiile, motiv pentru care am optat în această lucrare pentru scorul macro-F1.
 
 \begin{table}[h]
 \centering
@@ -322,54 +301,366 @@ Este important sa evidentiem principalele provocari ale setului de date, intruca
 \resizebox{\textwidth}{!}{%
 \begin{tabular}{lccc}
 \toprule
-\textbf{Emotion} & \textbf{Utterances (\%)} & \textbf{Text length $\mu \pm \sigma$ / median} & \textbf{Audio duration $\mu \pm \sigma$ / median} \\
+\textbf{Emotie} & \textbf{Dialog (\%)} & \textbf{Lungimea textului $\mu \pm \sigma$ / median} & \textbf{Durata inregistrarii $\mu \pm \sigma$ / median} \\
 \midrule
-Anger     & 1,607 (11.7\%) & 9.2 $\pm$ 6.5 / 8  & 3.28 $\pm$ 2.16 / 2.75 s \\
-Disgust   & 361 (2.6\%)    & 10.0 $\pm$ 6.9 / 8 & 3.69 $\pm$ 2.32 / 3.05 s \\
-Fear      & 358 (2.6\%)    & 9.3 $\pm$ 6.3 / 8  & 3.26 $\pm$ 2.16 / 2.63 s \\
-Happiness & 2,308 (16.8\%) & 7.7 $\pm$ 6.0 / 6  & 3.16 $\pm$ 2.29 / 2.50 s \\
-Neutral   & 6,436 (47.0\%) & 7.8 $\pm$ 6.2 / 6  & 2.97 $\pm$ 2.11 / 2.38 s \\
-Sadness   & 1,002 (7.3\%)  & 10.0 $\pm$ 7.0 / 9 & 3.71 $\pm$ 2.41 / 2.96 s \\
-Surprise  & 1,636 (11.9\%) & 6.0 $\pm$ 5.0 / 5  & 2.67 $\pm$ 2.04 / 2.05 s \\
+Furie     & 1,607 (11.7\%) & 9.2 $\pm$ 6.5 / 8  & 3.28 $\pm$ 2.16 / 2.75 s \\
+Dezgust   & 361 (2.6\%)    & 10.0 $\pm$ 6.9 / 8 & 3.69 $\pm$ 2.32 / 3.05 s \\
+Frică      & 358 (2.6\%)    & 9.3 $\pm$ 6.3 / 8  & 3.26 $\pm$ 2.16 / 2.63 s \\
+Fericire & 2,308 (16.8\%) & 7.7 $\pm$ 6.0 / 6  & 3.16 $\pm$ 2.29 / 2.50 s \\
+Neutru   & 6,436 (47.0\%) & 7.8 $\pm$ 6.2 / 6  & 2.97 $\pm$ 2.11 / 2.38 s \\
+Tristețe   & 1,002 (7.3\%)  & 10.0 $\pm$ 7.0 / 9 & 3.71 $\pm$ 2.41 / 2.96 s \\
+Surpriză  & 1,636 (11.9\%) & 6.0 $\pm$ 5.0 / 5  & 2.67 $\pm$ 2.04 / 2.05 s \\
 \bottomrule
 \end{tabular}
 }
-\caption{Text and audio statistics by emotion in the MELD dataset. Audio durations are reported after truncation at 10 seconds.}
+\caption{Statistici MELD per emotie. Secventele audio au fost truncate la 10s.}
 \end{table}
-\section{Preprocesarea datelor}
 
-\section{Arhitecturi si modele propuse}
+\subsection{Preprocesarea datelor}
 
-\section{Integrarea componentelor de explicabilitate}
+Pentru modelele de text, replicile au fost tokenizate folosind AutoTokenizer din biblioteca Hugging Face, cu o lungime maximă de 128 de tokeni. Pentru modelele bazate pe sunet, înregistrările de 16 kHz sunt încărcate folosind torchaudio și trunchiate la maximum 10 secunde. Înregistrările sunt apoi trecute prin AutoFeatureExtractor pentru normalizare înainte de a fi procesate de model.
 
-\section{Strategia de masurare a eficientei}
+Deoarece MELD conține secvențe video, din motive de eficiență, sunt extrase cadre la un pas temporal fix din fiecare clip. Provocarea este dată de faptul că fiecare clip poate conține mai mulți actori, cadre fără față vizibilă sau momente în care personajul nu exprimă emoția dominantă. Fluxul de procesare, descris în Figura~\ref{fig:face_preprocess} rezolvă această problemă printr-o selecție inteligentă a cadrelor: extrage primele cinci cadre reprezentative per replică, prioritizând cadrele în care emoția transcrisă este vizibil prezentă pe fața vorbitorului.
+
+\begin{figure}[htbp]
+\centering
+\begin{minipage}{\linewidth}
+    \centering
+    \includegraphics[width=\linewidth]{images/face_extract.png}
+\end{minipage}
+
+\caption{Procesul de extragere al fețelor din videoclipuri}
+\label{fig:face_preprocess}
+\end{figure}
+
+În prima fază, pentru a reduce timpul de procesare fără a pierde informație, se folosește un pas temporal de 3, ceea ce presupune extragerea unui cadru din trei. Acest lucru menține acoperirea temporală, deoarece cadrele adiacente sunt de obicei aproape identice. Fiecare cadru eșantionat este apoi trecut prin MTCNN, o rețea cu trei etape, P-Net, R-Net și O-Net, care returnează ferestre de localizare și scoruri de încredere pentru toate fețele din cadru \cite{zhang2016mtcnn}. Alegerea MTCNN este motivată de robustețea pe imagini din medii naturale, precum televiziune și film, și de capacitatea de a detecta fețe în orientări variate \cite{zhang2016mtcnn}. Alternativa mai simplă și rapidă, Haar Cascade, ar fi semnificativ mai imprecisă în acest caz particular.
+
+MTCNN este folosit cu \texttt{keep\_all=True} pentru a obține toate fețele din cadru, lucru necesar pentru pasul de selecție a vorbitorului. Dacă MTCNN nu detectează nicio față în cadrul curent, acesta este omis. Următorul pas constă în extragerea feței vorbitorului. Acest lucru se face folosind două moduri. Din primul cadru, se extrage singura față dacă este doar una sau fața cu suprafața cea mai mare din cadru dacă sunt mai multe. Reprezentările vectoriale ale acestei fețe sunt salvate ca reprezentare a personajului, urmând ca ulterior, pentru fiecare cadru cu mai multe fețe, vorbitorul să fie ales folosind similaritatea cosinus cu reprezentarea salvată, în locul euristicii bazate doar pe dimensiune.
+
+De menționat este că această abordare presupune riscul ca prima față detectată să nu fie a vorbitorului, caz în care cadrele extrase pot fi greșite. Fundamentul alegerii stă totuși în practicile de filmare ale serialelor, unde vorbitorul este pus frecvent în prim-plan, cel puțin la începutul replicii. Pentru a compensa eventualele valori extreme, resetarea reprezentărilor se face la nivel de partiție a setului de date, astfel încât un personaj greșit apărut la începutul unui clip să nu afecteze întregul proces.
+
+După extragerea fețelor, fereastra de localizare este extinsă cu un factor de 1.2 față de centrul său, apoi decupată la marginile imaginii. Dacă dimensiunea este sub 48 px, cadrul este ignorat din cauza limitării modelelor de a extrage trăsături semnificative. Extinderea de 20\% ajută la captarea gâtului și a frunții, contexte vizuale relevante pentru emoție.
+
+Pentru a curăța datele, fiecare față este trecută prin \texttt{enet\_b0\_8\_best\_afew}\cite{tan2019efficientnet,savchenko2022hsemotion}, un model EfficientNet-B0. Modelul returnează probabilități pentru opt clase; clasa Contempt este ignorată deoarece nu face parte din etichetele folosite în MELD. Scorul unui cadru este calculat ca produs între probabilitatea clasei corecte, conform fișierului CSV de metadate, și probabilitatea maximă acordată de model, indiferent de clasă. Acest mod de a calcula scorul a fost ales deoarece cadrele utile sunt cele în care modelul nu doar că prezice corect, ci are și un nivel ridicat de încredere în predicție. EfficientNet-B0, fiind antrenat pe AFEW, este conceput specific pentru emoții din materiale video, ceea ce îl face potrivit pentru specificul MELD \cite{dhall2012collecting,savchenko2022hsemotion}.
+
+În final, scorurile per replică sunt netezite cu un filtru gaussian 1D cu sigma 0.5 pentru a reduce numărul vârfurilor false. Sunt selectate primele K=5 cadre în funcție de scorul calculat după metodologia descrisă anterior, acestea fiind salvate ca date de antrenare. K=5 reprezintă un compromis între un număr insuficient de imagini pentru extragerea trăsăturilor relevante și supradimensionarea setului de date cu imagini irelevante sau aproape identice între ele.
+
+\subsection{Arhitecturile unimodale antrenate}
+
+Au fost selectate șase modele unimodale pentru a fi adaptate pe setul de date MELD. Fiecare modalitate are un model orientat pe acuratețe și unul orientat pe eficiență. Ele au fost alese în funcție de o serie de factori, printre care cei mai importanți sunt comparabilitatea intra-modală și posibilitatea antrenării pe un echipament hardware limitat. Această combinație face posibilă evidențierea compromisului între eficiență și acuratețe, pe diferențe mai mici sau mai mari în funcție de modalitate, arătând că uneori, cu mult mai puține resurse, pot fi obținute rezultate satisfăcătoare.
+
+În consecință, modelele propuse sunt BERT-base-uncased și DistilBERT-base-uncased pentru text, wav2vec2-base și DistilHuBERT pentru sunet, respectiv ViT-B/16 și MobileNetV3-Small pentru recunoașterea facială a emoțiilor. DistilBERT este o comparație potrivită cu BERT deoarece menține capacitatea lui BERT de a reprezenta textul, reducând în același timp cu aproximativ 40\% numărul de parametri și aproape înjumătățind timpul de inferență. DistilHuBERT performează comparabil, folosind un număr de parametri de aproximativ patru ori mai mic prin distilare. În cazul modelelor pe imagini, am optat pentru o diferență foarte mare între modele, încercând să evidențiez punctul până la care se poate merge cu reducerea dimensiunii modelelor fără a pierde prea multă acuratețe.
+
+\subsection{Strategiile de fuziune implementate}
+
+Au fost implementate trei tehnici de fuziune a modalităților: fuziune târzie, fuziune intermediară și fuziune bazată pe porți. Fuziunea târzie combină probabilitățile softmax prin două metode, o medie aritmetică și o medie ponderată optimizată pe datele de validare, fără a fi necesară o reantrenare. Fuziunea intermediară extrage penultimele reprezentări vectoriale din rețelele preantrenate și antrenează un perceptron multistrat ușor (MLP), de proiecție. Fuziunea bazată pe porți este similară cu fuziunea târzie, însă ponderile sunt calculate pentru fiecare eșantion.
+
+Această organizare permite compararea directă între modelele unimodale și cele multimodale, precum și între variantele complexe și cele eficiente. În acest fel, se poate observa nu doar dacă fuziunea îmbunătățește performanța, ci și dacă această îmbunătățire justifică resursele suplimentare necesare.
+
+\subsection{Metodele de explicabilitate utilizate}
+
+Fiecare metodă de explicabilitate a fost aleasă pentru a se potrivi modelului pe care se aplică. Pentru modelele text bazate pe transformeri, se folosește ocluzia tokenilor și LayerIntegratedGradients, cea din urmă determinând importanța fiecărui token prin aproximarea integralei gradienților de-a lungul unei traiectorii de la o instanță de referință neutră la instanța analizată. Pentru audio se folosește o structură similară, având Integrated Gradients în pereche cu ocluzia temporală, iar pentru imagini Integrated Gradients este combinat cu Grad-CAM.
+
+Aceste metode nu sunt folosite separat de evaluarea performanței, ci sunt integrate în interpretarea rezultatelor. Scopul este de a înțelege ce informații par să fie folosite de fiecare modalitate, unde apar punctele forte și limitele modelelor unimodale și cum se schimbă interpretarea atunci când predicțiile sunt combinate prin fuziune multimodală.
+
+\subsection{Măsurarea eficienței}
+
+Eficiența a fost măsurată folosind mai multe metrici, unele având ca scop estimarea energiei electrice necesare adaptării modelelor pe setul de date MELD, iar altele având ca scop determinarea fezabilității acestor modele pe sisteme cu putere computațională limitată. În acest context, consumul de putere al plăcii video este eșantionat la intervale de o secundă în timpul antrenării prin intermediul utilitarului \texttt{nvidia-smi}, utilizând un fir de execuție secundar care rulează în paralel cu antrenarea. Energia totală de antrenare, exprimată în kWh, este derivată ca produs între consumul mediu de putere și durata antrenării.
+
+Pe lângă consumul energetic, latența de inferență per eșantion este măsurată separat, pe o dimensiune a lotului egală cu 1, în mod determinist pe CPU. Această măsurătoare este relevantă pentru utilizarea modelelor în scenarii practice, mai ales pe dispozitive de tip edge, unde timpul rapid de inferență și dimensiunea redusă a modelului pot fi mai importante decât obținerea celui mai mare scor posibil.
 \newpage
-\chapter{Implementarea sistemelor}
+\section{Implementare și configurare experimentală}
 
-\section{Tehnologii utilizate}
+Implementarea sistemului de recunoaștere multimodală a emoțiilor a fost organizată ca un proiect Python modular, structurat în jurul setului de date MELD (Multimodal EmotionLines Dataset). Toate etapele experimentale, de la preprocesare până la fuziune și interpretabilitate, pot fi reproduse prin notebook-uri Jupyter și module sursă versionabile.
 
-\section{Detalii de implementare}
+\subsection{Tehnologii utilizate}
 
-\section{Antrenarea modelelor}
+Întregul sistem a fost dezvoltat în Python 3.10, folosind PyTorch 2.7 ca principal cadru de lucru pentru învățare profundă \cite{paszke2019pytorch}. Interfața cu modelele preantrenate este asigurată de biblioteca Hugging Face Transformers \cite{wolf-etal-2020-transformers}, care oferă arhitecturile BERT, DistilBERT, wav2vec2 și DistilHuBERT, precum și utilitare pentru tokenizare, extragere de caracteristici și salvare a modelelor în format \texttt{safetensors}. Modelele de imagine sunt furnizate de \texttt{torchvision}, în special ViT-B/16 și MobileNetV3-Small, iar procesarea semnalelor audio este realizată cu \texttt{torchaudio}.
+
+Detectarea și alinierea fețelor în etapa de preprocesare video se bazează pe MTCNN din biblioteca \texttt{facenet-pytorch}. Scorul de calitate al cadrelor selectate este estimat cu modelul EfficientNet-B0, salvat ca \texttt{enet\_b0\_8\_best\_afew}, antrenat pe setul AFEW, un domeniu apropiat de cel al secvențelor video din MELD. Calculul metricilor de clasificare se realizează cu \texttt{scikit-learn}, iar vizualizările sunt generate cu \texttt{matplotlib} și \texttt{seaborn}.
+
+Pentru interpretabilitatea modelelor au fost integrate două biblioteci specializate: Captum \cite{kokhlikyan2020captum}, folosită pentru Integrated Gradients și LayerIntegratedGradients, și \texttt{pytorch-grad-cam}, folosită pentru vizualizări de tip EigenCAM în cazul modelelor vizuale. Întreaga infrastructură experimentală, incluzând antrenarea, evaluarea, fuziunea și vizualizarea rezultatelor, este expusă prin notebook-uri Jupyter organizate secvențial după etapa de lucru.
+
+\subsection{Structura implementării}
+
+Proiectul este organizat în trei directoare principale: \texttt{src\/}, \texttt{notebooks\/} și \texttt{experiments\/}. Directorul \texttt{src\/} conține logica reutilizabilă a aplicației, structurată pe submodule: \texttt{config.py}, \texttt{data}, \texttt{models}, \texttt{training}, \texttt{evaluation}, \texttt{explainability}.
+
+O decizie importantă de proiectare a fost introducerea unui sistem de cache pentru reprezentările vectoriale. Penultimul strat al fiecărei rețele de bază antrenate este aplicat o singură dată pe toate partițiile setului de date, train, dev și test, iar rezultatele sunt salvate în fișiere \texttt{.npz}, câte un fișier pentru fiecare modalitate și fiecare partiție. Dimensiunile reprezentărilor stocate sunt 768 pentru BERT și ViT, 256 pentru wav2vec2 și DistilHuBERT, respectiv 1024 pentru MobileNetV3-Small. Fuziunea intermediară și fuziunea bazată pe porți operează exclusiv pe aceste reprezentări stocate, eliminând necesitatea rerulării rețelelor de bază și reducând timpul de antrenare al capetelor de fuziune la ordinul minutelor.
+
+\subsection{Antrenarea modelelor}
+
+Modelele de text utilizate în această lucrare, BERT-base-uncased, cu 109 milioane de parametri, respectiv DistilBERT-base-uncased, cu aproximativ 66 de milioane de parametri, au fost ajustate folosing \texttt{AutoModelForSequenceClassification} din Hugging Face. Configurația de antrenare utilizează optimizatorul AdamW, cu \(lr = 2 \times 10^{-5}\) și \texttt{weight\_decay=0.01}, un planificator liniar al ratei de învățare cu încălzire pe (6\%) din numărul total de pași și limitarea gradientului la norma 1.0. Tokenizarea trunchiază secvențele la 128 de tokeni, iar dimensiunea lotului este 16. Antrenarea are un maximum de 200 de epoci și folosește oprire timpurie, cu \texttt{patience=5}, pe baza scorului macro-F1 obținut pe setul de validare.
+
+Modelele audio, wav2vec2-base și DistilHuBERT, urmează aceeași schemă de antrenare: AdamW, \(lr = 2 \times 10^{-5}\), planificator liniar al ratei de învățare și oprire timpurie. Ajustările specifice modalității audio constau în eșantionarea semnalelor la 16 kHz, trunchierea acestora la maximum 10 secunde și procesarea cu \texttt{AutoFeatureExtractor}. Dimensiunea lotului este redusă la 8 din cauza dimensiunii mai mari a intrărilor audio.
+
+Antrenarea modelelor pentru fețe, ViT-B/16 și MobileNetV3-Small, ambele preantrenate pe ImageNet, a necesitat mai multe măsuri împotriva supraînvățării, justificate de dimensiunea mai redusă a setului de date vizual. În testare, acesta conține 2.481 de mostre, față de 2.610 pentru text și audio, din cauza cadrelor în care nu a fost detectată nicio față. Pentru această modalitate, rețeaua de bază este înghețată în primele trei epoci, fiind antrenat doar capul de clasificare. De asemenea, se folosește o rată de învățare diferențială: rețeaua de bază primește \(lr \times 0.1\), adică \(10^{-5}\), iar capul de clasificare primește rata completă, \(10^{-4}\). Ca regularizatori suplimentari, au fost folosite netezirea etichetelor, cu (\varepsilon = 0.1), și \texttt{RandomErasing}, cu (p = 0.3). Pentru echilibrarea claselor pe durata antrenării a fost utilizat \texttt{WeightedRandomSampler}, având în vedere dezechilibrul puternic al MELD, unde clasa \textit{neutral} reprezintă aproximativ 47\% din date.
+
+Capetele de fuziune sunt antrenate pe reprezentările vectoriale stocate în cache, obținute din rețelele de bază înghețate. Fuziunea târzie nu are parametri proprii, ci folosește media simplă sau media ponderată a vectorilor softmax unimodali, ponderile fiind optimizate prin căutare exhaustivă pe setul de validare. Fuziunea intermediară utilizează un model \texttt{ProjectionFusionMLP}, cu aproximativ 334.000 de parametri. Fiecare modalitate este proiectată la 128 de dimensiuni, după care concatenarea celor trei proiecții este procesată de un MLP cu 256 de neuroni ascunși și 7 clase de ieșire. Antrenarea capului de fuziune folosește AdamW, cu \(lr = 3 \times 10^{-4}\), o planificare cosinusoidală a ratei de învățare și eliminarea aleatorie a modalităților, cu probabilitatea (p = 0.2), pentru a crește robustețea față de modalitățile lipsă.
+
+Fuziunea bazată pe porți este implementată în două variante. Prima variantă, bazată pe GMU, este \texttt{GatedFusionLight}, care calculează un scalar de poartă pentru fiecare modalitate prin softmax, permițând interpretarea relativă a contribuției fiecărei modalități. A doua variantă, \texttt{GatedFusionHeavy}, aplică un Transformer cross-modal cu două straturi, (d\_{\text{model}} = 256), 4 capete de atenție și o rețea feed-forward cu 512 neuroni peste cei trei tokeni de modalitate.
+
+
+\subsection{Metrici de evaluare}
+
+Evaluarea modelelor este realizată pe setul de test al MELD, care conține 2.610 enunțuri, cu o distribuție dezechilibrată: aproximativ 48\% \textit{neutral}, 15\% \textit{happiness}, 13\% \textit{anger} etc. Dezechilibrul accentuat al claselor face ca acuratețea simplă să fie o metrică insuficientă, deoarece un clasificator trivial care prezice mereu clasa \textit{neutral} ar obține aproximativ 48\% acuratețe.
+
+Metrica principală utilizată pentru selecția modelelor salvate și pentru compararea arhitecturilor este macro-F1. Aceasta reprezintă media aritmetică a scorurilor F1 calculate pentru fiecare clasă, tratând toate cele șapte emoții în mod egal, indiferent de frecvența lor. Această alegere penalizează modelele care ignoră clasele rare, precum \textit{disgust} și \textit{fear}, și oferă o imagine mai echilibrată asupra performanței reale.
+
+Raportul complet de evaluare include următoarele metrici:
+
+\begin{itemize}
+\item acuratețe globală -- proporția predicțiilor corecte din totalul eșantioanelor de test;
+\item macro-F1 -- media neponderată a scorurilor F1 pe clase, folosită ca metrică principală de selecție și comparare;
+\item F1 ponderat -- media scorurilor F1 ponderată cu frecvența reală a fiecărei clase, reflectând performanța globală ținând cont de distribuția datelor;
+\item matricea de confuzie -- vizualizată ca hartă de căldură normalizată pe fiecare clasă adevărată, pentru identificarea confuziilor sistematice între emoții semantic similare, precum \textit{sadness} și \textit{fear};
+\item raportul de clasificare pe clasă -- incluzând precision, recall și F1 individual, salvat atât în format text, cât și tabelar, pentru analiză detaliată.
+\end{itemize}
+
+Oprirea timpurie în antrenare se bazează exclusiv pe scorul macro-F1 obținut pe setul de validare, asigurând că modelul salvat este cel mai bun din perspectiva clasificării echilibrate, nu doar din perspectiva celei mai mici valori a pierderii. Monitorizarea consumului energetic al GPU-ului, exprimat în Wh per rulare, a fost adăugată ca metrică secundară pentru compararea eficienței modelelor complexe și eficiente.
 \newpage
-\chapter{Rezultate experimentale si evaluare}
+\section{Rezultate experimentale si evaluare}
 
-\section{Performanta bruta}
+\subsection{Performanta generala}
+Performanța tuturor modelelor antrenate pe setul de date MELD este prezentată în Tabelul~\ref{tab:raw_performance}. Configurația cu cele mai bune rezultate este cea în care sunt folosite modelele cu cei mai mulți parametri, rezultatele fiind fuzionate târziu printr-o medie ponderată, calculată pe datele de validare.
 
-\section{Analiza XAI}
+\begin{table}[ht]
+\centering
+\small
 
-\section{Analiza eficientei}
+\label{tab:raw_performance}
+\resizebox{\textwidth}{!}{%
+\begin{tabular}{llrrr}
+\toprule
+\textbf{Categorie} & \textbf{Model} & \textbf{Acuratețe} & \textbf{Macro-F1} & \textbf{F1 ponderat} \\
+\midrule
+\multirow{6}{*}{Unimodal}
+  & BERT-base          & 61.65 & 44.28 & 60.85 \\
+  & DistilBERT         & 58.77 & 41.23 & 58.85 \\
+  & wav2vec2-base      & 42.68 & 25.07 & 42.73 \\
+  & ViT-B/16           & 34.26 & 23.89 & 35.58 \\
+  & DistilHuBERT       & 42.99 & 22.26 & 40.96 \\
+  & MobileNetV3-Small  & 23.78 & 18.26 & 21.76 \\
+\midrule
+\multirow{4}{*}{Fuziune târzie}
+& Fuziune târzie ponderată (complexă) & 63.32 & 45.97 & 62.09 \\
+& Fuziune târzie medie aritmetică (complexă) & 61.83 & 41.68 & 59.59 \\
+& Fuziune târzie ponderată (eficientă) & 59.94 & 41.55 & 58.97 \\
+& Fuziune târzie medie aritmetică (eficientă) & 60.02 & 40.67 & 58.47 \\
+\midrule
+\multirow{2}{*}{Fuziune intermediară MLP}
+& Fuziune intermediară MLP (complexă) & 61.91 & 45.33 & 61.63 \\
+& Fuziune intermediară MLP (eficientă) & 57.84 & 40.98 & 57.92 \\
+\midrule
+\multirow{4}{*}{Fuziune bazată pe porți}
+& Transformer cu porți (complex/complex) & 58.85 & 43.22 & 59.65 \\
+& Transformer cu porți (complex/eficient) & 58.57 & 43.16 & 59.54 \\
+& GMU cu porți (eficient/eficient) & 56.99 & 41.57 & 58.01 \\
+& GMU cu porți (eficient/complex) & 56.07 & 40.90 & 56.69 \\
+\bottomrule
+\end{tabular}
+}
+\caption{Performanța pe setul de test a tuturor modelelor, sortate după scorul macro-F1.}
+\end{table}
 
-\section{Discutii}
+Rezultatul confirmă faptul că trăsăturile multimodale sunt complementare și îmbunătățesc performanța față de orice arhitectură unimodală, având o creștere de aproximativ 1.7 puncte procentuale peste cel mai bun model unimodal, BERT.
+
+Dintre abordările unimodale, cele bazate pe text au cele mai bune rezultate, indiferent de metrica aleasă. BERT obține un scor macro-F1 de 44.28\%, rezultat care rămâne apropiat și în cazul variantei eficiente, DistilBERT, cu un scor de 41.23\%. Acest lucru este în acord cu rezultatele obținute în literatura de specialitate. Modelele bazate pe sunet au performanțe substanțial mai slabe: wav2vec2 obține un scor macro-F1 de doar 25.07\%, cu varianta eficientă la aproximativ 3 puncte procentuale mai jos. Acest lucru poate fi cauzat de mai mulți factori, precum suprapunerea vocilor, lungimea inconsistentă a înregistrărilor și, mai ales, sunetele adăugate în post-producție peste replicile personajelor.
+
+Modelele faciale sunt cele mai puțin precise, cel mai bun model obținând un scor macro-F1 de doar 23.89\%. Acest lucru este cel mai probabil cauzat de imprecizia datelor vizuale, luând în considerare etapa de preprocesare. Deși regula ca fața vorbitorului să ocupe cea mai mare parte din ecran este valabilă în majoritatea scenelor, ea nu se aplică întotdeauna, ducând la imagini imprecise. Pe lângă acest lucru, neclaritatea cauzată de mișcare (\textit{motion blur}) și poziția fețelor din profil îngreunează sarcina modelelor de a învăța caracteristici specifice fiecărei emoții.
+
+Cu privire la strategiile de fuziune, fuziunea intermediară între modelele complexe se clasează pe poziția a doua, doar puțin sub fuziunea târzie ponderată. În schimb, fuziunea bazată pe porți rămâne sub cel mai bun model unimodal, sugerând că, pe acest set de date în particular, mecanismele complexe de atenție nu oferă un avantaj clar.
+
+
+\begin{table}
+\centering
+\small
+\label{tab:per_emotion_recall}
+\resizebox{\textwidth}{!}{%
+\begin{tabular}{lrrrrrrr}
+\toprule
+ & \textbf{Furie} & \textbf{Dezgust} & \textbf{Frică} & \textbf{Fericire} & \textbf{Neutru} & \textbf{Tristețe} & \textbf{Surpriză} \\
+\textbf{Model} &  &  &  &  &  &  &  \\
+\midrule
+BERT-base & 35.1 & 20.6 & 36.0 & 60.9 & 79.5 & 25.0 & 56.9 \\
+DistilBERT & 34.5 & 19.1 & 14.0 & 61.2 & 72.9 & 27.9 & 62.3 \\
+wav2vec2-base & 27.2 & 0.0 & 0.0 & 36.8 & 57.7 & 26.0 & 33.1 \\
+DistilHuBERT & 31.0 & 0.0 & 0.0 & 22.9 & 65.8 & 13.9 & 23.8 \\
+ViT-B/16 & 30.8 & 6.1 & 4.1 & 52.7 & 35.7 & 32.5 & 19.1 \\
+MobileNetV3 & 24.7 & 18.2 & 12.2 & 65.8 & 11.9 & 40.8 & 5.6 \\
+Fuziune târzie medie (complexă) & 36.0 & 7.6 & 12.2 & 60.2 & 82.8 & 26.7 & 50.2 \\
+Fuziune târzie medie (eficientă) & 35.4 & 15.2 & 10.2 & 57.8 & 79.5 & 23.6 & 52.8 \\
+Fuziune târzie ponderată (complexă) & 40.2 & 16.7 & 22.4 & 65.6 & 80.4 & 28.8 & 55.8 \\
+Fuziune târzie ponderată (eficientă) & 34.1 & 16.7 & 12.2 & 59.6 & 77.2 & 27.7 & 57.3 \\
+MLP (complex) & 47.6 & 15.2 & 32.7 & 59.4 & 76.3 & 30.9 & 58.1 \\
+MLP (eficient) & 36.0 & 24.2 & 20.4 & 58.6 & 73.2 & 25.1 & 53.6 \\
+Transformer cu porți (complex/complex) & 42.4 & 25.8 & 26.5 & 51.4 & 73.1 & 36.6 & 56.2 \\
+Transformer cu porți (complex/eficient) & 33.2 & 27.3 & 22.4 & 53.2 & 69.9 & 33.0 & 56.6 \\
+GMU cu porți (eficient/complex) & 45.4 & 21.2 & 30.6 & 57.1 & 70.4 & 33.5 & 56.2 \\
+GMU cu porți (eficient/eficient) & 35.1 & 28.8 & 32.7 & 59.9 & 70.1 & 27.2 & 53.9 \\
+\bottomrule
+\end{tabular}
+}
+\caption{Recall (\%) per emoție.}
+\end{table}
+
+În Tabelul~\ref{tab:per_emotion_recall} este prezentată o comparație între rezultatele obținute pentru fiecare clasă de emoții, pentru toate arhitecturile folosite în cadrul acestei lucrări. Pentru a înțelege mai bine performanța modelelor dincolo de scorul macro-F1, este utilă analizarea punctelor slabe ale fiecărei arhitecturi.
+
+În cazul emoției \textit{neutral}, aproape toate modelele bazate pe text și majoritatea strategiilor de fuziune ating cele mai mari valori de recall din întregul tabel. BERT și fuziunile multimodale depășesc constant pragul de 75--80\%, ceea ce sugerează că emoțiile neutre sunt puternic asociate cu structura conversațională și cu lipsa unor indicii emoționale explicite. Modelele audio și vizuale performează mai slab pe această clasă, motiv pentru care putem concluziona că neutralitatea este mai puțin explicită în limbajul non-verbal.
+
+Pentru emoția \textit{happiness}, majoritatea modelelor obțin rezultate relativ ridicate, în special modelele bazate pe text, modelele faciale și strategiile de fuziune. Acest lucru este explicabil prin faptul că fericirea are adesea indicii lexicale, vocale și faciale mai clare decât emoțiile rare, precum \textit{disgust} sau \textit{fear}.
+
+
+\subsection{Analiza matricelor de confuzie}
+
+Pentru a completa analiza performanței generale, au fost analizate și matricile de confuzie ale modelelor. Această analiză este importantă deoarece setul de date MELD este puternic dezechilibrat, iar valorile agregate, precum acuratețea sau scorul macro-F1, nu arată întotdeauna ce tipuri de erori face fiecare model. În special, clasele rare, precum \textit{dezgust} și \textit{frică}, sunt dificil de detectat și pot fi ușor confundate cu emoții mai frecvente, precum \textit{neutru}, \textit{fericire} sau \textit{furie}.
+
+\subsubsection{Modele unimodale complexe și eficiente}
+
+\begin{figure}[htbp]
+\centering
+\begin{minipage}{\linewidth}
+    \centering
+    \includegraphics[width=\linewidth]{images/unimodal_grid_light_vs_heavy.png}
+\end{minipage}
+
+\caption{Matrici de confuzie pentru toate modelele}
+\label{fig:unimodal_grid_cm_light_heavy}
+\end{figure}
+
+Prima comparație urmărește diferențele dintre modelele complexe și variantele lor eficiente pentru fiecare modalitate: text, audio și imagine.
+
+Figura~\ref{fig:unimodal_grid_cm_light_heavy} arată că modelele text au cel mai stabil comportament dintre toate modalitățile. BERT-base păstrează o diagonală principală mai puternică și obține rezultate mai bune global, în special pe clasele mai dificile. DistilBERT rămâne apropiat pe clase precum \textit{happiness}, \textit{neutral} și \textit{surprise}, dar pierde mai mult pe clase rare sau ambigue, precum \textit{fear}. Acest lucru sugerează că modelul eficient păstrează o parte importantă din performanța lui BERT, însă distilarea reduce capacitatea de a modela contexte emoționale subtile.
+
+În cazul modelelor audio, se evidențiază dificultatea acestei modalități de a separa clasele rare. Atât wav2vec2-base, cât și DistilHuBERT au rezultate slabe pentru \textit{disgust} și \textit{fear}, ceea ce indică faptul că aceste emoții nu sunt suficient de bine reprezentate doar prin semnalul audio. DistilHuBERT are o acuratețe apropiată de wav2vec2-base, însă acest lucru este obținut în principal printr-o tendință mai mare de a prezice clasa dominantă \textit{neutral}.
+
+Diferența dintre modelul complex și cel eficient este cea mai vizibilă în cazul modalității vizuale. ViT-B/16 este mai stabil decât MobileNetV3-Small, mai ales pentru clasa \textit{neutral}. În schimb, MobileNetV3-Small tinde să supraestimeze clase vizual mai expresive, precum \textit{happiness} și \textit{sadness}, dar pierde multe exemple neutre. Acest comportament arată că reducerea drastică a dimensiunii modelului afectează mai puternic modalitatea vizuală decât textul sau audio. O explicație posibilă este faptul că imaginile extrase din MELD conțin fețe necentrate, mișcare, expresii ambigue și cazuri în care vorbitorul nu este întotdeauna detectat perfect. 
+
+În ansamblu, comparația dintre modelele complexe și cele eficiente arată că reducerea dimensiunii modelelor nu afectează toate modalitățile în același mod. Pentru text, pierderea de performanță este relativ controlată. Pentru audio, modelul eficient păstrează acuratețea, dar nu prin generalizare, ci printr-o tendință de a prezice clasa predominantă. Pentru imagine, modelul eficient schimbă semnificativ distribuția predicțiilor, ceea ce duce la o scădere mai clară a performanței globale.
+
+\subsubsection{Comparația dintre fuziunile complexe și eficiente}
+
+A doua comparație urmărește diferența dintre cea mai bună configurație de fuziune bazată pe modele complexe și varianta corespunzătoare bazată pe modele eficiente. În această lucrare, cea mai bună configurație globală este fuziunea târzie ponderată folosind modelele complexe. Aceasta este comparată cu fuziunea târzie ponderată folosind modelele eficiente, pentru a observa ce se pierde atunci când sunt înlocuite arhitecturile mari cu variante mai compacte.
+
+\begin{figure}[htbp]
+\centering
+\begin{minipage}{\linewidth}
+    \centering
+    \includegraphics[width=\linewidth]{images/late_weighted_light_vs_heavy.png}
+\end{minipage}
+
+\caption{Matrici de confuzie pentru fuziunea târzie}
+\label{fig:cm_fusion_heavy_light}
+\end{figure}
+
+Figura~\ref{fig:cm_fusion_heavy_light} arată că fuziunea târzie ponderată cu modele complexe are o diagonală principală mai stabilă și obține rezultate mai bune pentru majoritatea claselor. Diferența este importantă mai ales pentru clasele ambigue sau rare, precum \textit{fear} și \textit{anger}, unde modelele eficiente reușesc să păstreze mai multă informație utilă din fiecare modalitate. Varianta eficientă rămâne competitivă global, reușind chiar să depășească ușor modelele complexe, pierzând totuși pe clasele dominante.
+
+Comparația dintre cele două fuziuni confirmă faptul că modelele eficiente sunt competitive la o fracțiune din costul computațional, mai ales considerând faptul că cele complexe au un scor ridicat de tendința de a prezice clasa dominantă.
+
+Această analiză arată că fuziunea multimodală este utilă, dar nu elimină complet limitările modelelor de bază. Dacă o modalitate este slabă sau zgomotoasă, cum se întâmplă în special pentru audio și imagine, fuziunea trebuie să reducă impactul acesteia. Din acest motiv, fuziunea târzie ponderată funcționează mai bine decât media simplă: ea permite acordarea unei importanțe mai mari modalităților mai stabile și limitează influența celor mai zgomotoase.
+
+În concluzie, matricile de confuzie arată că performanța globală trebuie interpretată împreună cu distribuția erorilor pe clase. Modelele text sunt cele mai stabile, modelele audio au dificultăți clare pe clase rare, iar modelele vizuale sunt cele mai sensibile la calitatea preprocesării. Fuziunea multimodală îmbunătățește rezultatele generale, însă cu un procent mic relativ la diferența dimensiunii modelelor.
+
+
+\subsection{Analiza XAI pe cazuri generale}
+Pentru a intelege mai bine motivul pentru care modelele iau deciziile pe care le iau, am folosit diverse tehnici de explicabilitate. Obiectivul acestei analize nu a fost doar de a analiza corectitudinea predictiilor, ci si de a identifica potentiale slabiciuni si sursele lor
+\subsubsection{Text}
+In figura~\ref{fig:ig_examples} am folosit Integrated Gradients pentru a analiza contributia token-urilor. Se poate observa cum, in clasificarea replicii in categoria anger, o importanta foarte mare o are cuvantul "silliness". In schimb, in cazul replicii "I'm so sorry!", modelul interpreteaza cuvantul "sorry" ca semnalizand tristete. Este un caz clasic in care un cuvant isi schimba foarte mult semnificatia in functie de context, acesta putand fi sugerat prin indicii auditive sau vizuale. Acest lucru exemplifica clar faptul ca doar continutul unui dialog este insuficient pentru a recepta nuantele ce schimba sensul anumitor propozitii.
+\begin{figure}[htbp]
+\centering
+
+\begin{minipage}{0.48\linewidth}
+    \centering
+    \includegraphics[width=\linewidth]{images/ig_anger_correct_idx96.png}
+\end{minipage}
+\hfill
+\begin{minipage}{0.48\linewidth}
+    \centering
+    \includegraphics[width=\linewidth]{images/ig_fear_wrong_idx454.png}
+\end{minipage}
+
+\caption{Integrated Gradients pe modele text}
+\label{fig:ig_examples}
+\end{figure}
+\subsubsection{Audio}
+In figura~\ref{fig:temp_occ_audio} este evidentiat folosind Temporall Occlusion segmentele temporale care atunci cand au fost eliminate, increderea modelului in predictia sa a scazut semnificativ. Varfurile de importanta coincid cu o tonalitate mai joasa, o voce mai slaba. In schimb, segmentele aproape de finalul inregistrarii au o importanta mai scazuta, sugerand ca doar anumite puncte sunt relevante pentru o anumita emotie. Se pot observa totusi si scoruri negative pe alocuri, sugerand faptul ca unele secvente, daca ar fi inlaturate, ar imbunatati performanta. Ele contin cel mai probabil sunete adaugate in post-productie sau zgomote de fundal.
+\begin{figure}[htbp]
+\centering
+\begin{minipage}{\linewidth}
+    \centering
+    \includegraphics[width=\linewidth]{images/occ_sadness_correct_idx1650.png}
+\end{minipage}
+
+\caption{Ocluzie temporală pe modele audio}
+\label{fig:temp_occ_audio}
+\end{figure}
+\subsubsection{Imagine}
+Figura~\ref{fig:grad_cam_face} reprezinta o identificare corecta a emotiei \textit{Surprise}. Harta de atentie indica faptul ca modelul se concentreaza in mod special pe partea centrala si de sus a fetei, acordand importanta in mod special gurii si zonei ochilor. Acest comportament este în concordanță cu studiile psihologice care asociază emoția de surpriză cu ridicarea sprâncenelor și deschiderea accentuată a ochilor, regiunea ochilor fiind raportată ca deosebit de importantă pentru detectarea surprizei \cite{schutzwohl2012surprise,skog2023mona}. Concentrarea pe zonele importante sugereaza faptul ca modelul invata trasaturi faciale relevante emotiilor si nu se bazeaza pe zgomot de fundal. Exemplul din dreapta arata un motiv elocvent pentru care detectarea emotiilor este o sarcina dificila si adesea subiectiva. Sunt emotii care impart foarte multe trasaturi faciale, ca in exemplul curent unde frica si surpriza sunt ambele asociate cu ochii mari si tensiune in musculatura fetei. Modelul in continuare se concentreaza pe trasaturi sugestive pentru emotii, dar este indus in eroare de similaritatea lor.
+\begin{figure}[htbp]
+\centering
+
+\begin{minipage}{0.48\linewidth}
+    \centering
+    \includegraphics[width=\linewidth]{images/gradcam_surprise_correct_d71u5.png}
+\end{minipage}
+\hfill
+\begin{minipage}{0.48\linewidth}
+    \centering
+    \includegraphics[width=\linewidth]{images/gradcam_fear_wrong_d17u17.png}
+\end{minipage}
+
+\caption{Grad-CAM pe modele faciale}
+\label{fig:grad_cam_face}
+\end{figure}
+
+\subsection{Analiza eficientei}
+Referitor la eficienta energetica si de timp la inferenta, in Tabelul~\ref{tab:efficiency} este o comparatie pe fiecare tip de input intre modelele eficiente si cele complexe care arata clar ca cele eficiente reduc semnificativ resursele necesare fata de variantele lor mai mari. Diferenta dintre modele este relativ mica la text, medie la audio si extrema la modelele bazate pe imagini ale fetei, alegere ce are ca scop evidentierea compromisului intre eficienta si acuratete la scari diferite.
+
+Pentru text, DistilBERT este cea mai echilibrata alternativa: reduce timpul de inferenta aproximativ la jumatate, in timp ce pastreaza 93\% din acuratete. Diferenta de eficienta energetica este importanta, dar nu extrema, ceea ce sugereaza ca textul este deja o modalitate relativ eficienta comparativ cu audio si fata.
+
+In cazul sunetului, diferenta dintre modele este mai pronuntata. DistilHuBERT are un timp de inferenta de 3 ori mai rapid decat wav2vec2, si un consum de energie proportional mai mic, aratand faptul ca distilarea este foarte relevanta pentru modelele audio, care sunt mai costisitoare.
+
+Cea mai mare diferenta apare in analiza faciala. MobileNetV3-Small are un timp de inferenta de doar 0.48 ms, o diferenta considerabila fata de cele 15 ms ale lui ViT-B/16. De asemenea, si energia consumata la antrenare scade considerabil. Pe de alta parte, aici se poate observa si diferenta cea mai mare intre performanta modelelor, cel eficient fiind la peste 5 procente sub modelul performant. MobileNetV3 este potrivit pentru dispozitivele in care energia si timpul de inferenta trebuie sa fie cat de mici posibile, dar acest lucru vine cu un cost considerabil in materie de acuratete.
+
+In ansamblu, rezultatele confirma faptul ca modelele compacte ofera reduceri majore de cost, mai ales pentru audio si fata. Totusi, acest lucru inceteaza din a mai fi practic in momentul in care dimensiunea modelelor difera prea mult.
+\begin{table}[ht]
+\centering
+
+\label{tab:efficiency}
+\resizebox{\textwidth}{!}{%
+\begin{tabular}{llrrr}
+\toprule
+\textbf{Modalitate} & \textbf{Model} & \textbf{Inferență (ms/eșantion)} & \textbf{Antrenare (kWh)} & \textbf{Macro-F1} \\
+\midrule
+\multirow{2}{*}{Text}
+  & BERT-base         & 11.55 & 0.0207 & 44.28 \\
+  & DistilBERT        &  5.82 & 0.0143 & 41.23 \\
+\midrule
+\multirow{2}{*}{Audio}
+  & wav2vec2-base     & 19.25 & 0.3055 & 25.07 \\
+  & DistilHuBERT      &  6.33 & 0.1182 & 22.26 \\
+\midrule
+\multirow{2}{*}{Imagine}
+  & ViT-B/16          & 15.01 & 0.3389 & 23.89 \\
+  & MobileNetV3-Small &  0.48 & 0.0299 & 18.26 \\
+\bottomrule
+\end{tabular}
+}
+\caption{Eficiența modelelor unimodale: viteza de inferență, energia consumată la antrenare și scorul macro-F1 pe MELD.}
+\end{table}
 \newpage
-\chapter{Concluzii si directii viitoare}
+\section{Concluzii și direcții viitoare}
 
+Această lucrare investighează recunoașterea emoțiilor printr-o abordare multimodală aplicată pe setul de date MELD, combinând caracteristici textuale, audio și faciale, luând în considerare explicabilitatea și eficiența computațională a modelelor. Rezultatele experimentale arată că textul este cel mai puternic semnal, în timp ce partea audio și caracteristicile faciale rămân o provocare, în principal din cauza zgomotului prezent în date, a duratei scurte a replicilor, a râsetelor adăugate în post-producție, a detectării imperfecte a feței vorbitorului și a ambiguității conversațiilor în general.
 
-% --- CUPRINS ---
-\tableofcontents
+Cu toate acestea, combinarea tuturor informațiilor duce la o îmbunătățire clară a performanței, sugerând complementaritatea indiciilor provenite din cele trei modalități. Comparația dintre modelele mai mari și variantele lor eficiente confirmă faptul că performanța ridicată poate fi obținută cu o reducere semnificativă a resurselor necesare antrenării și rulării acestor modele. Acest lucru indică faptul că acest compromis dintre acuratețe și eficiență este un criteriu important de luat în calcul atunci când vine vorba de implementarea unui astfel de sistem.
+
+Ca direcții viitoare, mai multe aspecte pot fi îmbunătățite. În primul rând, modalitatea facială, care a obținut cele mai slabe rezultate, poate fi îmbunătățită prin extragerea mai precisă a fețelor vorbitorilor din cadru. Acest lucru poate fi realizat prin analizarea mișcărilor faciale în raport cu sunetul și prin identificarea vorbitorului pe baza mișcărilor gurii. O astfel de abordare ar duce la date mai curate și, în consecință, la modele mai precise.
+
+Referitor la sunet, înlăturarea râsetelor de pe fundal ar putea aduce o îmbunătățire semnificativă. Componenta temporală și evoluția expresiilor faciale pe parcursul dialogului conțin informații utile prin care oamenii percep emoțiile în mod implicit, deci o analiză a modificării feței în timp ar putea aduce, de asemenea, îmbunătățiri, deși cu un cost computațional mai mare.
+
+Un alt punct care merită investigat îl reprezintă metodele de fuziune mai avansate, care să acorde atenție modalităților mai puțin ambigue la nivelul fiecărui eșantion individual.
+
 \newpage
-\pagenumbering{arabic} % Revenire la cifre arabe pentru capitole
-
 % --- BIBLIOGRAFIE ---
 \renewcommand{\bibname}{References}
 \printbibliography[title={Bibliografie}]

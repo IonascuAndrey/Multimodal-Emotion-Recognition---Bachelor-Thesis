@@ -1,17 +1,19 @@
 [0] Config.pm:328> INFO - This is Biber 2.21
 [0] Config.pm:331> INFO - Logfile is 'Documentation.blg'
-[158] biber-MSWIN64:342> INFO - === 
-[187] Biber.pm:421> INFO - Reading 'Documentation.bcf'
-[289] Biber.pm:1002> INFO - Found 26 citekeys in bib section 0
-[316] Biber.pm:4487> INFO - Processing section 0
-[326] Biber.pm:4678> INFO - Looking for bibtex file 'bibliography.bib' for section 0
-[371] bibtex.pm:1713> INFO - LaTeX decoding ...
-[413] bibtex.pm:1519> INFO - Found BibTeX data source 'bibliography.bib'
-[622] UCollate.pm:68> INFO - Overriding locale 'ro-RO' defaults 'normalization = NFD' with 'normalization = prenormalized'
-[622] UCollate.pm:68> INFO - Overriding locale 'ro-RO' defaults 'variable = shifted' with 'variable = non-ignorable'
-[622] Biber.pm:4307> INFO - Sorting list 'none/global//global/global/global' of type 'entry' with template 'none' and locale 'ro-RO'
-[645] bbl.pm:676> INFO - Writing 'Documentation.bbl' with encoding 'UTF-8'
-[665] bbl.pm:779> INFO - Output to Documentation.bbl
-[665] Biber.pm:132> WARN - Duplicate entry key: 'vaswani2017attention' in file 'bibliography.bib', skipping ...
-[665] Biber.pm:132> WARN - BibTeX subsystem: C:\Users\Andrei\AppData\Local\Temp\biber_tmp_tnz3\f4d088b3f9f145b5c3058da33afd57d4_36524.utf8, line 168, warning: 18 characters of junk seen at toplevel
-[665] Biber.pm:134> INFO - WARNINGS: 2
+[127] biber-MSWIN64:342> INFO - === 
+[154] Biber.pm:421> INFO - Reading 'Documentation.bcf'
+[255] Biber.pm:1002> INFO - Found 29 citekeys in bib section 0
+[278] Biber.pm:4487> INFO - Processing section 0
+[288] Biber.pm:4678> INFO - Looking for bibtex file 'bibliography.bib' for section 0
+[332] bibtex.pm:1713> INFO - LaTeX decoding ...
+[390] bibtex.pm:1519> INFO - Found BibTeX data source 'bibliography.bib'
+[618] UCollate.pm:68> INFO - Overriding locale 'ro-RO' defaults 'normalization = NFD' with 'normalization = prenormalized'
+[618] UCollate.pm:68> INFO - Overriding locale 'ro-RO' defaults 'variable = shifted' with 'variable = non-ignorable'
+[619] Biber.pm:4307> INFO - Sorting list 'none/global//global/global/global' of type 'entry' with template 'none' and locale 'ro-RO'
+[639] bbl.pm:676> INFO - Writing 'Documentation.bbl' with encoding 'UTF-8'
+[671] bbl.pm:779> INFO - Output to Documentation.bbl
+[672] Biber.pm:132> WARN - legacy month field '09--15 Jun' in entry 'tan2019efficientnet' is not an integer - this will probably not sort properly.
+[672] Biber.pm:132> WARN - legacy month field '06--11 Aug' in entry 'sundararajan2017axiomatic' is not an integer - this will probably not sort properly.
+[672] Biber.pm:132> WARN - legacy month field 'Oct' in entry 'selvaraju2017gradcam' is not an integer - this will probably not sort properly.
+[672] Biber.pm:132> WARN - legacy month field 'Oct' in entry 'zhang2016mtcnn' is not an integer - this will probably not sort properly.
+[672] Biber.pm:134> INFO - WARNINGS: 4
